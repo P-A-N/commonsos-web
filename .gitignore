@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+/dist/
+npm-debug.log*
+/test/unit/coverage/
+
+*.iws
+.idea/workspace.xml
