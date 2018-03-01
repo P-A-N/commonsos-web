@@ -8,6 +8,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {path: '/', component: JobList},
-    {path: '/job-add', component: JobAdd}
+    {path: '/jobs', component: JobList},
+    {path: '/jobs/add', component: JobAdd}
   ]
 })

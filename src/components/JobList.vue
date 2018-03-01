@@ -18,7 +18,7 @@
       </tr>
       </tbody>
     </table>
-    <button v-on:click="addJob" class="btn btn-lg btn-primary" href="" role="button">Add Job</button>
+    <button v-on:click="addJob" class="btn btn-lg btn-primary" href="" role="button">New Job</button>
   </div>
 </template>
 
@@ -35,7 +35,7 @@
     },
     methods: {
       addJob() {
-        router.push('job-add')
+        this.$router.push('jobs/add')
       }
     }
   }
