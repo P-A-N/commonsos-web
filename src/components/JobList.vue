@@ -5,7 +5,7 @@
       <tr>
         <th>Title</th>
         <th>Description</th>
-        <th>Price</th>
+        <th>Points</th>
         <th>Location</th>
       </tr>
       </thead>
@@ -13,7 +13,7 @@
       <tr v-for="job in jobs" v-bind:key="job.id">
         <td>{{job.title}}</td>
         <td>{{job.description}}</td>
-        <td>{{job.price}}</td>
+        <td>{{job.points}}</td>
         <td>{{job.location}}</td>
       </tr>
       </tbody>
