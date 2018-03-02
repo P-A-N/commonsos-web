@@ -1,4 +1,4 @@
-# CommonsOS Web
+# Commons OS Web
 
 > A Vue.js project
 
