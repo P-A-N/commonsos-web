@@ -10,7 +10,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="job in jobs" v-bind:key="job.id">
+      <tr v-for="job in jobs">
         <td>{{job.title}}</td>
         <td>{{job.description}}</td>
         <td>{{job.points}}</td>
