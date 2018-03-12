@@ -10,32 +10,32 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="job in jobs">
-        <td>{{job.title}}</td>
-        <td>{{job.description}}</td>
-        <td>{{job.points}}</td>
-        <td>{{job.location}}</td>
+      <tr v-for="ad in ads">
+        <td>{{ad.title}}</td>
+        <td>{{ad.description}}</td>
+        <td>{{ad.points}}</td>
+        <td>{{ad.location}}</td>
       </tr>
       </tbody>
     </table>
-    <button v-on:click="addJob" class="btn btn-lg btn-primary" href="" role="button">New Job</button>
+    <button v-on:click="createAd" class="btn btn-lg btn-primary" href="" role="button">New Job</button>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'JobList',
+    name: 'AdList',
     created() {
-      gateway.get('/jobs').then(r => this.jobs = r.data)
+      gateway.get('/ads').then(r => this.ads = r.data)
     },
     data() {
       return {
-        jobs: [{title: '234234'}]
+        ads: [{}]
       }
     },
     methods: {
-      addJob() {
-        this.$router.push('jobs/add')
+      createAd() {
+        this.$router.push('ads/create')
       }
     }
   }

@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import JobList from '@/components/JobList'
-import JobAdd from '@/components/JobAdd'
+import AdList from '@/components/AdList'
+import AdCreate from '@/components/AdCreate'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/', component: JobList},
-    {path: '/jobs', component: JobList},
-    {path: '/jobs/add', component: JobAdd}
+    {path: '/', component: AdList},
+    {path: '/ads', component: AdList},
+    {path: '/ads/create', component: AdCreate}
   ]
 })
