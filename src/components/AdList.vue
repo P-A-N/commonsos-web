@@ -2,20 +2,20 @@
   <div>
     <table class="table table-hover table-striped">
       <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Points</th>
-        <th>Location</th>
-      </tr>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Points</th>
+          <th>Location</th>
+        </tr>
       </thead>
       <tbody>
-      <tr v-for="ad in ads">
-        <td>{{ad.title}}</td>
-        <td>{{ad.description}}</td>
-        <td>{{ad.points}}</td>
-        <td>{{ad.location}}</td>
-      </tr>
+        <tr v-for="ad in ads">
+          <td>{{ad.title}}</td>
+          <td>{{ad.description}}</td>
+          <td>{{ad.points}}</td>
+          <td>{{ad.location}}</td>
+        </tr>
       </tbody>
     </table>
     <button v-on:click="createAd" class="btn btn-lg btn-primary" href="" role="button">New Job</button>
@@ -26,7 +26,7 @@
   export default {
     name: 'AdList',
     created() {
-      gateway.get('/ads').then(r => this.ads = r.data)
+      window.gateway.get('/ads').then(r => this.ads = r.data)
     },
     data() {
       return {
@@ -35,7 +35,7 @@
     },
     methods: {
       createAd() {
-        this.$router.push('ads/create')
+        window.router.push('ads/create')
       }
     }
   }
