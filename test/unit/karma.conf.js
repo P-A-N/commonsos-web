@@ -14,7 +14,9 @@ module.exports = function karmaConfig (config) {
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     reporters: ['spec'],
-    files: ['./index.js'],
+    files: [
+      '../../node_modules/babel-polyfill/dist/polyfill.js',
+      './index.js'],
     preprocessors: {
       './index.js': ['webpack', 'sourcemap']
     },
