@@ -6,8 +6,8 @@ describe('AdList.vue', () => {
     window.gateway = jasmine.createSpyObj('Gateway', ['get'])
     window.gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {title: 'title1', description: 'description1', points: 1.11, location: 'location1'},
-        {title: 'title2', description: 'description2', points: 2.22, location: 'location2'}
+        {userId: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1'},
+        {userId: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2'}
       ]
     }));
 
@@ -16,8 +16,8 @@ describe('AdList.vue', () => {
 
     setTimeout(() => {
       let adRows = component.$el.querySelectorAll('table tbody tr')
-      expect(adRows[0].textContent).toBe('title1 description1 1.11 location1')
-      expect(adRows[1].textContent).toBe('title2 description2 2.22 location2')
+      expect(adRows[0].textContent).toContain('user1 title1 description1 1.11 location1')
+      expect(adRows[1].textContent).toContain('user2 title2 description2 2.22 location2')
       done()
     }, 0)
   })

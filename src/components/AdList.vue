@@ -3,6 +3,7 @@
     <table class="table table-hover table-striped">
       <thead>
         <tr>
+          <th>Publisher</th>
           <th>Title</th>
           <th>Description</th>
           <th>Points</th>
@@ -11,6 +12,7 @@
       </thead>
       <tbody>
         <tr v-for="ad in ads">
+          <td>{{ad.userId}}</td>
           <td>{{ad.title}}</td>
           <td>{{ad.description}}</td>
           <td>{{ad.points}}</td>
