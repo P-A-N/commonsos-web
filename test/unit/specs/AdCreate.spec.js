@@ -10,9 +10,9 @@ describe('AdCreate.vue', () => {
   it('should show validation errors', (done) => {
     const vm = mount(AdCreate)
 
-    vm.find('button').trigger('click');
+    vm.find('button').trigger('click')
 
-    //    Vue.nextTick(function() {
+    // todo   Vue.nextTick(function() {
     setTimeout(function() {
       expect(vm.findAll('.text-danger').length).toBe(4)
       expect(vm.text()).toContain('The title field is required.')
@@ -20,6 +20,6 @@ describe('AdCreate.vue', () => {
       expect(vm.text()).toContain('The points field is required.')
       expect(vm.text()).toContain('The location field is required.')
       done()
-    }, 0);
+    }, 0)
   })
 })

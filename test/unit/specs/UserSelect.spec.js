@@ -11,8 +11,8 @@ describe('UserSelect.vue', () => {
     setTimeout(function() {
       expect(localStorage.user).toContain('worker')
       done()
-    }, 0);
+    }, 0)
   })
 
-  afterEach(() => localStorage.clear());
+  afterEach(() => localStorage.clear())
 })
