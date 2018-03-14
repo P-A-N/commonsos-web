@@ -7,7 +7,7 @@
           <th>Title</th>
           <th>Description</th>
           <th>Points</th>
-          <th>Location</th>
+          <th colspan="2">Location</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +17,7 @@
           <td>{{ad.description}}</td>
           <td>{{ad.points}}</td>
           <td>{{ad.location}}</td>
+          <td><button class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
         </tr>
       </tbody>
     </table>
@@ -38,6 +39,9 @@
     methods: {
       createAd() {
         window.router.push('ads/create')
+      },
+      acceptAd(ad) {
+        window.gateway.post(`/ads/${ad.id}/accept`).then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
       }
     }
   }
