@@ -15,12 +15,7 @@
             <a class="nav-link disabled" href="#">Chat</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <select class="form-control" v-model="user">
-            <option value="worker">Worker</option>
-            <option value="elderly">Elderly</option>
-          </select>
-        </form>
+        <user-select/>
       </div>
     </nav>
 
@@ -31,18 +26,11 @@
 </template>
 
 <script>
+  import UserSelect from './components/UserSelect'
+
   export default {
     name: 'App',
-    data() {
-      return {
-        user: 'elderly'
-      }
-    },
-    watch: {
-      user: function(value) {
-        localStorage.user = value
-      }
-    }
+    components: {UserSelect},
   }
 </script>
 
