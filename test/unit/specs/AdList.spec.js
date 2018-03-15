@@ -37,12 +37,26 @@ describe('AdList.vue', () => {
 
   describe('accepting an ad', function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
       window.gateway = jasmine.createSpyObj('Gateway', ['get', 'post'])
       window.gateway.get.and.returnValue(Promise.resolve({
-        data: [{id: 'ad1', title: 'title1'}, {id: 'ad2', title: 'title2'}]
+        data: [{id: 'ad1', title: 'title1', createdBy: 'user1'}, {id: 'ad2', title: 'title2', createdBy: 'user2'}]
       }))
       window.gateway.post.and.returnValue(Promise.resolve({}))
+    });
+
+    it('own ad cannot be accepted', (done) => {
+      window.localStorage.setItem("user", "user2")
+
+      let wrapper = mount(AdList)
+
+      setTimeout(() => {
+        let acceptButtons = wrapper.findAll('table tbody tr')
+        expect(acceptButtons.at(0).contains('button.accept-ad')).toBeTruthy()
+        expect(acceptButtons.at(1).contains('button.accept-ad')).toBeFalsy()
+        done()
+      }, 0)
+
     });
 
     it('can be cancelled', (done) => {
@@ -55,7 +69,7 @@ describe('AdList.vue', () => {
         setTimeout(() => {
           let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
           expect(adRows.length).toBe(2)
-          expect(window.gateway.post).not.toHaveBeenCalled
+          expect(window.gateway.post).not.toHaveBeenCalled()
           done()
         }, 0)
       }, 0)

@@ -17,7 +17,7 @@
           <td>{{ad.description}}</td>
           <td>{{ad.points}}</td>
           <td>{{ad.location}}</td>
-          <td><button class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
+          <td><button v-if="canBeAccepted(ad)" class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
         </tr>
       </tbody>
     </table>
@@ -45,6 +45,9 @@
           window.gateway
             .post(`/ads/${ad.id}/accept`)
             .then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
+      },
+      canBeAccepted(ad) {
+        return ad.createdBy != localStorage.getItem('user')
       }
     }
   }

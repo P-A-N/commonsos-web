@@ -11,12 +11,13 @@
   export default {
     data() {
       return {
-        user: 'elderly'
+        user: localStorage.user || 'elderly'
       }
     },
     watch: {
       user: function (value) {
         localStorage.user = value
+        window.location.reload()
       }
     }
   }
