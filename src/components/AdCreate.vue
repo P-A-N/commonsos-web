@@ -36,6 +36,7 @@
 
 <script>
   import router from '../router'
+  import gateway from '../gateway'
 
   export default {
     name: 'AdCreate',
@@ -48,7 +49,7 @@
       createAd() {
         this.$validator.validateAll().then((valid) => {
           if (!valid) return;
-          window.gateway({method: 'post', url: '/ads', data: this.ad})
+          gateway({method: 'post', url: '/ads', data: this.ad})
             .then(response => router.push('/ads'))
             .catch(error => console.log(error))
         })

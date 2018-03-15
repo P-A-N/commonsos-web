@@ -27,11 +27,12 @@
 
 <script>
   import router from '../router'
+  import gateway from '../gateway'
 
   export default {
     name: 'AdList',
     created() {
-      window.gateway.get('/ads').then(r => this.ads = r.data)
+      gateway.get('/ads').then(r => this.ads = r.data)
     },
     data() {
       return {
@@ -44,7 +45,7 @@
       },
       acceptAd(ad) {
         if (confirm('You are going to accept the offered service. Are you sure?'))
-          window.gateway
+          gateway
             .post(`/ads/${ad.id}/accept`)
             .then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
       },

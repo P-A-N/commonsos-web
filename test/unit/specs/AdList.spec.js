@@ -2,11 +2,17 @@ import Vue from 'vue'
 import AdList from '@/components/AdList'
 import {mount} from '@vue/test-utils'
 import router from '@/router'
+import gateway from '@/gateway'
 
 describe('AdList.vue', () => {
+  beforeEach(() => {
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
+    spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
+    spyOn(router, 'push')
+  })
+
   it('should display ads list', (done) => {
-    window.gateway = jasmine.createSpyObj('Gateway', ['get'])
-    window.gateway.get.and.returnValue(Promise.resolve({
+    gateway.get.and.returnValue(Promise.resolve({
       data: [
         {createdBy: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1'},
         {createdBy: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2'}
@@ -27,7 +33,6 @@ describe('AdList.vue', () => {
   it('should open "create ad" form', (done) => {
     const Constructor = Vue.extend(AdList)
     const component = new Constructor().$mount()
-    spyOn(router, 'push')
 
     component.$el.querySelector('button#create-ad').click()
 
@@ -40,11 +45,13 @@ describe('AdList.vue', () => {
   describe('accepting an ad', function () {
 
     beforeEach(function () {
-      window.gateway = jasmine.createSpyObj('Gateway', ['get', 'post'])
-      window.gateway.get.and.returnValue(Promise.resolve({
-        data: [{id: 'ad1', title: 'title1', createdBy: 'user1'}, {id: 'ad2', title: 'title2', createdBy: 'user2'}]
+      gateway.post.and.returnValue(Promise.resolve({}))
+      gateway.get.and.returnValue(Promise.resolve({
+          data: [
+            {id: 'ad1', title: 'title1', createdBy: 'user1'},
+            {id: 'ad2', title: 'title2', createdBy: 'user2'}
+          ]
       }))
-      window.gateway.post.and.returnValue(Promise.resolve({}))
     });
 
     it('own ad cannot be accepted', (done) => {
@@ -58,7 +65,6 @@ describe('AdList.vue', () => {
         expect(acceptButtons.at(1).contains('button.accept-ad')).toBeFalsy()
         done()
       }, 0)
-
     });
 
     it('can be cancelled', (done) => {
@@ -71,7 +77,7 @@ describe('AdList.vue', () => {
         setTimeout(() => {
           let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
           expect(adRows.length).toBe(2)
-          expect(window.gateway.post).not.toHaveBeenCalled()
+          expect(gateway.post).not.toHaveBeenCalled()
           done()
         }, 0)
       }, 0)
@@ -89,7 +95,7 @@ describe('AdList.vue', () => {
           let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
           expect(adRows.length).toBe(1)
           expect(adRows[0].textContent).toContain('title2')
-          expect(window.gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
+          expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
           done()
         }, 0)
       }, 0)

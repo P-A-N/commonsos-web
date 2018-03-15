@@ -5,7 +5,6 @@ import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate'
 import App from './App'
 import router from './router'
-import gateway from './gateway'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -13,8 +12,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(VeeValidate)
 Vue.config.productionTip = false
-
-window.gateway = gateway
 
 new Vue({
   el: '#app',
