@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr v-for="ad in ads">
-          <td>{{ad.userId}}</td>
+          <td>{{ad.createdBy}}</td>
           <td>{{ad.title}}</td>
           <td>{{ad.description}}</td>
           <td>{{ad.points}}</td>
@@ -21,7 +21,7 @@
         </tr>
       </tbody>
     </table>
-    <button v-on:click="createAd" class="btn btn-lg btn-primary" href="" role="button">New Job</button>
+    <button v-on:click="createAd" class="btn btn-lg btn-primary" id="create-ad" href="" role="button">New Job</button>
   </div>
 </template>
 
@@ -41,7 +41,10 @@
         window.router.push('ads/create')
       },
       acceptAd(ad) {
-        window.gateway.post(`/ads/${ad.id}/accept`).then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
+        if (confirm('You are going to accept the offered service. Are you sure?'))
+          window.gateway
+            .post(`/ads/${ad.id}/accept`)
+            .then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
       }
     }
   }

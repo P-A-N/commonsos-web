@@ -7,8 +7,8 @@ describe('AdList.vue', () => {
     window.gateway = jasmine.createSpyObj('Gateway', ['get'])
     window.gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {userId: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1'},
-        {userId: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2'}
+        {createdBy: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1'},
+        {createdBy: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2'}
       ]
     }))
 
@@ -28,29 +28,56 @@ describe('AdList.vue', () => {
     const component = new Constructor().$mount()
     window.router = jasmine.createSpyObj('Router', ['push'])
 
-    component.$el.querySelector('button').click()
-
-    expect(window.router.push).toHaveBeenCalledWith('ads/create')
-  })
-
-  it('should hide accepted ad', (done) => {
-    window.gateway = jasmine.createSpyObj('Gateway', ['get', 'post'])
-    window.gateway.get.and.returnValue(Promise.resolve({
-      data: [{id: 'ad1', title: 'title1'}, {id: 'ad2', title: 'title2'}]
-    }));
-    window.gateway.post.and.returnValue(Promise.resolve({}));
-
-    let wrapper = mount(AdList)
+    component.$el.querySelector('button#create-ad').click()
 
     setTimeout(() => {
-      wrapper.findAll('button.accept-ad').at(0).trigger('click')
-
-      setTimeout(() => {
-        let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
-        expect(adRows.length).toBe(1)
-        expect(adRows[0].textContent).toContain('title2')
-        done()
-      }, 0)
+      expect(window.router.push).toHaveBeenCalledWith('ads/create')
     }, 0)
   })
+
+  describe('accepting an ad', function () {
+
+    beforeEach(function() {
+      window.gateway = jasmine.createSpyObj('Gateway', ['get', 'post'])
+      window.gateway.get.and.returnValue(Promise.resolve({
+        data: [{id: 'ad1', title: 'title1'}, {id: 'ad2', title: 'title2'}]
+      }))
+      window.gateway.post.and.returnValue(Promise.resolve({}))
+    });
+
+    it('can be cancelled', (done) => {
+      spyOn(window, 'confirm').and.returnValue(false)
+      let wrapper = mount(AdList)
+
+      setTimeout(() => {
+        wrapper.findAll('button.accept-ad').at(0).trigger('click')
+
+        setTimeout(() => {
+          let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
+          expect(adRows.length).toBe(2)
+          expect(window.gateway.post).not.toHaveBeenCalled
+          done()
+        }, 0)
+      }, 0)
+    })
+
+    it('hides ad', (done) => {
+      spyOn(window, 'confirm').and.returnValue(true)
+
+      let wrapper = mount(AdList)
+
+      setTimeout(() => {
+        wrapper.findAll('button.accept-ad').at(0).trigger('click')
+
+        setTimeout(() => {
+          let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
+          expect(adRows.length).toBe(1)
+          expect(adRows[0].textContent).toContain('title2')
+          expect(window.gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
+          done()
+        }, 0)
+      }, 0)
+    })
+
+  });
 })

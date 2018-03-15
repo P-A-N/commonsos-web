@@ -3,11 +3,10 @@ import {mount} from '@vue/test-utils'
 import VeeValidate from 'vee-validate'
 import AdCreate from '@/components/AdCreate'
 
-Vue.use(VeeValidate)
-
 describe('AdCreate.vue', () => {
 
   it('should show validation errors', (done) => {
+    Vue.use(VeeValidate)
     const vm = mount(AdCreate)
 
     vm.find('button').trigger('click')
