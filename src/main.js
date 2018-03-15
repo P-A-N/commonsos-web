@@ -15,7 +15,6 @@ Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
 window.gateway = gateway
-window.router = router
 
 new Vue({
   el: '#app',

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import AdList from '@/components/AdList'
 import {mount} from '@vue/test-utils'
+import router from '@/router'
 
 describe('AdList.vue', () => {
   it('should display ads list', (done) => {
@@ -23,15 +24,16 @@ describe('AdList.vue', () => {
     }, 0)
   })
 
-  it('should open "create ad" form', () => {
+  it('should open "create ad" form', (done) => {
     const Constructor = Vue.extend(AdList)
     const component = new Constructor().$mount()
-    window.router = jasmine.createSpyObj('Router', ['push'])
+    spyOn(router, 'push')
 
     component.$el.querySelector('button#create-ad').click()
 
     setTimeout(() => {
-      expect(window.router.push).toHaveBeenCalledWith('ads/create')
+      expect(router.push).toHaveBeenCalledWith('ads/create')
+      done()
     }, 0)
   })
 

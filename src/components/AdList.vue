@@ -26,6 +26,8 @@
 </template>
 
 <script>
+  import router from '../router'
+
   export default {
     name: 'AdList',
     created() {
@@ -38,7 +40,7 @@
     },
     methods: {
       createAd() {
-        window.router.push('ads/create')
+        router.push('ads/create')
       },
       acceptAd(ad) {
         if (confirm('You are going to accept the offered service. Are you sure?'))
@@ -47,7 +49,7 @@
             .then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
       },
       canBeAccepted(ad) {
-        return ad.createdBy != localStorage.getItem('user')
+        return ad.createdBy !== localStorage.getItem('user')
       }
     }
   }
