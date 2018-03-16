@@ -11,16 +11,16 @@ describe('AdCreate.vue', () => {
   })
 
   it('should show validation errors', (done) => {
-    const vm = mount(AdCreate)
+    const wrapper = mount(AdCreate)
 
-    vm.find('button').trigger('click')
+    wrapper.find('button').trigger('click')
 
     setTimeout(function() {
-      expect(vm.findAll('.text-danger').length).toBe(4)
-      expect(vm.text()).toContain('The title field is required.')
-      expect(vm.text()).toContain('The description field is required.')
-      expect(vm.text()).toContain('The points field is required.')
-      expect(vm.text()).toContain('The location field is required.')
+      expect(wrapper.findAll('.text-danger').length).toBe(4)
+      expect(wrapper.text()).toContain('The title field is required.')
+      expect(wrapper.text()).toContain('The description field is required.')
+      expect(wrapper.text()).toContain('The points field is required.')
+      expect(wrapper.text()).toContain('The location field is required.')
       done()
     }, 0)
   })
@@ -28,14 +28,14 @@ describe('AdCreate.vue', () => {
   it('should created submit ad to backend', (done) => {
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
     spyOn(router, 'push')
-    const vm = mount(AdCreate)
+    const wrapper = mount(AdCreate)
     let title = 'title'
     let description = 'description'
     let location = 'location'
     let ad = {title, description, points: 1.11, location}
-    vm.setData({ad});
+    wrapper.setData({ad: ad});
 
-    vm.find('button').trigger('click')
+    wrapper.find('button').trigger('click')
 
     setTimeout(() => {
       expect(gateway.post).toHaveBeenCalledWith('/ads', ad)
