@@ -7,7 +7,8 @@
           <th>Title</th>
           <th>Description</th>
           <th>Points</th>
-          <th colspan="2">Location</th>
+          <th>Location</th>
+          <th width="10%"></th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+
   import router from '../router'
   import gateway from '../gateway'
 
@@ -36,21 +38,25 @@
     },
     data() {
       return {
-        ads: [{}]
+        ads: []
       }
     },
     methods: {
       createAd() {
         router.push('ads/create')
       },
+      replaceAdInstance(ad) {
+        let index = this.ads.findIndex(a => a.id === ad.id)
+        this.ads.splice(index, 1, ad);
+      },
       acceptAd(ad) {
         if (confirm('You are going to accept the offered service. Are you sure?'))
           gateway
             .post(`/ads/${ad.id}/accept`)
-            .then(r => this.ads = this.ads.filter(a => a.id !== ad.id))
+            .then(r => this.replaceAdInstance(r.data)).catch(e => console.log(e))
       },
       canBeAccepted(ad) {
-        return ad.createdBy !== localStorage.getItem('user')
+        return ad.createdBy !== localStorage.getItem('user') && ad.acceptedBy !== localStorage.getItem('user')
       }
     }
   }

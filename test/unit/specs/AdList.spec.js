@@ -57,9 +57,9 @@ describe('AdList.vue', () => {
       let wrapper = mount(AdList)
 
       setTimeout(() => {
-        let acceptButtons = wrapper.findAll('table tbody tr')
-        expect(acceptButtons.at(0).contains('button.accept-ad')).toBeTruthy()
-        expect(acceptButtons.at(1).contains('button.accept-ad')).toBeFalsy()
+        let adRows = wrapper.findAll('table tbody tr')
+        expect(adRows.at(0).contains('button.accept-ad')).toBeTruthy()
+        expect(adRows.at(1).contains('button.accept-ad')).toBeFalsy()
         done()
       }, 0)
     });
@@ -78,8 +78,10 @@ describe('AdList.vue', () => {
       }, 0)
     })
 
-    it('accepts ad and hides it from list', (done) => {
+    it('accepts ad and can not accept it anymore', (done) => {
+      window.localStorage.setItem('user', 'user2')
       spyOn(window, 'confirm').and.returnValue(true)
+      gateway.post.and.returnValue(Promise.resolve({data: {id: 'ad1', acceptedBy: 'user2'}}))
 
       let wrapper = mount(AdList)
 
@@ -87,11 +89,14 @@ describe('AdList.vue', () => {
         wrapper.findAll('button.accept-ad').at(0).trigger('click')
 
         setTimeout(() => {
-          let adRows = wrapper.findAll('table tbody tr')
-          expect(adRows.length).toBe(1)
-          expect(adRows.at(0).text()).toContain('title2')
           expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
-          done()
+
+          setTimeout(() => {
+            let adRows = wrapper.findAll('table tbody tr')
+            expect(adRows.length).toBe(2)
+            expect(adRows.at(0).contains('button.accept-ad')).toBeFalsy()
+            done()
+          }, 0)
         }, 0)
       }, 0)
     })
