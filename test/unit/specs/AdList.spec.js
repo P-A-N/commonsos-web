@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import AdList from '@/components/AdList'
 import {mount} from '@vue/test-utils'
 import router from '@/router'
@@ -19,22 +18,20 @@ describe('AdList.vue', () => {
       ]
     }))
 
-    const Constructor = Vue.extend(AdList)
-    const component = new Constructor().$mount()
+    let wrapper = mount(AdList)
 
     setTimeout(() => {
-      let adRows = component.$el.querySelectorAll('table tbody tr')
-      expect(adRows[0].textContent).toContain('user1 title1 description1 1.11 location1')
-      expect(adRows[1].textContent).toContain('user2 title2 description2 2.22 location2')
+      let adRows = wrapper.findAll('table tbody tr')
+      expect(adRows.at(0).text()).toContain('user1 title1 description1 1.11 location1')
+      expect(adRows.at(1).text()).toContain('user2 title2 description2 2.22 location2')
       done()
     }, 0)
   })
 
   it('should open "create ad" form', (done) => {
-    const Constructor = Vue.extend(AdList)
-    const component = new Constructor().$mount()
+    let wrapper = mount(AdList)
 
-    component.$el.querySelector('button#create-ad').click()
+    wrapper.find('button#create-ad').trigger('click')
 
     setTimeout(() => {
       expect(router.push).toHaveBeenCalledWith('ads/create')
@@ -67,23 +64,21 @@ describe('AdList.vue', () => {
       }, 0)
     });
 
-    it('can be cancelled', (done) => {
+    it('does nothing if user does not confirm', (done) => {
       spyOn(window, 'confirm').and.returnValue(false)
       let wrapper = mount(AdList)
 
       setTimeout(() => {
         wrapper.findAll('button.accept-ad').at(0).trigger('click')
 
-        setTimeout(() => {
-          let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
-          expect(adRows.length).toBe(2)
-          expect(gateway.post).not.toHaveBeenCalled()
-          done()
-        }, 0)
+        let adRows = wrapper.findAll('table tbody tr')
+        expect(adRows.length).toBe(2)
+        expect(gateway.post).not.toHaveBeenCalled()
+        done()
       }, 0)
     })
 
-    it('hides ad', (done) => {
+    it('accepts ad and hides it from list', (done) => {
       spyOn(window, 'confirm').and.returnValue(true)
 
       let wrapper = mount(AdList)
@@ -92,14 +87,13 @@ describe('AdList.vue', () => {
         wrapper.findAll('button.accept-ad').at(0).trigger('click')
 
         setTimeout(() => {
-          let adRows = wrapper.vm.$el.querySelectorAll('table tbody tr')
+          let adRows = wrapper.findAll('table tbody tr')
           expect(adRows.length).toBe(1)
-          expect(adRows[0].textContent).toContain('title2')
+          expect(adRows.at(0).text()).toContain('title2')
           expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
           done()
         }, 0)
       }, 0)
     })
-
   });
 })
