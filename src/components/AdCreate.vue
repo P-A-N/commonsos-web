@@ -48,8 +48,8 @@
     methods: {
       createAd() {
         this.$validator.validateAll().then((valid) => {
-          if (!valid) return;
-          gateway({method: 'post', url: '/ads', data: this.ad})
+          if (!valid) return
+          gateway.post('/ads', this.ad)
             .then(response => router.push('/ads'))
             .catch(error => console.log(error))
         })
