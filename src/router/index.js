@@ -8,7 +8,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/', component: AdList},
+    {path: '/', redirect: '/ads'},
     {path: '/ads', component: AdList},
     {path: '/my-ads', component: MyAdList},
     {path: '/ads/create', component: AdCreate}

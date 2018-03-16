@@ -13,7 +13,7 @@ Vue.use(BootstrapVue)
 Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
-new Vue({
+window.vm = new Vue({
   el: '#app',
   router,
   components: { App },

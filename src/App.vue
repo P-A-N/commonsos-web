@@ -8,10 +8,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#/">Available jobs</a>
+          <li class="nav-item" :class="{active: isActive('/ads')}">
+            <a class="nav-link" href="#/ads">Available jobs</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item" :class="{active: isActive('/my-ads')}">
             <a class="nav-link" href="#/my-ads/">My jobs</a>
           </li>
           <li class="nav-item">
@@ -30,10 +30,14 @@
 
 <script>
   import UserSelect from './components/UserSelect'
+  import router from './router'
 
   export default {
     name: 'App',
     components: {UserSelect},
+    methods: {
+      isActive: (path) => router.currentRoute.path.startsWith(path)
+    },
   }
 </script>
 
