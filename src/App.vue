@@ -11,8 +11,8 @@
           <li class="nav-item" :class="{active: isActive('/ads')}">
             <a class="nav-link" href="#/ads">Available jobs</a>
           </li>
-          <li class="nav-item" :class="{active: isActive('/my-ads')}">
-            <a class="nav-link" href="#/my-ads/">My jobs</a>
+          <li class="nav-item" :class="{active: isActive('/agreements')}">
+            <a class="nav-link" href="#/agreements">My jobs</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Chat</a>

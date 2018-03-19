@@ -3,7 +3,7 @@
     <table class="table table-hover table-striped">
       <thead>
         <tr>
-          <th>Publisher</th>
+          <th>Provided by</th>
           <th>Title</th>
           <th>Description</th>
           <th>Points</th>
@@ -11,12 +11,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="ad in ads">
-          <td>{{ad.createdBy}}</td>
-          <td>{{ad.title}}</td>
-          <td>{{ad.description}}</td>
-          <td>{{ad.points}}</td>
-          <td>{{ad.location}}</td>
+        <tr v-for="agreement in agreements">
+          <td>{{agreement.providerId}}</td>
+          <td>{{agreement.title}}</td>
+          <td>{{agreement.description}}</td>
+          <td>{{agreement.location}}</td>
+          <td>{{agreement.points}}</td>
         </tr>
       </tbody>
     </table>
@@ -28,11 +28,11 @@
 
   export default {
     created() {
-      gateway.get('my-ads').then(r => this.ads = r.data)
+      gateway.get('agreements').then(r => this.agreements = r.data)
     },
     data() {
       return {
-        ads: []
+        agreements: []
       }
     }
   }
