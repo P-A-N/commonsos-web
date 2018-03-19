@@ -56,7 +56,7 @@
             .then(r => this.replaceAdInstance(r.data)).catch(e => console.log(e))
       },
       canBeAccepted(ad) {
-        return ad.createdBy !== localStorage.getItem('user') && ad.acceptedBy !== localStorage.getItem('user')
+        return ad.createdBy !== localStorage.getItem('user')
       }
     }
   }

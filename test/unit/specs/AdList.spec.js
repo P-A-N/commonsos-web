@@ -78,7 +78,7 @@ describe('AdList.vue', () => {
       }, 0)
     })
 
-    it('accepts ad and can not accept it anymore', (done) => {
+    it('accepts ad', (done) => {
       window.localStorage.setItem('user', 'user2')
       spyOn(window, 'confirm').and.returnValue(true)
       gateway.post.and.returnValue(Promise.resolve({data: {id: 'ad1', acceptedBy: 'user2'}}))
@@ -94,7 +94,7 @@ describe('AdList.vue', () => {
           setTimeout(() => {
             let adRows = wrapper.findAll('table tbody tr')
             expect(adRows.length).toBe(2)
-            expect(adRows.at(0).contains('button.accept-ad')).toBeFalsy()
+            expect(adRows.at(0).contains('button.accept-ad')).toBeTruthy()
             done()
           }, 0)
         }, 0)
