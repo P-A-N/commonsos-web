@@ -3,6 +3,7 @@
     <table class="table table-hover table-striped">
       <thead>
         <tr>
+          <th>Accepted at</th>
           <th>Provided by</th>
           <th>Title</th>
           <th>Description</th>
@@ -12,6 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="agreement in agreements">
+          <td>{{agreement.createdAt | moment('from') }}</td>
           <td>{{agreement.providerId}}</td>
           <td>{{agreement.title}}</td>
           <td>{{agreement.description}}</td>

@@ -5,12 +5,14 @@ import BootstrapVue from 'bootstrap-vue'
 import VeeValidate from 'vee-validate'
 import App from './App'
 import router from './router'
+import VueMoment from 'vue-moment'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
 Vue.use(VeeValidate)
+Vue.use(VueMoment)
 Vue.config.productionTip = false
 
 window.vm = new Vue({
