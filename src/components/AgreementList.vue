@@ -6,8 +6,8 @@
           <th>Provided by</th>
           <th>Title</th>
           <th>Description</th>
-          <th>Points</th>
           <th>Location</th>
+          <th>Points</th>
         </tr>
       </thead>
       <tbody>
