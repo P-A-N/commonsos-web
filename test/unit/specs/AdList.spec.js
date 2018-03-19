@@ -90,13 +90,8 @@ describe('AdList.vue', () => {
 
         setTimeout(() => {
           expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
-
-          setTimeout(() => {
-            let adRows = wrapper.findAll('table tbody tr')
-            expect(adRows.length).toBe(2)
-            expect(adRows.at(0).contains('button.accept-ad')).toBeTruthy()
-            done()
-          }, 0)
+          expect(router.push).toHaveBeenCalledWith('agreements')
+          done()
         }, 0)
       }, 0)
     })

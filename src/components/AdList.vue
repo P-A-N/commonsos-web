@@ -45,15 +45,11 @@
       createAd() {
         router.push('ads/create')
       },
-      replaceAdInstance(ad) {
-        let index = this.ads.findIndex(a => a.id === ad.id)
-        this.ads.splice(index, 1, ad);
-      },
       acceptAd(ad) {
         if (confirm('You are going to accept the offered service. Are you sure?'))
           gateway
             .post(`/ads/${ad.id}/accept`)
-            .then(r => this.replaceAdInstance(r.data)).catch(e => console.log(e))
+            .then(r => router.push('agreements')).catch(e => console.log(e))
       },
       canBeAccepted(ad) {
         return ad.createdBy !== localStorage.getItem('user')
