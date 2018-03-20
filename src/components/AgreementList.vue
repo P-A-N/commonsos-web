@@ -8,7 +8,7 @@
           <th>Title</th>
           <th>Description</th>
           <th>Location</th>
-          <th>Points</th>
+          <th>Reward</th>
         </tr>
       </thead>
       <tbody>

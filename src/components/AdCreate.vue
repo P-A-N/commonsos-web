@@ -15,7 +15,7 @@
     </div>
 
     <div class="form-group">
-      <label for="points">Points</label>
+      <label for="points">Reward</label>
       <div class="input-group">
         <input type="text" class="form-control" id="points" name="points"
                v-model="ad.points" v-validate="'required|decimal'">

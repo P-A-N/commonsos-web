@@ -6,7 +6,7 @@
           <th>Publisher</th>
           <th>Title</th>
           <th>Description</th>
-          <th>Points</th>
+          <th>Reward</th>
           <th>Location</th>
           <th width="10%"></th>
         </tr>
