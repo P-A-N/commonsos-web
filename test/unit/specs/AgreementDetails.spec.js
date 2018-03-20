@@ -30,7 +30,7 @@ describe('AgreementDetails.vue', () => {
       expect(wrapper.text()).toContain('Reward 1.23')
       expect(wrapper.find('img').attributes().src.startsWith('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhm')).toBeTruthy()
       done()
-    }, 10)
+    }, 100)
   })
 
   it('navigates back', function () {
