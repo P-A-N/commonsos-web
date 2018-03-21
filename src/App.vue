@@ -14,6 +14,9 @@
           <li class="nav-item" :class="{active: isActive('/agreements')}">
             <a class="nav-link" href="#/agreements">Accepted services</a>
           </li>
+          <li class="nav-item" :class="{active: isActive('/claim-reward')}">
+            <a class="nav-link" href="#/claim-reward">Claim reward</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Chat</a>
           </li>
