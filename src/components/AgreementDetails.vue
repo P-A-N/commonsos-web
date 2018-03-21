@@ -2,21 +2,25 @@
   <div>
     <h1>{{agreement.title}}</h1>
     <div class="row">
-      <div class="col-3">Description</div>
-      <div class="col-9">{{agreement.description}}</div>
+      <div class="col-2">Description</div>
+      <div class="col-10">{{agreement.description}}</div>
     </div>
     <div class="row">
-      <div class="col-3">Location</div>
-      <div class="col-9">{{agreement.location}}</div>
+      <div class="col-2">Location</div>
+      <div class="col-10">{{agreement.location}}</div>
     </div>
     <div class="row">
-      <div class="col-3">Reward</div>
-      <div class="col-9">{{agreement.amount}}</div>
+      <div class="col-2">Reward</div>
+      <div class="col-10">{{agreement.amount}}</div>
     </div>
 
-    <qrcode class="my-5" v-bind:text="agreement.transactionData"></qrcode>
+    <qrcode class="my-3" v-bind:text="agreement.transactionData"></qrcode>
 
-    <div class="d-print-none">
+    <div class="row">
+      <div class="col-12 pull-left">Reward claim code: {{agreement.transactionData}}</div>
+    </div>
+
+    <div class="d-print-none mt-4">
       <button name="back" class="btn btn-outline-secondary" @click="back()">Back</button>
       <button name="print" class="btn btn-primary" @click="print()">Print</button>
     </div>
@@ -32,7 +36,7 @@
     props: ['id'],
     data() {
       return {
-        agreement: {}
+        agreement: {transactionData: ''}
       }
     },
     created() {
