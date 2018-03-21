@@ -9,10 +9,10 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" :class="{active: isActive('/ads')}">
-            <a class="nav-link" href="#/ads">Available jobs</a>
+            <a class="nav-link" href="#/ads">Advertisements</a>
           </li>
           <li class="nav-item" :class="{active: isActive('/agreements')}">
-            <a class="nav-link" href="#/agreements">My jobs</a>
+            <a class="nav-link" href="#/agreements">Accepted services</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Chat</a>

@@ -3,7 +3,7 @@
     <table class="table table-hover table-striped">
       <thead>
         <tr>
-          <th>Publisher</th>
+          <th>Author</th>
           <th>Title</th>
           <th>Description</th>
           <th>Reward</th>
@@ -22,7 +22,7 @@
         </tr>
       </tbody>
     </table>
-    <button v-on:click="createAd" class="btn btn-lg btn-primary" id="create-ad" href="" role="button">New Job</button>
+    <button v-on:click="createAd" class="btn btn-lg btn-primary" id="create-ad" href="" role="button">New advertisement</button>
   </div>
 </template>
 
@@ -46,7 +46,7 @@
         router.push('ads/create')
       },
       acceptAd(ad) {
-        if (confirm('You are going to accept the offered service. Are you sure?'))
+        if (confirm('Are you sure you would like to accept this service?'))
           gateway
             .post(`/ads/${ad.id}/accept`)
             .then(r => router.push('agreements')).catch(e => console.log(e))

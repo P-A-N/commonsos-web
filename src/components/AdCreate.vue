@@ -15,12 +15,12 @@
     </div>
 
     <div class="form-group">
-      <label for="points">Reward</label>
+      <label for="reward">Reward</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="points" name="points"
+        <input type="text" class="form-control" id="reward" name="reward"
                v-model="ad.points" v-validate="'required|decimal'">
       </div>
-      <p class="text-danger" v-show="errors.has('points')">{{errors.first('points')}}</p>
+      <p class="text-danger" v-show="errors.has('reward')">{{errors.first('reward')}}</p>
     </div>
 
     <div class="form-group">

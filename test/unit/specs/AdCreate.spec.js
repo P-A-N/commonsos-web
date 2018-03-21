@@ -19,7 +19,7 @@ describe('AdCreate.vue', () => {
       expect(wrapper.findAll('.text-danger').length).toBe(4)
       expect(wrapper.text()).toContain('The title field is required.')
       expect(wrapper.text()).toContain('The description field is required.')
-      expect(wrapper.text()).toContain('The points field is required.')
+      expect(wrapper.text()).toContain('The reward field is required.')
       expect(wrapper.text()).toContain('The location field is required.')
       done()
     }, 0)
