@@ -24,7 +24,7 @@
     },
     methods: {
       claimReward() {
-        gateway.post('claim-reward', {code: this.code})
+        gateway.post('/claim-reward', {code: this.code})
           .then(data => router.push('ads'))
           .catch(error => this.error = error.response.statusText)
       }

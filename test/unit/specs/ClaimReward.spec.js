@@ -14,7 +14,7 @@ describe('ClaimReward.vue', () => {
     wrapper.find('button').trigger('click')
 
     setTimeout(function() {
-      expect(gateway.post).toHaveBeenCalledWith('claim-reward', {code: '12345'})
+      expect(gateway.post).toHaveBeenCalledWith('/claim-reward', {code: '12345'})
       expect(router.push).toHaveBeenCalledWith('ads')
       done()
     }, 0)
@@ -28,7 +28,7 @@ describe('ClaimReward.vue', () => {
     wrapper.find('button').trigger('click')
 
     setTimeout(function() {
-      expect(gateway.post).toHaveBeenCalledWith('claim-reward', {code: 'wrongcode'})
+      expect(gateway.post).toHaveBeenCalledWith('/claim-reward', {code: 'wrongcode'})
       expect(wrapper.text()).toContain('Error: error reason')
       done()
     }, 0)
