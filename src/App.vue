@@ -28,13 +28,9 @@
 </template>
 
 <script>
-  import router from './router'
 
   export default {
-    name: 'App',
-    methods: {
-      isActive: (path) => router.currentRoute.path.startsWith(path)
-    },
+    name: 'App'
   }
 </script>
 
