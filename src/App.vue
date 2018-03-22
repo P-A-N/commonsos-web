@@ -1,29 +1,25 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <a class="navbar-brand" href="#">Commons OS</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item" :class="{active: isActive('/ads')}">
-            <a class="nav-link" href="#/ads">Advertisements</a>
-          </li>
-          <li class="nav-item" :class="{active: isActive('/agreements')}">
-            <a class="nav-link" href="#/agreements">Accepted services</a>
-          </li>
-          <li class="nav-item" :class="{active: isActive('/claim-reward')}">
-            <a class="nav-link" href="#/claim-reward">Claim reward</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Chat</a>
-          </li>
-        </ul>
-        <user-select/>
-      </div>
-    </nav>
+    <b-navbar class="mb-3" toggleable="md" type="dark" variant="dark">
+
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-navbar-brand href="#">Commons OS</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+
+        <b-navbar-nav>
+          <b-nav-item href="#/ads">Advertisements</b-nav-item>
+          <b-nav-item href="#/agreements">Accepted services</b-nav-item>
+          <b-nav-item href="#/claim-reward">Claim reward</b-nav-item>
+          <b-nav-item href="#" disabled>Chat</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto">
+          <user-select/>
+        </b-navbar-nav>
+
+      </b-collapse>
+    </b-navbar>
 
     <main role="main" class="container">
       <router-view/>
