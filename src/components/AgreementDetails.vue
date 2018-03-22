@@ -17,7 +17,7 @@
     <qrcode class="my-3" v-bind:text="agreement.transactionData"></qrcode>
 
     <div class="row">
-      <div class="col-12 pull-left">Reward claim code: {{agreement.transactionData}}</div>
+      <div class="col-12 pull-left">Reward claim code: <b>{{agreement.transactionData}}</b></div>
     </div>
 
     <div class="d-print-none mt-4">
