@@ -1,18 +1,18 @@
 <template>
   <b-form @submit="login">
 
-    <b-form-group label="Email address:" label-for="username">
+    <b-form-group label="Email address:" label-for="login">
       <b-form-input
-        id="username"
+        id="login"
         type="text"
-        placeholder="Enter username"
-        v-model="username"
+        placeholder="Enter login"
+        v-model="userName"
         required></b-form-input>
 
       <small>
-        <a href="#" @click.prevent="username = 'elderly1'; password = 'secret1'">Elderly1</a> |
-        <a href="#" @click.prevent="username = 'elderly2'; password = 'secret2'">Elderly2</a> |
-        <a href="#" @click.prevent="username = 'worker'; password = 'secret'">Worker</a>
+        <a href="#" @click.prevent="userName = 'elderly1'; password = 'secret1'">Elderly1</a> |
+        <a href="#" @click.prevent="userName = 'elderly2'; password = 'secret2'">Elderly2</a> |
+        <a href="#" @click.prevent="userName = 'worker'; password = 'secret'">Worker</a>
       </small>
     </b-form-group>
 
@@ -32,22 +32,19 @@
 </template>
 
 <script>
-  import router from '@/router'
-  import eventbus from '@/eventbus'
+  import userService from '@/services/UserService'
 
   export default {
     name: 'Login',
     data() {
       return {
-        username: '',
+        userName: '',
         password: ''
       }
     },
     methods: {
       login() {
-        localStorage.user = this.username
-        eventbus.$emit('login', {username: this.username})
-        router.push('/')
+        userService.login(this.userName, this.password)
       }
     }
   }

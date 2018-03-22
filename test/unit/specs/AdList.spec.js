@@ -2,12 +2,15 @@ import AdList from '@/components/AdList'
 import {mount} from '@vue/test-utils'
 import router from '@/router'
 import gateway from '@/gateway'
+import userService from '@/services/UserService'
 
 describe('AdList.vue', () => {
+
   beforeEach(() => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
     spyOn(router, 'push')
+    spyOn(userService, 'user').and.returnValue({userName: 'user2'})
   })
 
   it('should display ads list', (done) => {
@@ -52,8 +55,6 @@ describe('AdList.vue', () => {
     });
 
     it('own ad cannot be accepted', (done) => {
-      window.localStorage.setItem("user", "user2")
-
       let wrapper = mount(AdList)
 
       setTimeout(() => {
@@ -79,7 +80,6 @@ describe('AdList.vue', () => {
     })
 
     it('accepts ad', (done) => {
-      window.localStorage.setItem('user', 'user2')
       spyOn(window, 'confirm').and.returnValue(true)
       gateway.post.and.returnValue(Promise.resolve({data: {id: 'ad1', acceptedBy: 'user2'}}))
 

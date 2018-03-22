@@ -30,6 +30,7 @@
 
   import router from '../router'
   import gateway from '../gateway'
+  import userService from '@/services/UserService'
 
   export default {
     name: 'AdList',
@@ -52,7 +53,7 @@
             .then(r => router.push('agreements')).catch(e => console.log(e))
       },
       canBeAccepted(ad) {
-        return ad.createdBy !== localStorage.getItem('user')
+        return ad.createdBy !== userService.user().userName
       }
     }
   }

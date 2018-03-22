@@ -1,12 +1,13 @@
 import axios from 'axios';
+import userService from '@/services/UserService'
 
 export function addAuthenticationToken (data, headers) {
-  headers['X-UserId'] = localStorage.getItem('user');
+  headers['X-UserId'] = userService.user().userName;
   return data;
 }
 
 export default axios.create({
-  baseURL: `/api`,
+  baseURL: '/api',
   transformRequest: [].concat(
     axios.defaults.transformRequest,
     addAuthenticationToken

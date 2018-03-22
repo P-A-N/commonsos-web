@@ -7,7 +7,7 @@
 
       <b-collapse is-nav id="nav_collapse">
 
-        <b-navbar-nav v-if="user.username">
+        <b-navbar-nav v-if="user.userName">
           <b-nav-item href="#/ads">Advertisements</b-nav-item>
           <b-nav-item href="#/agreements">Accepted services</b-nav-item>
           <b-nav-item href="#/claim-reward">Claim reward</b-nav-item>
@@ -15,8 +15,8 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="!user.username" href="#/login">Login</b-nav-item>
-          <b-nav-item v-if="user.username" href="#" @click.prevent="logout">{{user.username}} - logout</b-nav-item>
+          <b-nav-item v-if="!user.userName" href="#/login">Login</b-nav-item>
+          <b-nav-item v-if="user.userName" href="#" @click.prevent="logout">{{user.userName}} - logout</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
@@ -30,24 +30,21 @@
 
 <script>
   import eventbus from '@/eventbus'
-  import router from '@/router'
+  import userService from '@/services/UserService'
 
   export default {
     name: 'App',
     data() {
       return {
-        user: {}
+        user: userService.user()
       }
     },
     created() {
       eventbus.$on('login', (user) => this.user = user)
+      eventbus.$on('logout', () => this.user = {})
     },
     methods: {
-      logout() {
-        delete localStorage.user
-        this.user = {}
-        router.push('/login')
-      }
+      logout: userService.logout
     },
   }
 </script>
