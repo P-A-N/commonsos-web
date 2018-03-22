@@ -32,10 +32,11 @@
 </template>
 
 <script>
-  import router from '../router'
+  import router from '@/router'
+  import eventbus from '@/eventbus'
 
   export default {
-    name: 'AdCreate',
+    name: 'Login',
     data() {
       return {
         username: '',
@@ -45,6 +46,7 @@
     methods: {
       login() {
         localStorage.user = this.username
+        eventbus.$emit('login', {username: this.username})
         router.push('/')
       }
     }
