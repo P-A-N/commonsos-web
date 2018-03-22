@@ -6,6 +6,7 @@
     </div>
 
     <div class="alert alert-danger" v-if="error">Error: {{error}}</div>
+    <div class="alert alert-success" v-if="success">{{success}}</div>
 
     <button type="submit" class="btn btn-primary">Claim reward</button>
   </form>
@@ -19,13 +20,14 @@
     data() {
       return {
         code: '',
-        error: null
+        error: null,
+        success: null
       }
     },
     methods: {
       claimReward() {
         gateway.post('/claim-reward', {code: this.code})
-          .then(data => router.push('ads'))
+          .then(data => {this.success = 'You have successfully claimed your reward!'; setTimeout(() => router.push('ads'), 3000)})
           .catch(error => this.error = error.response.statusText)
       }
     }
