@@ -15,7 +15,7 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <user-select/>
+          <b-nav-item href="#/login">Login</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
@@ -28,12 +28,10 @@
 </template>
 
 <script>
-  import UserSelect from './components/UserSelect'
   import router from './router'
 
   export default {
     name: 'App',
-    components: {UserSelect},
     methods: {
       isActive: (path) => router.currentRoute.path.startsWith(path)
     },

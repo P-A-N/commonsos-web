@@ -17,6 +17,9 @@
         user: localStorage.user || 'elderly1'
       }
     },
+    created() {
+      this.$on('user-login', () => console.log('JYOGFJNHYF&UYJFGYUHJTDGFYTHRDTYRDSEDSRUYJFGYUHJTDGFYTHRDTYRDSEDSRUYJFGYUHJTDGFYTHRDTYRDSEDSR'))
+    },
     watch: {
       user: function (value) {
         localStorage.user = value
