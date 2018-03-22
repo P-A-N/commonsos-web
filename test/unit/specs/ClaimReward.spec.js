@@ -5,7 +5,7 @@ import router from '@/router'
 
 describe('ClaimReward.vue', () => {
 
-  it('successful claim should redirect to main view', (done) => {
+  it('claims reward', (done) => {
     const wrapper = mount(ClaimReward)
     spyOn(router, 'push')
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
@@ -15,7 +15,7 @@ describe('ClaimReward.vue', () => {
 
     setTimeout(function() {
       expect(gateway.post).toHaveBeenCalledWith('/claim-reward', {code: '12345'})
-      expect(router.push).toHaveBeenCalledWith('ads')
+      expect(wrapper.vm.success).toEqual('You have successfully claimed your reward!')
       done()
     }, 0)
   })
@@ -29,7 +29,7 @@ describe('ClaimReward.vue', () => {
 
     setTimeout(function() {
       expect(gateway.post).toHaveBeenCalledWith('/claim-reward', {code: 'wrongcode'})
-      expect(wrapper.text()).toContain('Error: error reason')
+      expect(wrapper.text()).toContain('Failed to claim reward. Please verify that you are using correct code and you are eligible to claim it!')
       done()
     }, 0)
   })

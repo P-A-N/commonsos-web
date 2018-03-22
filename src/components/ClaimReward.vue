@@ -5,7 +5,7 @@
       <input type="text" class="form-control" autocomplete="off" id="code" v-model="code">
     </div>
 
-    <div class="alert alert-danger" v-if="error">Error: {{error}}</div>
+    <div class="alert alert-danger" v-if="error">{{error}}</div>
     <div class="alert alert-success" v-if="success">{{success}}</div>
 
     <button type="submit" class="btn btn-primary">Claim reward</button>
@@ -28,7 +28,7 @@
       claimReward() {
         gateway.post('/claim-reward', {code: this.code})
           .then(data => {this.success = 'You have successfully claimed your reward!'; setTimeout(() => router.push('ads'), 3000)})
-          .catch(error => this.error = error.response.statusText)
+          .catch(error => this.error = 'Failed to claim reward. Please verify that you are using correct code and you are eligible to claim it!')
       }
     }
   }
