@@ -9,6 +9,8 @@
 </template>
 
 <script>
+  import router from '@/router'
+
   export default {
     data() {
       return {
@@ -18,6 +20,7 @@
     watch: {
       user: function (value) {
         localStorage.user = value
+        router.push('/')
         window.location.reload()
       }
     }
