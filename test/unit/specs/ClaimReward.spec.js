@@ -8,14 +8,14 @@ describe('ClaimReward.vue', () => {
   it('claims reward', (done) => {
     const wrapper = mount(ClaimReward)
     spyOn(router, 'push')
-    spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
+    spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {amount: 1299.01}}))
     wrapper.vm.code = '12345'
 
     wrapper.find('button').trigger('click')
 
     setTimeout(function() {
       expect(gateway.post).toHaveBeenCalledWith('/claim-reward', {code: '12345'})
-      expect(wrapper.vm.success).toEqual('You have successfully claimed your reward!')
+      expect(wrapper.text()).toContain('You have successfully claimed your reward of 1299.01 points!')
       done()
     }, 0)
   })

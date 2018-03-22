@@ -6,7 +6,9 @@
     </div>
 
     <div class="alert alert-danger" v-if="error">{{error}}</div>
-    <div class="alert alert-success" v-if="success">{{success}}</div>
+    <div class="alert alert-success" v-if="transaction">
+      You have successfully claimed your reward of {{transaction.amount}} points!
+    </div>
 
     <button type="submit" class="btn btn-primary">Claim reward</button>
   </form>
@@ -14,21 +16,23 @@
 
 <script>
   import gateway from '@/gateway'
-  import router from '@/router'
 
   export default {
     data() {
       return {
         code: '',
         error: null,
-        success: null
+        transaction: null
       }
     },
     methods: {
       claimReward() {
         gateway.post('/claim-reward', {code: this.code})
-          .then(data => {this.success = 'You have successfully claimed your reward!'; setTimeout(() => router.push('ads'), 3000)})
-          .catch(error => this.error = 'Failed to claim reward. Please verify that you are using correct code and you are eligible to claim it!')
+          .then(r => this.transaction = r.data)
+          .catch(error => {
+            this.transaction = null
+            this.error = 'Failed to claim reward. Please verify that you are using correct code and you are eligible to claim it!'
+          })
       }
     }
   }
