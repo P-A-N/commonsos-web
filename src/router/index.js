@@ -6,10 +6,11 @@ import AgreementList from '@/components/AgreementList'
 import AdCreate from '@/components/AdCreate'
 import AgreementDetails from '@/components/AgreementDetails'
 import ClaimReward from '@/components/ClaimReward'
+import userService from '@/services/UserService'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {path: '/', redirect: '/ads'},
     {path: '/login', component: Login},
@@ -20,3 +21,11 @@ export default new Router({
     {path: '/claim-reward', component: ClaimReward},
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (userService.isLoggedIn()) return next()
+  if (to.path === '/login') return next()
+  next('/login')
+})
+
+export default router

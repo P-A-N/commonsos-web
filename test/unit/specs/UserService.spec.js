@@ -1,9 +1,9 @@
 import userService from '@/services/UserService'
 import eventbus from '@/eventbus'
 
-describe('UserService.spec', function() {
+describe('UserService.spec', () => {
 
-  it('logs in user', function() {
+  it('logs in user', () => {
     spyOn(eventbus, '$emit')
 
     userService.login('username', 'password')
@@ -13,7 +13,7 @@ describe('UserService.spec', function() {
     expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
   });
 
-  it('logs out user', function() {
+  it('logs out user', () => {
     localStorage.setItem('user', JSON.stringify({userName: 'username'}))
     spyOn(eventbus, '$emit')
 
@@ -23,10 +23,26 @@ describe('UserService.spec', function() {
     expect(eventbus.$emit).toHaveBeenCalledWith('logout')
   });
 
-  it('provides logged in user', function() {
-    userService.login('username', 'password')
+  it('provides logged in user from localStorage', () => {
+    localStorage.setItem('user', '{"foo": "bar"}')
 
-    expect(userService.user().userName).toBe('username')
+    expect(userService.user()).toEqual({foo: "bar"})
+  })
+
+  it('provides empty user if not logged in', () => {
+    expect(userService.user()).toEqual({})
+  })
+
+  describe('isLoggedIn', () => {
+    it('return true', () => {
+      localStorage.setItem('user', JSON.stringify({userName: 'username'}))
+      expect(userService.isLoggedIn()).toBeTruthy()
+    });
+
+    it('return false', () => {
+      localStorage.setItem('user', JSON.stringify({}))
+      expect(userService.isLoggedIn()).toBeFalsy()
+    });
   })
 
   afterEach(() => localStorage.clear())

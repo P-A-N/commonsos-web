@@ -18,5 +18,9 @@ export default {
 
   user() {
     return JSON.parse(localStorage.getItem('user')) || {}
+  },
+
+  isLoggedIn() {
+    return !!this.user().userName
   }
 }
