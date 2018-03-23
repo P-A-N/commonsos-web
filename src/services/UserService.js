@@ -17,7 +17,11 @@ export default {
   },
 
   user() {
-    return JSON.parse(localStorage.getItem('user')) || {}
+    try {
+      return JSON.parse(localStorage.getItem('user')) || {}
+    } catch (e) {
+      return {}
+    }
   },
 
   isLoggedIn() {

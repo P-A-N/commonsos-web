@@ -29,6 +29,12 @@ describe('UserService.spec', () => {
     expect(userService.user()).toEqual({foo: "bar"})
   })
 
+  it('provides empty user if storage format is not correct', () => {
+    localStorage.setItem('user', 'username')
+
+    expect(userService.user()).toEqual({})
+  })
+
   it('provides empty user if not logged in', () => {
     expect(userService.user()).toEqual({})
   })
