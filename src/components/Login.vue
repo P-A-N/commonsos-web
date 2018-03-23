@@ -1,6 +1,6 @@
 <template>
   <b-form @submit="login">
-
+    <div class="alert alert-danger" v-if="error">{{error}}</div>
     <b-form-group label="Email address:" label-for="login">
       <b-form-input
         id="login"
@@ -9,10 +9,10 @@
         v-model="userName"
         required></b-form-input>
 
-      <small>
-        <a href="#" @click.prevent="userName = 'elderly1'; password = 'secret1'">Elderly1</a> |
-        <a href="#" @click.prevent="userName = 'elderly2'; password = 'secret2'">Elderly2</a> |
-        <a href="#" @click.prevent="userName = 'worker'; password = 'secret'">Worker</a>
+      <small>Valid users:
+        <span v-for="(password, username) in predefinedUsers">
+         <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+        </span>
       </small>
     </b-form-group>
 
@@ -39,12 +39,23 @@
     data() {
       return {
         userName: '',
-        password: ''
+        password: '',
+        error: null,
+        predefinedUsers: userService.predefinedUsers()
       }
     },
     methods: {
-      login() {
-        userService.login(this.userName, this.password)
+      showError(message) {
+        this.error = message
+        setTimeout(()=>this.error = null, 3000)
+      },
+      login(event) {
+        event.preventDefault();
+        userService.login(this.userName, this.password).catch(e => this.showError(e.message))
+      },
+      setUser(username, password) {
+        this.userName = username
+        this.password = password
       }
     }
   }

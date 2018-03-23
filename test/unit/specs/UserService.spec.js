@@ -3,14 +3,29 @@ import eventbus from '@/eventbus'
 
 describe('UserService.spec', () => {
 
-  it('logs in user', () => {
-    spyOn(eventbus, '$emit')
+  describe('login', () => {
 
-    userService.login('username', 'password')
+    beforeEach(() => {
+      spyOn(userService, 'predefinedUsers').and.returnValue({user: 'secret'})
+    })
 
-    let user = {userName: 'username'}
-    expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
-    expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
+    it('should resolve promise for valid credentials', (done) => {
+      spyOn(eventbus, '$emit')
+
+      userService.login('user', 'secret').then(r => {
+        let user = {userName: 'user'}
+        expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
+        expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
+        done()
+      })
+    })
+
+    it('should reject promise for invalid credentials', (done) => {
+      userService.login('wrong', 'password').catch(e => {
+        expect(e.message).toEqual('Unknown username or password')
+        done()
+      })
+    })
   });
 
   it('logs out user', () => {

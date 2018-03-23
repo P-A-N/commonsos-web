@@ -3,11 +3,26 @@ import router from '@/router'
 
 export default {
 
+  predefinedUsers() {
+    return {
+      worker: 'secret',
+      elderly1: 'secret1',
+      elderly2: 'secret2'
+    }
+  },
+
+  verifyCredentials: function (userName, password) {
+    let expectedPassword = this.predefinedUsers()[userName]
+    return (expectedPassword === password) ? Promise.resolve({userName: userName}) : Promise.reject({message: 'Unknown username or password'})
+  },
+
   login(userName, password) {
-    let user = {userName: userName}
-    localStorage.setItem('user', JSON.stringify(user))
-    eventbus.$emit('login', user)
-    router.push('/')
+    return this.verifyCredentials(userName, password)
+      .then(user => {
+        localStorage.setItem('user', JSON.stringify(user))
+        eventbus.$emit('login', user)
+        router.push('/')
+      })
   },
 
   logout() {
