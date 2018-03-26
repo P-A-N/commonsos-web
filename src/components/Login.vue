@@ -55,7 +55,7 @@
       },
       login(event) {
         event.preventDefault();
-        userService.login(this.userName, this.password).catch(e => this.showError(e.message))
+        userService.login(this.userName, this.password).catch(e => this.showError('Invalid username or password'))
       },
       setUser(username, password) {
         this.userName = username

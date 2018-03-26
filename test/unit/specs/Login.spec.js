@@ -28,12 +28,12 @@ describe('Login.vue', () => {
     const wrapper = mount(Login)
     wrapper.vm.userName = 'wrong'
     wrapper.vm.password = 'password'
-    spyOn(userService, 'login').and.returnValue(Promise.reject({message: 'Failure reason'}))
+    spyOn(userService, 'login').and.returnValue(Promise.reject({}))
 
     wrapper.find('button').trigger('click')
 
     setTimeout(() => {
-      expect(wrapper.text()).toContain('Failure reason')
+      expect(wrapper.text()).toContain('Invalid username or password')
       done()
     }, 0)
   })
