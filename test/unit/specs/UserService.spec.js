@@ -33,7 +33,7 @@ describe('UserService.spec', () => {
     spyOn(eventbus, '$emit')
     spyOn(gateway, 'post').and.returnValue(Promise.resolve())
 
-``    userService.logout().then(() => {
+    userService.logout().then(() => {
       expect(userService.user()).toBe(null)
       expect(eventbus.$emit).toHaveBeenCalledWith('logout')
       expect(gateway.post).toHaveBeenCalledWith('/logout')
