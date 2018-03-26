@@ -1,24 +1,13 @@
 import eventbus from '@/eventbus'
 import router from '@/router'
+import gateway from '@/gateway'
 
 export default {
 
-  predefinedUsers() {
-    return {
-      worker: 'secret',
-      elderly1: 'secret1',
-      elderly2: 'secret2'
-    }
-  },
-
-  verifyCredentials: function (userName, password) {
-    let expectedPassword = this.predefinedUsers()[userName]
-    return (expectedPassword === password) ? Promise.resolve({userName: userName}) : Promise.reject({message: 'Unknown username or password'})
-  },
-
   login(userName, password) {
-    return this.verifyCredentials(userName, password)
-      .then(user => {
+    return gateway.post('/login', {username: userName, password})
+      .then(r => {
+        let user = {userName: r.data.username}
         localStorage.setItem('user', JSON.stringify(user))
         eventbus.$emit('login', user)
         router.push('/')

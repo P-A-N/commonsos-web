@@ -41,7 +41,11 @@
         userName: '',
         password: '',
         error: null,
-        predefinedUsers: userService.predefinedUsers()
+        predefinedUsers: {
+          worker: 'secret',
+          elderly1: 'secret1',
+          elderly2: 'secret2'
+        }
       }
     },
     methods: {

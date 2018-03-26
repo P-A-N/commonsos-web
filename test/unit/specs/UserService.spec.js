@@ -1,28 +1,28 @@
 import userService from '@/services/UserService'
 import eventbus from '@/eventbus'
+import gateway from '@/gateway'
 
 describe('UserService.spec', () => {
 
   describe('login', () => {
 
-    beforeEach(() => {
-      spyOn(userService, 'predefinedUsers').and.returnValue({user: 'secret'})
-    })
-
     it('should resolve promise for valid credentials', (done) => {
       spyOn(eventbus, '$emit')
+      spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user'}}))
 
-      userService.login('user', 'secret').then(r => {
+      userService.login('user', 'secret').then(() => {
         let user = {userName: 'user'}
         expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
         expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
+        expect(gateway.post).toHaveBeenCalledWith('/login', {username: 'user', password: 'secret'})
         done()
       })
     })
 
     it('should reject promise for invalid credentials', (done) => {
+      spyOn(gateway, 'post').and.returnValue(Promise.reject({}))
+
       userService.login('wrong', 'password').catch(e => {
-        expect(e.message).toEqual('Unknown username or password')
         done()
       })
     })
