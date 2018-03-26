@@ -7,7 +7,7 @@
 
       <b-collapse is-nav id="nav_collapse">
 
-        <b-navbar-nav v-if="isLoggedIn">
+        <b-navbar-nav v-if="isLoggedIn()">
           <b-nav-item href="#/ads">Advertisements</b-nav-item>
           <b-nav-item href="#/agreements">Accepted services</b-nav-item>
           <b-nav-item href="#/claim-reward">Claim reward</b-nav-item>
@@ -15,8 +15,8 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="!isLoggedIn" href="#/login">Login</b-nav-item>
-          <b-nav-item v-if="isLoggedIn" href="#" @click.prevent="logout">{{user.username}} - logout</b-nav-item>
+          <b-nav-item v-if="!isLoggedIn()" href="#/login">Login</b-nav-item>
+          <b-nav-item v-if="isLoggedIn()" href="#" @click.prevent="logout()">{{user.username}} - logout</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
@@ -44,8 +44,8 @@
       eventbus.$on('logout', () => this.user = {})
     },
     methods: {
-      isLoggedIn: userService.isLoggedIn,
-      logout: userService.logout
+      isLoggedIn: () => userService.isLoggedIn(),
+      logout: () => userService.logout()
     },
   }
 </script>
