@@ -4,10 +4,10 @@ import gateway from '@/gateway'
 
 export default {
 
-  login(userName, password) {
-    return gateway.post('/login', {username: userName, password})
+  login(username, password) {
+    return gateway.post('/login', {username: username, password})
       .then(r => {
-        let user = {userName: r.data.username}
+        let user = {username: r.data.username}
         localStorage.setItem('user', JSON.stringify(user))
         eventbus.$emit('login', user)
         router.push('/')
@@ -29,6 +29,6 @@ export default {
   },
 
   isLoggedIn() {
-    return !!this.user().userName
+    return !!this.user().username
   }
 }

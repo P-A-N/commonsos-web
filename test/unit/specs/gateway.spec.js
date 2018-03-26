@@ -6,7 +6,7 @@ describe('gateway', () => {
   it('adds authentication token', () => {
     let headers = {}
     let data = 'data'
-    spyOn(userService, 'user').and.returnValue({userName: 'john'})
+    spyOn(userService, 'user').and.returnValue({username: 'john'})
 
     let result = addAuthenticationToken(data, headers)
 

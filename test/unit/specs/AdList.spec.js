@@ -10,7 +10,7 @@ describe('AdList.vue', () => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
     spyOn(router, 'push')
-    spyOn(userService, 'user').and.returnValue({userName: 'user2'})
+    spyOn(userService, 'user').and.returnValue({username: 'user2'})
   })
 
   it('should display ads list', (done) => {

@@ -53,7 +53,7 @@
             .then(r => router.push('agreements')).catch(e => console.log(e))
       },
       canBeAccepted(ad) {
-        return ad.createdBy !== userService.user().userName
+        return ad.createdBy !== userService.user().username
       }
     }
   }

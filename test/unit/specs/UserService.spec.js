@@ -11,7 +11,7 @@ describe('UserService.spec', () => {
       spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user'}}))
 
       userService.login('user', 'secret').then(() => {
-        let user = {userName: 'user'}
+        let user = {username: 'user'}
         expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
         expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
         expect(gateway.post).toHaveBeenCalledWith('/login', {username: 'user', password: 'secret'})
@@ -29,12 +29,12 @@ describe('UserService.spec', () => {
   });
 
   it('logs out user', () => {
-    localStorage.setItem('user', JSON.stringify({userName: 'username'}))
+    localStorage.setItem('user', JSON.stringify({username: 'username'}))
     spyOn(eventbus, '$emit')
 
     userService.logout()
 
-    expect(userService.user().userName).toBe(undefined)
+    expect(userService.user().username).toBe(undefined)
     expect(eventbus.$emit).toHaveBeenCalledWith('logout')
   });
 
@@ -56,7 +56,7 @@ describe('UserService.spec', () => {
 
   describe('isLoggedIn', () => {
     it('return true', () => {
-      localStorage.setItem('user', JSON.stringify({userName: 'username'}))
+      localStorage.setItem('user', JSON.stringify({username: 'username'}))
       expect(userService.isLoggedIn()).toBeTruthy()
     });
 

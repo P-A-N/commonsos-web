@@ -12,7 +12,7 @@ describe('Login.vue', () => {
 
   it('logs in', (done) => {
     const wrapper = mount(Login)
-    wrapper.vm.userName = 'user'
+    wrapper.vm.username = 'user'
     wrapper.vm.password = 'password'
     spyOn(userService, 'login').and.returnValue(Promise.resolve())
 
@@ -26,8 +26,6 @@ describe('Login.vue', () => {
 
   it('shows error message for invalid credentials', (done) => {
     const wrapper = mount(Login)
-    wrapper.vm.userName = 'wrong'
-    wrapper.vm.password = 'password'
     spyOn(userService, 'login').and.returnValue(Promise.reject({}))
 
     wrapper.find('button').trigger('click')

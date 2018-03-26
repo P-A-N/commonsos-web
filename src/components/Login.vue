@@ -6,7 +6,7 @@
         id="login"
         type="text"
         placeholder="Enter login"
-        v-model="userName"
+        v-model="username"
         required></b-form-input>
 
       <small>Valid users:
@@ -38,7 +38,7 @@
     name: 'Login',
     data() {
       return {
-        userName: '',
+        username: '',
         password: '',
         error: null,
         predefinedUsers: {
@@ -55,10 +55,10 @@
       },
       login(event) {
         event.preventDefault();
-        userService.login(this.userName, this.password).catch(e => this.showError('Invalid username or password'))
+        userService.login(this.username, this.password).catch(e => this.showError('Invalid username or password'))
       },
       setUser(username, password) {
-        this.userName = username
+        this.username = username
         this.password = password
       }
     }

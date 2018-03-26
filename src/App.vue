@@ -7,7 +7,7 @@
 
       <b-collapse is-nav id="nav_collapse">
 
-        <b-navbar-nav v-if="user.userName">
+        <b-navbar-nav v-if="user.username">
           <b-nav-item href="#/ads">Advertisements</b-nav-item>
           <b-nav-item href="#/agreements">Accepted services</b-nav-item>
           <b-nav-item href="#/claim-reward">Claim reward</b-nav-item>
@@ -15,8 +15,8 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="!user.userName" href="#/login">Login</b-nav-item>
-          <b-nav-item v-if="user.userName" href="#" @click.prevent="logout">{{user.userName}} - logout</b-nav-item>
+          <b-nav-item v-if="!user.username" href="#/login">Login</b-nav-item>
+          <b-nav-item v-if="user.username" href="#" @click.prevent="logout">{{user.username}} - logout</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
