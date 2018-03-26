@@ -8,10 +8,10 @@ describe('UserService.spec', () => {
 
     it('should resolve promise for valid credentials', (done) => {
       spyOn(eventbus, '$emit')
-      spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user', token: 'token'}}))
+      spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user'}}))
 
       userService.login('user', 'secret').then(() => {
-        let user = {username: 'user', token: 'token'}
+        let user = {username: 'user'}
         expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
         expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
         expect(gateway.post).toHaveBeenCalledWith('/login', {username: 'user', password: 'secret'})
@@ -56,7 +56,7 @@ describe('UserService.spec', () => {
 
   describe('isLoggedIn', () => {
     it('return true', () => {
-      localStorage.setItem('user', JSON.stringify({token: 'username'}))
+      localStorage.setItem('user', JSON.stringify({}))
       expect(userService.isLoggedIn()).toBeTruthy()
     });
 
