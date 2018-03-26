@@ -28,14 +28,17 @@ describe('UserService.spec', () => {
     })
   });
 
-  it('logs out user', () => {
+  it('logs out user', (done) => {
     localStorage.setItem('user', JSON.stringify({username: 'username'}))
     spyOn(eventbus, '$emit')
+    spyOn(gateway, 'post').and.returnValue(Promise.resolve())
 
-    userService.logout()
-
-    expect(userService.user()).toBe(null)
-    expect(eventbus.$emit).toHaveBeenCalledWith('logout')
+``    userService.logout().then(() => {
+      expect(userService.user()).toBe(null)
+      expect(eventbus.$emit).toHaveBeenCalledWith('logout')
+      expect(gateway.post).toHaveBeenCalledWith('/logout')
+      done()
+    })
   });
 
   it('provides logged in user from localStorage', () => {

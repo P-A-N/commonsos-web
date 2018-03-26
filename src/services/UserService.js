@@ -14,9 +14,11 @@ export default {
   },
 
   logout() {
-    delete localStorage.user
-    eventbus.$emit('logout')
-    router.push('/login')
+    return gateway.post('/logout').then(() => {
+      delete localStorage.user
+      eventbus.$emit('logout')
+      router.push('/login')
+    })
   },
 
   user() {
