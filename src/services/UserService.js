@@ -5,7 +5,7 @@ import gateway from '@/gateway'
 export default {
 
   login(username, password) {
-    return gateway.post('/login', {username: username, password})
+    return gateway.post('/login', {username, password})
       .then(r => {
         localStorage.setItem('user', JSON.stringify(r.data))
         eventbus.$emit('login', r.data)
@@ -21,13 +21,13 @@ export default {
 
   user() {
     try {
-      return JSON.parse(localStorage.getItem('user')) || {}
+      return JSON.parse(localStorage.getItem('user'))
     } catch (e) {
-      return {}
+      return null
     }
   },
 
   isLoggedIn() {
-    return !!this.user().username
+    return !!this.user()
   }
 }

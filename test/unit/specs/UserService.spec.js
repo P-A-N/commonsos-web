@@ -34,7 +34,7 @@ describe('UserService.spec', () => {
 
     userService.logout()
 
-    expect(userService.user().username).toBe(undefined)
+    expect(userService.user()).toBe(null)
     expect(eventbus.$emit).toHaveBeenCalledWith('logout')
   });
 
@@ -47,21 +47,21 @@ describe('UserService.spec', () => {
   it('provides empty user if storage format is not correct', () => {
     localStorage.setItem('user', 'username')
 
-    expect(userService.user()).toEqual({})
+    expect(userService.user()).toEqual(null)
   })
 
   it('provides empty user if not logged in', () => {
-    expect(userService.user()).toEqual({})
+    expect(userService.user()).toEqual(null)
   })
 
   describe('isLoggedIn', () => {
     it('return true', () => {
-      localStorage.setItem('user', JSON.stringify({username: 'username'}))
+      localStorage.setItem('user', JSON.stringify({token: 'username'}))
       expect(userService.isLoggedIn()).toBeTruthy()
     });
 
     it('return false', () => {
-      localStorage.setItem('user', JSON.stringify({}))
+      localStorage.setItem('user', null)
       expect(userService.isLoggedIn()).toBeFalsy()
     });
   })
