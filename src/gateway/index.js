@@ -2,7 +2,7 @@ import axios from 'axios';
 import userService from '@/services/UserService'
 
 export function addAuthenticationToken (data, headers) {
-  if (userService.isLoggedIn()) headers['X-UserId'] = userService.user().token + "dd";
+  if (userService.isLoggedIn()) headers['X-UserId'] = userService.user().token;
   return data;
 }
 
