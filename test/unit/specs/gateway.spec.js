@@ -5,12 +5,11 @@ describe('gateway', () => {
 
   it('adds authentication token', () => {
     let headers = {}
-    let data = 'data'
-    spyOn(userService, 'user').and.returnValue({username: 'john'})
+    spyOn(userService, 'user').and.returnValue({token: 'token'})
 
-    let result = addAuthenticationToken(data, headers)
+    let result = addAuthenticationToken('passthrough', headers)
 
-    expect(result).toBe(data)
-    expect(headers['X-UserId']).toBe('john')
+    expect(headers['X-UserId']).toBe('token')
+    expect(result).toBe('passthrough')
   })
 })

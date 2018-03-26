@@ -8,10 +8,10 @@ describe('UserService.spec', () => {
 
     it('should resolve promise for valid credentials', (done) => {
       spyOn(eventbus, '$emit')
-      spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user'}}))
+      spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user', token: 'token'}}))
 
       userService.login('user', 'secret').then(() => {
-        let user = {username: 'user'}
+        let user = {username: 'user', token: 'token'}
         expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
         expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
         expect(gateway.post).toHaveBeenCalledWith('/login', {username: 'user', password: 'secret'})

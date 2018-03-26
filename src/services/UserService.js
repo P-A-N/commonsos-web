@@ -7,9 +7,8 @@ export default {
   login(username, password) {
     return gateway.post('/login', {username: username, password})
       .then(r => {
-        let user = {username: r.data.username}
-        localStorage.setItem('user', JSON.stringify(user))
-        eventbus.$emit('login', user)
+        localStorage.setItem('user', JSON.stringify(r.data))
+        eventbus.$emit('login', r.data)
         router.push('/')
       })
   },
