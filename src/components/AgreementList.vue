@@ -9,16 +9,18 @@
           <th>Description</th>
           <th>Location</th>
           <th>Reward</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="agreement in agreements" @click="showDetails(agreement)">
+        <tr v-for="agreement in agreements" @click="showDetails(agreement)" class="">
           <td>{{agreement.createdAt | moment('from') }}</td>
           <td>{{agreement.providerId}}</td>
           <td>{{agreement.title}}</td>
           <td>{{agreement.description}}</td>
           <td>{{agreement.location}}</td>
           <td>{{agreement.points}}</td>
+          <td><a href="#" @click="showDetails(agreement)">Show details</a></td>
         </tr>
       </tbody>
     </table>
@@ -47,4 +49,7 @@
 </script>
 
 <style scoped>
+  tbody tr {
+    cursor: pointer;
+  }
 </style>
