@@ -16,6 +16,7 @@
 
 <script>
   import gateway from '@/gateway'
+  import eventbus from '@/eventbus'
 
   export default {
     data() {
@@ -28,7 +29,10 @@
     methods: {
       claimReward() {
         gateway.post('/claim-reward', {code: this.code})
-          .then(r => this.transaction = r.data)
+          .then(r => {
+            this.transaction = r.data
+            eventbus.$emit('reload-balance')
+          })
           .catch(error => {
             this.transaction = null
             this.error = 'Failed to claim reward. Please verify that you are using correct code and you are eligible to claim it!'

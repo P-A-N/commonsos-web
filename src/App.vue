@@ -42,6 +42,7 @@
 
 <script>
   import eventbus from '@/eventbus'
+  import gateway from '@/gateway'
   import userService from '@/services/UserService'
 
   export default {
@@ -54,11 +55,14 @@
     created() {
       eventbus.$on('login', (user) => this.user = user)
       eventbus.$on('logout', () => this.user = {})
+      eventbus.$on('reload-balance', () => {
+        gateway.get('balance').then(r => this.user.balance = r.data)
+      })
     },
     methods: {
       isLoggedIn: () => userService.isLoggedIn(),
       logout: () => userService.logout()
-    },
+    }
   }
 </script>
 
