@@ -17,7 +17,10 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-item v-if="!isLoggedIn()" href="#/login">Login</b-nav-item>
-          <b-nav-item v-if="isLoggedIn()" href="#" @click.prevent="logout()">{{user.username}} - logout</b-nav-item>
+          <b-nav-item v-if="isLoggedIn()" href="#" @click.prevent="logout()">
+            {{user.username}}  - logout
+            <b-badge variant="secondary">{{user.balance}} points</b-badge>
+          </b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
