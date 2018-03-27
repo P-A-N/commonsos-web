@@ -17,10 +17,18 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-item v-if="!isLoggedIn()" href="#/login">Login</b-nav-item>
-          <b-nav-item v-if="isLoggedIn()" href="#" @click.prevent="logout()">
-            {{user.username}}  - logout
-            <b-badge variant="secondary">{{user.balance}} points</b-badge>
-          </b-nav-item>
+          <template v-else>
+            <b-nav-text class="mt-2 mr-2">
+              <b-badge variant="secondary">{{user.balance}} points</b-badge>
+            </b-nav-text>
+            <b-nav-text class="mt-2">
+              <span class="text-white">{{user.username}}</span>
+            </b-nav-text>
+            <b-nav-item @click.prevent="logout()" class="mt-1">
+              <icon name="sign-out" scale="1.8"></icon>
+            </b-nav-item>
+          </template>
+
         </b-navbar-nav>
 
       </b-collapse>
