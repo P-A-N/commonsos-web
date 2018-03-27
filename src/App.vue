@@ -11,6 +11,7 @@
           <b-nav-item href="#/ads">Advertisements</b-nav-item>
           <b-nav-item href="#/agreements">Accepted services</b-nav-item>
           <b-nav-item href="#/claim-reward">Claim reward</b-nav-item>
+          <b-nav-item href="#/transactions">Transaction history</b-nav-item>
           <b-nav-item href="#" disabled>Chat</b-nav-item>
         </b-navbar-nav>
 

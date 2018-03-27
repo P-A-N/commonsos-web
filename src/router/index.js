@@ -6,6 +6,7 @@ import AgreementList from '@/components/AgreementList'
 import AdCreate from '@/components/AdCreate'
 import AgreementDetails from '@/components/AgreementDetails'
 import ClaimReward from '@/components/ClaimReward'
+import TransactionList from '@/components/TransactionList'
 import userService from '@/services/UserService'
 
 Vue.use(Router)
@@ -19,6 +20,7 @@ let router = new Router({
     {path: '/agreements', component: AgreementList},
     {path: '/agreements/:id', component: AgreementDetails, props: true},
     {path: '/claim-reward', component: ClaimReward},
+    {path: '/transactions', component: TransactionList},
   ]
 })
 
