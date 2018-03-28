@@ -49,13 +49,9 @@
       }
     },
     methods: {
-      showError(message) {
-        this.error = message
-        setTimeout(()=>this.error = null, 3000)
-      },
       login(event) {
-        event.preventDefault();
-        userService.login(this.username, this.password).catch(e => this.showError('Invalid username or password'))
+        event.preventDefault()
+        userService.login(this.username, this.password).catch(e => this.error = 'Invalid username or password')
       },
       setUser(username, password) {
         this.username = username
