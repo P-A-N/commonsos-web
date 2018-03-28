@@ -1,3 +1,7 @@
 .toast-top-right {
   top: 90px;
 }
+
+.toast-container > div {
+  opacity: 1
+}
