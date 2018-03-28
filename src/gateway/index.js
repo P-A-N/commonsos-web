@@ -6,9 +6,12 @@ let axiosInstance = axios.create({
   baseURL: '/api',
 })
 
-export let errorHandler = error => {
+export let handleError = error => {
   if (401 === error.response.status) {
     router.push('/login')
+  }
+  else if (468 === error.response.status) {
+    return Promise.reject(error)
   }
   else {
     notifications.e('Service not available')
@@ -16,6 +19,6 @@ export let errorHandler = error => {
   }
 }
 
-axiosInstance.interceptors.response.use(response => response, errorHandler);
+axiosInstance.interceptors.response.use(response => response, handleError);
 
 export default axiosInstance

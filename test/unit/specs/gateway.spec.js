@@ -1,18 +1,33 @@
 import router from '@/router'
-import {errorHandler} from '@/gateway'
+import {handleError} from '@/gateway'
 import notifications from '@/services/notifications'
 
 describe('gateway', () => {
 
   it('shows notification in case of error', () => {
     spyOn(notifications, 'e')
-    errorHandler({response: {status: 500}})
+    let error = {response: {status: 500}}
 
+    let result = handleError(error)
+
+    expect(result).toEqual(Promise.reject(error))
     expect(notifications.e).toHaveBeenCalledWith('Service not available')
   })
 
+  it('does not show notification in case of displayable error', () => {
+    spyOn(notifications, 'e')
+    let error = {response: {status: 468}}
+
+    let result = handleError(error)
+
+    expect(result).toEqual(Promise.reject(error))
+    expect(notifications.e).not.toHaveBeenCalled()
+  })
+
   it('redirects to login in case user is not authenticated', () => {
-    errorHandler({response: {status: 401}})
+    let error = {response: {status: 401}}
+
+    handleError(error)
 
     expect(router.currentRoute.path).toEqual('/login')
   })
