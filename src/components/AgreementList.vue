@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-hover table-striped">
+    <table v-if="agreements.length" class="table table-hover table-striped">
       <thead>
         <tr>
           <th>Accepted at</th>
@@ -24,6 +24,7 @@
         </tr>
       </tbody>
     </table>
+    <div v-else class="alert alert-info">No advertisements have been accepted yet</div>
   </div>
 </template>
 
