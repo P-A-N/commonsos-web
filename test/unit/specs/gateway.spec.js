@@ -16,11 +16,11 @@ describe('gateway', () => {
 
   it('does not show notification in case of displayable error', () => {
     spyOn(notifications, 'e')
-    let error = {response: {status: 468}}
+    let error = {response: {status: 468, data: {key: 'messageKey'}}}
 
     let result = handleError(error)
 
-    expect(result).toEqual(Promise.reject(error))
+    expect(result).toEqual(Promise.reject({key: 'messageKey'}))
     expect(notifications.e).not.toHaveBeenCalled()
   })
 

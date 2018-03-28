@@ -33,9 +33,9 @@
             this.transaction = r.data
             eventbus.$emit('reload-balance')
           })
-          .catch(error => {
+          .catch(message => {
             this.transaction = null
-            this.error = 'Failed to claim reward. Please verify that you are using correct code and you are eligible to claim it!'
+            this.error = message.key
           })
       }
     }

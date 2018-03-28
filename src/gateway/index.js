@@ -11,7 +11,7 @@ export let handleError = error => {
     router.push('/login')
   }
   else if (468 === error.response.status) {
-    return Promise.reject(error)
+    return Promise.reject(error.response.data)
   }
   else {
     notifications.e('Service not available')
