@@ -1,13 +1,12 @@
 <template>
   <form v-on:submit.prevent="claimReward()">
-    <div class="form-group">
-      <label for="code">Enter reward code</label>
-      <input type="text" class="form-control" autocomplete="off" id="code" v-model="code">
-    </div>
-
     <div class="alert alert-danger" v-if="error">{{error}}</div>
     <div class="alert alert-success" v-if="transaction">
       You have successfully claimed your reward of {{transaction.amount}} points!
+    </div>
+    <div class="form-group">
+      <label for="code">Enter reward code</label>
+      <input type="text" class="form-control" autocomplete="off" id="code" v-model="code">
     </div>
 
     <button type="submit" class="btn btn-primary">Claim reward</button>
