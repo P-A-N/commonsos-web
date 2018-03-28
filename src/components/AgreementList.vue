@@ -29,8 +29,8 @@
 </template>
 
 <script>
-  import gateway from '../gateway'
-  import router from '../router'
+  import gateway from '@/gateway'
+  import router from '@/router'
 
   export default {
     created() {

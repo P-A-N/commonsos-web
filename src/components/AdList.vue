@@ -28,8 +28,8 @@
 
 <script>
 
-  import router from '../router'
-  import gateway from '../gateway'
+  import router from '@/router'
+  import gateway from '@/gateway'
   import userService from '@/services/UserService'
   import notifications from '@/services/notifications'
 

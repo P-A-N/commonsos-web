@@ -35,8 +35,8 @@
 </template>
 
 <script>
-  import router from '../router'
-  import gateway from '../gateway'
+  import router from '@/router'
+  import gateway from '@/gateway'
 
   export default {
     name: 'AdCreate',

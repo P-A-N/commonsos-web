@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import gateway from '../gateway'
+  import gateway from '@/gateway'
 
   export default {
     data() {
