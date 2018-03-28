@@ -6,65 +6,58 @@ describe('UserService.spec', () => {
 
   describe('login', () => {
 
-    it('should resolve promise for valid credentials', (done) => {
+    it('succeeds', (done) => {
       spyOn(eventbus, '$emit')
       spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user'}}))
 
       userService.login('user', 'secret').then(() => {
-        let user = {username: 'user'}
-        expect(localStorage.getItem('user')).toBe(JSON.stringify(user))
-        expect(eventbus.$emit).toHaveBeenCalledWith('login', user)
+        expect(eventbus.$emit).toHaveBeenCalledWith('userChanged', {username: 'user'})
         expect(gateway.post).toHaveBeenCalledWith('/login', {username: 'user', password: 'secret'})
         done()
       })
     })
 
-    it('should reject promise for invalid credentials', (done) => {
+    it('fails', (done) => {
       spyOn(gateway, 'post').and.returnValue(Promise.reject({}))
 
-      userService.login('wrong', 'password').catch(e => {
-        done()
-      })
+      userService.login('wrong', 'password').catch(() => done())
     })
   });
 
   it('logs out user', (done) => {
-    localStorage.setItem('user', JSON.stringify({username: 'username'}))
+    userService._user = {username: 'username'}
+
     spyOn(eventbus, '$emit')
     spyOn(gateway, 'post').and.returnValue(Promise.resolve())
 
     userService.logout().then(() => {
-      expect(userService.user()).toBe(null)
-      expect(eventbus.$emit).toHaveBeenCalledWith('logout')
+      expect(userService._user).toBe(null)
+      expect(eventbus.$emit).toHaveBeenCalledWith('userChanged', null)
       expect(gateway.post).toHaveBeenCalledWith('/logout')
       done()
     })
   });
 
-  it('provides logged in user from localStorage', () => {
-    localStorage.setItem('user', '{"foo": "bar"}')
+  it('provides logged in user', () => {
+    userService._user = {username: "foo"}
 
-    expect(userService.user()).toEqual({foo: "bar"})
-  })
-
-  it('provides empty user if storage format is not correct', () => {
-    localStorage.setItem('user', 'username')
-
-    expect(userService.user()).toEqual(null)
+    expect(userService.user()).toEqual({username: "foo"})
   })
 
   it('provides empty user if not logged in', () => {
+    userService._user = null
+
     expect(userService.user()).toEqual(null)
   })
 
   describe('isLoggedIn', () => {
-    it('return true', () => {
-      localStorage.setItem('user', JSON.stringify({}))
+    it('true', () => {
+      userService._user = {username: "foo"}
       expect(userService.isLoggedIn()).toBeTruthy()
     });
 
-    it('return false', () => {
-      localStorage.setItem('user', null)
+    it('false', () => {
+      userService._user = null
       expect(userService.isLoggedIn()).toBeFalsy()
     });
   })

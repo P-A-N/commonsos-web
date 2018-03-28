@@ -9,13 +9,14 @@ let axiosInstance = axios.create({
 export let handleError = error => {
   if (401 === error.response.status) {
     router.push('/login')
+    return Promise.reject(error)
   }
   else if (468 === error.response.status) {
     return Promise.reject(error.response.data)
   }
   else {
     notifications.e('Service not available')
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
 }
 

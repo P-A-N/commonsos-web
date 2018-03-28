@@ -7,7 +7,7 @@
 
       <b-collapse is-nav id="nav_collapse">
 
-        <b-navbar-nav v-if="isLoggedIn()">
+        <b-navbar-nav v-if="user">
           <b-nav-item href="#/ads">Advertisements</b-nav-item>
           <b-nav-item href="#/agreements">Accepted services</b-nav-item>
           <b-nav-item href="#/claim-reward">Claim reward</b-nav-item>
@@ -16,7 +16,7 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="!isLoggedIn()" href="#/login">Login</b-nav-item>
+          <b-nav-item v-if="!user" href="#/login">Login</b-nav-item>
           <template v-else>
             <b-nav-text class="mt-2 mr-2">
               <b-badge variant="secondary">{{user.balance}} points</b-badge>
@@ -42,22 +42,18 @@
 
 <script>
   import eventbus from '@/eventbus'
-  import gateway from '@/gateway'
   import userService from '@/services/UserService'
 
   export default {
     name: 'App',
     data() {
       return {
-        user: userService.user()
+        user: null
       }
     },
     created() {
-      eventbus.$on('login', (user) => this.user = user)
-      eventbus.$on('logout', () => this.user = {})
-      eventbus.$on('reload-balance', () => {
-        gateway.get('balance').then(r => this.user.balance = r.data)
-      })
+      eventbus.$on('userChanged', (user) => this.user = user)
+      userService.loadUser()
     },
     methods: {
       isLoggedIn: () => userService.isLoggedIn(),

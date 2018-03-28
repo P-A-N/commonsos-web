@@ -7,7 +7,6 @@ import AdCreate from '@/components/AdCreate'
 import AgreementDetails from '@/components/AgreementDetails'
 import ClaimReward from '@/components/ClaimReward'
 import TransactionList from '@/components/TransactionList'
-import userService from '@/services/UserService'
 
 Vue.use(Router)
 
@@ -22,12 +21,6 @@ let router = new Router({
     {path: '/claim-reward', component: ClaimReward},
     {path: '/transactions', component: TransactionList},
   ]
-})
-
-router.beforeEach((to, from, next) => {
-  if (userService.isLoggedIn()) return next()
-  if (to.path === '/login') return next()
-  next('/login')
 })
 
 export default router

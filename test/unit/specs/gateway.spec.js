@@ -27,8 +27,9 @@ describe('gateway', () => {
   it('redirects to login in case user is not authenticated', () => {
     let error = {response: {status: 401}}
 
-    handleError(error)
+    let result = handleError(error)
 
     expect(router.currentRoute.path).toEqual('/login')
+    expect(result).toEqual(Promise.reject(error))
   })
 })

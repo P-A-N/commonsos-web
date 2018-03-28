@@ -15,7 +15,7 @@
 
 <script>
   import gateway from '@/gateway'
-  import eventbus from '@/eventbus'
+  import userService from '@/services/UserService'
 
   export default {
     data() {
@@ -30,7 +30,7 @@
         gateway.post('/claim-reward', {code: this.code})
           .then(r => {
             this.transaction = r.data
-            eventbus.$emit('reload-balance')
+            userService.loadUser()
           })
           .catch(message => {
             this.transaction = null
