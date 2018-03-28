@@ -31,6 +31,7 @@
   import router from '../router'
   import gateway from '../gateway'
   import userService from '@/services/UserService'
+  import notifications from '@/services/notifications'
 
   export default {
     name: 'AdList',
@@ -50,7 +51,10 @@
         if (confirm('Are you sure you would like to accept this service?'))
           gateway
             .post(`/ads/${ad.id}/accept`)
-            .then(r => router.push('agreements')).catch(e => console.log(e))
+            .then(r => {
+              notifications.i('Advertisement successfully accepted')
+              router.push('agreements')
+            }).catch(e => console.log(e))
       },
       canBeAccepted(ad) {
         return ad.createdBy !== userService.user().username

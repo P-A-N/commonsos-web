@@ -3,6 +3,7 @@ import {mount} from '@vue/test-utils'
 import router from '@/router'
 import gateway from '@/gateway'
 import userService from '@/services/UserService'
+import notifications from '@/services/notifications'
 
 describe('AdList.vue', () => {
 
@@ -80,6 +81,7 @@ describe('AdList.vue', () => {
     })
 
     it('accepts ad', (done) => {
+      spyOn(notifications, 'i')
       spyOn(window, 'confirm').and.returnValue(true)
       gateway.post.and.returnValue(Promise.resolve({data: {id: 'ad1', acceptedBy: 'user2'}}))
 
@@ -91,6 +93,7 @@ describe('AdList.vue', () => {
         setTimeout(() => {
           expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
           expect(router.push).toHaveBeenCalledWith('agreements')
+          expect(notifications.i).toHaveBeenCalledWith('Advertisement successfully accepted')
           done()
         }, 0)
       }, 0)
