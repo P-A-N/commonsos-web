@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table v-if="agreements.length" class="table table-hover table-striped">
+    <table v-if="agreements.length" class="table table-stackable table-hover table-striped">
       <thead>
         <tr>
           <th>Accepted at</th>
@@ -14,13 +14,13 @@
       </thead>
       <tbody>
         <tr v-for="agreement in agreements" @click="showDetails(agreement)" class="">
-          <td>{{agreement.createdAt | moment('from') }}</td>
-          <td>{{agreement.providerId}}</td>
-          <td>{{agreement.title}}</td>
-          <td>{{agreement.description}}</td>
-          <td>{{agreement.location}}</td>
-          <td>{{agreement.points}}</td>
-          <td><a href="#" @click="showDetails(agreement)">Show details</a></td>
+          <td data-title="Accepted at">{{agreement.createdAt | moment('from') }}</td>
+          <td data-title="Provided by">{{agreement.providerId}}</td>
+          <td data-title="Title">{{agreement.title}}</td>
+          <td data-title="Description">{{agreement.description}}</td>
+          <td data-title="Location">{{agreement.location}}</td>
+          <td data-title="Reward">{{agreement.points}}</td>
+          <td class="actions"><a href="#" @click="showDetails(agreement)">Show details</a></td>
         </tr>
       </tbody>
     </table>
