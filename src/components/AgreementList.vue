@@ -20,7 +20,7 @@
           <td data-title="Description">{{agreement.description}}</td>
           <td data-title="Location">{{agreement.location}}</td>
           <td data-title="Reward">{{agreement.points}}</td>
-          <td class="actions"><a href="#" @click="showDetails(agreement)">Show details</a></td>
+          <td class="actions"><a href="#" @click.prevent="showDetails(agreement)">Show details</a></td>
         </tr>
       </tbody>
     </table>
