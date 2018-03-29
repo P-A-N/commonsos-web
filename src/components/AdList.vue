@@ -18,7 +18,7 @@
           <td>{{ad.description}}</td>
           <td>{{ad.points}}</td>
           <td>{{ad.location}}</td>
-          <td><button v-if="canBeAccepted(ad)" class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
+          <td><button v-if="ad.acceptable" class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
         </tr>
       </tbody>
     </table>
@@ -30,7 +30,6 @@
 
   import router from '@/router'
   import gateway from '@/gateway'
-  import userService from '@/services/UserService'
   import notifications from '@/services/notifications'
 
   export default {
@@ -55,9 +54,6 @@
               notifications.i('Advertisement successfully accepted')
               router.push('agreements')
             }).catch(e => console.log(e))
-      },
-      canBeAccepted(ad) {
-        return ad.createdBy !== userService.user().username
       }
     }
   }

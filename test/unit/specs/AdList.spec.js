@@ -2,7 +2,6 @@ import AdList from '@/components/AdList'
 import {mount} from '@vue/test-utils'
 import router from '@/router'
 import gateway from '@/gateway'
-import userService from '@/services/UserService'
 import notifications from '@/services/notifications'
 
 describe('AdList.vue', () => {
@@ -11,14 +10,13 @@ describe('AdList.vue', () => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
     spyOn(router, 'push')
-    spyOn(userService, 'user').and.returnValue({username: 'user2'})
   })
 
   it('should display ads list', (done) => {
     gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {createdBy: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1'},
-        {createdBy: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2'}
+        {createdBy: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1', acceptable: true},
+        {createdBy: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2', acceptable: false}
       ]
     }))
 
@@ -49,8 +47,8 @@ describe('AdList.vue', () => {
       gateway.post.and.returnValue(Promise.resolve({}))
       gateway.get.and.returnValue(Promise.resolve({
           data: [
-            {id: 'ad1', title: 'title1', createdBy: 'user1'},
-            {id: 'ad2', title: 'title2', createdBy: 'user2'}
+            {id: 'ad1', title: 'title1', createdBy: 'user1', acceptable: true},
+            {id: 'ad2', title: 'title2', createdBy: 'user2', acceptable: false}
           ]
       }))
     });

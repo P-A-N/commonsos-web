@@ -38,18 +38,6 @@ describe('UserService.spec', () => {
     })
   });
 
-  it('provides logged in user', () => {
-    userService._user = {username: "foo"}
-
-    expect(userService.user()).toEqual({username: "foo"})
-  })
-
-  it('provides empty user if not logged in', () => {
-    userService._user = null
-
-    expect(userService.user()).toEqual(null)
-  })
-
   describe('isLoggedIn', () => {
     it('true', () => {
       userService._user = {username: "foo"}
