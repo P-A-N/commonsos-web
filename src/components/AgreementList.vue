@@ -38,7 +38,7 @@
     },
     methods: {
       showDetails(agreement) {
-        router.push('agreements/'+agreement.id)
+        router.push('/agreements/'+agreement.id)
       }
     },
     data() {

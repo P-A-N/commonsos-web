@@ -36,7 +36,7 @@ describe('AdList.vue', () => {
     wrapper.find('button#create-ad').trigger('click')
 
     setTimeout(() => {
-      expect(router.push).toHaveBeenCalledWith('ads/create')
+      expect(router.push).toHaveBeenCalledWith('/ads/create')
       done()
     }, 0)
   })
@@ -90,7 +90,7 @@ describe('AdList.vue', () => {
 
         setTimeout(() => {
           expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
-          expect(router.push).toHaveBeenCalledWith('agreements')
+          expect(router.push).toHaveBeenCalledWith('/agreements')
           expect(notifications.i).toHaveBeenCalledWith('Advertisement successfully accepted')
           done()
         }, 0)

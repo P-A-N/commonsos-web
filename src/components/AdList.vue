@@ -44,7 +44,7 @@
     },
     methods: {
       createAd() {
-        router.push('ads/create')
+        router.push('/ads/create')
       },
       acceptAd(ad) {
         if (confirm('Are you sure you would like to accept this service?'))
@@ -52,7 +52,7 @@
             .post(`/ads/${ad.id}/accept`)
             .then(r => {
               notifications.i('Advertisement successfully accepted')
-              router.push('agreements')
+              router.push('/agreements')
             }).catch(e => console.log(e))
       }
     }
