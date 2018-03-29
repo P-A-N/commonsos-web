@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import 'vue-toastr/src/vue-toastr.less'
+import 'vue-toastr/src/vue-toastr.scss'
 import './notifications.css'
 import Toastr from 'vue-toastr'
 

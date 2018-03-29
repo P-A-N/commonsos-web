@@ -10,6 +10,7 @@ import router from './router'
 import VueMoment from 'vue-moment'
 import Icon from 'vue-awesome/components/Icon'
 import 'vue-awesome/icons'
+import './main.scss'
 
 Vue.use(BootstrapVue)
 Vue.use(VeeValidate)
