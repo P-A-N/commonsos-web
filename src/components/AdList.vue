@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-hover table-striped">
+    <table class="table table-stackable table-hover table-striped">
       <thead>
         <tr>
           <th>Author</th>
@@ -13,11 +13,11 @@
       </thead>
       <tbody>
         <tr v-for="ad in ads">
-          <td>{{ad.createdBy}}</td>
-          <td>{{ad.title}}</td>
-          <td>{{ad.description}}</td>
-          <td>{{ad.points}}</td>
-          <td>{{ad.location}}</td>
+          <td data-title="Author">{{ad.createdBy}}</td>
+          <td data-title="Title">{{ad.title}}</td>
+          <td data-title="Description">{{ad.description}}</td>
+          <td data-title="Reward">{{ad.points}}</td>
+          <td data-title="Location">{{ad.location}}</td>
           <td><button v-if="ad.acceptable" class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
         </tr>
       </tbody>
