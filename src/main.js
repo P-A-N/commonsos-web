@@ -7,7 +7,6 @@ import router from './router'
 import VueMoment from 'vue-moment'
 
 import 'vuetify/dist/vuetify.css'
-
 import Vuetify from 'vuetify'
 
 Vue.use(Vuetify)

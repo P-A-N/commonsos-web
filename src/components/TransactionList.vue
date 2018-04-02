@@ -3,24 +3,17 @@
     <div v-if="user">
       Balance {{user.balance}}
     </div>
-    <table v-if="transactions.length" class="table table-hover table-striped">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>From</th>
-          <th>To</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="transaction in transactions">
-          <td>{{transaction.createdAt | moment('from') }}</td>
-          <td>{{transaction.remitterId}}</td>
-          <td>{{transaction.beneficiaryId}}</td>
-          <td>{{transaction.amount}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <v-list v-if="transactions.length" three-line>
+      <template v-for="(transaction, index) in transactions">
+        <v-list-tile :key="transaction.title">
+          <v-list-tile-content>
+            <v-list-tile-title>{{transaction.amount}} points</v-list-tile-title>
+            <v-list-tile-sub-title>{{transaction.createdAt | moment('from') }} from <b>{{transaction.remitterId}}</b> to <b>{{transaction.beneficiaryId}}</b></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider v-if="index + 1 < transactions.length" ></v-divider>
+      </template>
+    </v-list>
     <v-alert v-else type="info" value="true">No transactions</v-alert>
   </div>
 </template>
