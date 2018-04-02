@@ -7,11 +7,11 @@
       </v-content>
 
     <v-bottom-nav v-if="user" fixed :value="true" app>
-        <v-btn :to="'/transactions'">
+        <v-btn :to="'/wallet'">
           <span>Wallet</span>
           <v-icon >account_balance_wallet</v-icon>
         </v-btn>
-        <v-btn :to="'/ads'">
+        <v-btn :to="'/community'">
           <span>Community</span>
           <v-icon>people</v-icon>
         </v-btn>

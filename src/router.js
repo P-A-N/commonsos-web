@@ -7,12 +7,15 @@ import AdCreate from '@/components/AdCreate'
 import AgreementDetails from '@/components/AgreementDetails'
 import ClaimReward from '@/components/ClaimReward'
 import TransactionList from '@/components/TransactionList'
+import Community from '@/components/Community'
 
 Vue.use(Router)
 
 let router = new Router({
   routes: [
     {path: '/', redirect: '/transactions'},
+    {path: '/wallet', component: TransactionList},
+    {path: '/community', component: Community},
     {path: '/login', component: Login},
     {path: '/ads', component: AdList},
     {path: '/ads/create', component: AdCreate},
