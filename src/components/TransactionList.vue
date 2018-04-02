@@ -1,5 +1,15 @@
 <template>
   <div>
+
+    <v-toolbar fixed app>
+      <v-toolbar-title>Wallet</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn :to="'/claim-reward'" icon>
+        <v-icon>photo_camera</v-icon>
+      </v-btn>
+    </v-toolbar>
+
     <div v-if="user">
       Balance {{user.balance}}
     </div>

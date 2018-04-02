@@ -6,7 +6,7 @@
         </v-container>
       </v-content>
 
-    <v-bottom-nav v-if="user" fixed :value="true">
+    <v-bottom-nav v-if="user" fixed :value="true" app>
         <v-btn :to="'/transactions'">
           <span>Wallet</span>
           <v-icon >account_balance_wallet</v-icon>
