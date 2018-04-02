@@ -1,28 +1,36 @@
 <template>
   <div>
-    <table class="table table-stackable table-hover table-striped">
-      <thead>
-        <tr>
-          <th>Author</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Reward</th>
-          <th>Location</th>
-          <th width="10%"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="ad in ads">
-          <td data-title="Author">{{ad.createdBy}}</td>
-          <td data-title="Title">{{ad.title}}</td>
-          <td data-title="Description">{{ad.description}}</td>
-          <td data-title="Reward">{{ad.points}}</td>
-          <td data-title="Location">{{ad.location}}</td>
-          <td><button v-if="ad.acceptable" class="btn btn-sm btn-outline-primary accept-ad" @click="acceptAd(ad)">Accept</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <button v-on:click="createAd" class="btn btn-lg btn-primary" id="create-ad" href="" role="button">New advertisement</button>
+    <v-list three-line>
+      <template v-for="(ad, index) in ads">
+        <v-subheader v-if="ad.header" :key="ad.header">{{ ad.header }}</v-subheader>
+        <v-divider v-else-if="ad.divider" :inset="ad.inset" :key="index"></v-divider>
+
+        <v-list-tile avatar v-else :key="ad.title" @click="">
+          <v-list-tile-avatar>
+            <img :src="'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" :alt="ad.createdBy">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="ad.title"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="ad.description"></v-list-tile-sub-title>
+            <v-list-tile-sub-title v-html="ad.location"></v-list-tile-sub-title>
+            <v-list-tile-sub-title v-html="ad.points"></v-list-tile-sub-title>
+
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <v-btn @click="acceptAd(ad)" icon ripple >
+              <v-icon color="grey lighten-1">done</v-icon>
+
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+
+        <v-divider v-if="index + 1 < ads.length" ></v-divider>
+      </template>
+    </v-list>
+
+    <v-btn class="create-ad" @click="createAd()" fixed dark fab bottom right color="pink">
+      <v-icon>add</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -60,4 +68,7 @@
 </script>
 
 <style scoped>
+  .create-ad {
+    bottom: 70px;
+  }
 </style>

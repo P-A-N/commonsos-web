@@ -1,34 +1,33 @@
 <template>
-  <b-form @submit="login">
+  <form @submit="login">
     <div class="alert alert-danger" v-if="error">{{error}}</div>
-    <b-form-group label="Email address:" label-for="login">
-      <b-form-input
+    <label for="login">
+      Email address:
+      <input
         id="login"
         type="text"
         placeholder="Enter login"
         v-model="username"
-        required></b-form-input>
+        required>
 
       <small>Valid users:
         <span v-for="(password, username) in predefinedUsers">
          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
         </span>
       </small>
-    </b-form-group>
+    </label>
 
-    <b-form-group label="Password:" label-for="password">
-      <b-form-input
+    <label for="password">Password:
+      <input
         id="password"
         type="password"
         placeholder="Enter password"
         v-model="password"
         required>
-      </b-form-input>
-    </b-form-group>
+    </label>
 
-    <b-button type="submit" variant="primary">Login</b-button>
-
-  </b-form>
+    <button type="submit" variant="primary">Login</button>
+  </form>
 </template>
 
 <script>

@@ -12,7 +12,7 @@ Vue.use(Router)
 
 let router = new Router({
   routes: [
-    {path: '/', redirect: '/ads'},
+    {path: '/', redirect: '/transactions'},
     {path: '/login', component: Login},
     {path: '/ads', component: AdList},
     {path: '/ads/create', component: AdCreate},

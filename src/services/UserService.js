@@ -6,6 +6,10 @@ let instance = {
 
   _user: null,
 
+  user() {
+    return this._user
+  },
+
   login(username, password) {
     return gateway.post('/login', {username, password}).then(r => {
       this.setUser(r.data)
