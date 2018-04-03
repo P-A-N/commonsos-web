@@ -28,8 +28,7 @@
             label="Enter reward code"
             :error-messages="errors.collect('code')"
             v-validate="'required'"
-            data-vv-name="code"
-            required/>
+            data-vv-name="code"/>
         </v-card-text>
 
         <v-card-actions>
@@ -43,7 +42,6 @@
 
 <script>
   import gateway from '@/gateway'
-  import router from '@/router'
   import userService from '@/services/UserService'
 
   export default {
@@ -64,7 +62,7 @@
           .then(r => {
             this.transaction = r.data
             userService.loadUser()
-            router.push('/wallet')
+            this.$emit('close')
           })
           .catch(message => {
             this.transaction = null
@@ -73,6 +71,7 @@
       },
       closeDialog() {
         this.showDialog = false
+        this.$emit('close')
       }
     }
   }

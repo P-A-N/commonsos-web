@@ -5,7 +5,6 @@ import AdList from '@/components/AdList'
 import AgreementList from '@/components/AgreementList'
 import AdCreate from '@/components/AdCreate'
 import AgreementDetails from '@/components/AgreementDetails'
-import ClaimReward from '@/components/ClaimReward'
 import TransactionList from '@/components/TransactionList'
 import Community from '@/components/Community'
 
@@ -20,7 +19,6 @@ let router = new Router({
     {path: '/community/agreements', component: Community},
     {path: '/login', component: Login},
     {path: '/agreements/:id', component: AgreementDetails, props: true},
-    {path: '/claim-reward', component: ClaimReward},
     {path: '/transactions', component: TransactionList},
   ]
 })
