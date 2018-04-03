@@ -1,33 +1,37 @@
 <template>
-  <form @submit="login">
-    <div class="alert alert-danger" v-if="error">{{error}}</div>
-    <label for="login">
-      Email address:
-      <input
-        id="login"
-        type="text"
-        placeholder="Enter login"
-        v-model="username"
-        required>
+  <v-card>
 
+    <v-toolbar app dark color="primary">
+      <v-toolbar-title>Please log in</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+
+    <v-alert type="error" value="true" v-if="error">{{error}}</v-alert>
+
+    <v-card-text>
+      <v-form>
+        <v-text-field prepend-icon="person" v-model="username" label="Username" type="text"
+                      :error-messages="errors.collect('username')"
+                      v-validate="'required'"
+                      data-vv-name="username"/>
+        <v-text-field prepend-icon="lock" v-model="password" label="Password" type="password"
+                      :error-messages="errors.collect('password')"
+                      v-validate="'required'"
+                      data-vv-name="password"/>
+      </v-form>
       <small>Valid users:
         <span v-for="(password, username) in predefinedUsers">
-         <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
         </span>
       </small>
-    </label>
+    </v-card-text>
 
-    <label for="password">Password:
-      <input
-        id="password"
-        type="password"
-        placeholder="Enter password"
-        v-model="password"
-        required>
-    </label>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" @click.prevent="login()">Login</v-btn>
+    </v-card-actions>
 
-    <button type="submit" variant="primary">Login</button>
-  </form>
+  </v-card>
 </template>
 
 <script>
@@ -48,9 +52,11 @@
       }
     },
     methods: {
-      login(event) {
-        event.preventDefault()
-        userService.login(this.username, this.password).catch(e => this.error = 'Invalid username or password')
+      login() {
+        this.$validator.validateAll().then((valid) => {
+          if (!valid) return
+          userService.login(this.username, this.password).catch(e => this.error = 'Invalid username or password')
+        })
       },
       setUser(username, password) {
         this.username = username
