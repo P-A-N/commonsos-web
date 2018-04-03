@@ -15,9 +15,10 @@ let router = new Router({
   routes: [
     {path: '/', redirect: '/transactions'},
     {path: '/wallet', component: TransactionList},
-    {path: '/community', component: Community},
+    {path: '/community/ads', component: Community},
+    {path: '/community/ads/create', component: Community},
+    {path: '/community/agreements', component: Community},
     {path: '/login', component: Login},
-    {path: '/ads/create', component: AdCreate},
     {path: '/agreements/:id', component: AgreementDetails, props: true},
     {path: '/claim-reward', component: ClaimReward},
     {path: '/transactions', component: TransactionList},

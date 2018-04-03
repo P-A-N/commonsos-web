@@ -8,18 +8,18 @@
         <v-icon>photo_camera</v-icon>
       </v-btn>
       <v-tabs right fixed-tabs slot="extension" v-model="activeTab">
-        <v-tab :href="'#ads'">Advertisements</v-tab>
-        <v-tab :href="'#agreements'">My services</v-tab>
+        <v-tab :to="'/community/ads'">Advertisements</v-tab>
+        <v-tab :to="'/community/agreements'">My services</v-tab>
       </v-tabs>
     </v-toolbar>
 
     <v-tabs-items v-model="activeTab">
-      <v-tab-item :id="'ads'">
+      <v-tab-item id="/community/ads">
         <v-card flat>
           <AdList></AdList>
         </v-card>
       </v-tab-item>
-      <v-tab-item :id="'agreements'">
+      <v-tab-item id="/community/agreements">
         <v-card flat>
           <AgreementList></AgreementList>
         </v-card>
@@ -34,7 +34,7 @@
 
   export default {
     components: {
-      'AdList': AdList, 'AgreementList': AgreementList
+      AdList, AgreementList
     },
     data() {
       return {

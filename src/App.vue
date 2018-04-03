@@ -11,7 +11,7 @@
           <span>Wallet</span>
           <v-icon >account_balance_wallet</v-icon>
         </v-btn>
-        <v-btn :to="'/community'">
+        <v-btn :to="'/community/ads'">
           <span>Community</span>
           <v-icon>people</v-icon>
         </v-btn>
