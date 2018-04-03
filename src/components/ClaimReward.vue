@@ -1,15 +1,25 @@
 <template>
   <form v-on:submit.prevent="claimReward()">
-    <div class="alert alert-danger" v-if="error">{{error}}</div>
-    <div class="alert alert-success" v-if="transaction">
-      You have successfully claimed your reward of {{transaction.amount}} points!
-    </div>
-    <div class="form-group">
-      <label for="code">Enter reward code</label>
-      <input type="text" class="form-control" autocomplete="off" id="code" v-model="code">
-    </div>
 
-    <button type="submit" class="btn btn-primary">Claim reward</button>
+    <v-alert type="error" value="true" v-if="error">
+      {{error}}
+    </v-alert>
+
+    <v-alert type="success" value="true" v-if="transaction">
+      You have successfully claimed your reward of {{transaction.amount}} points!
+    </v-alert>
+
+    <v-text-field
+      v-model="code"
+      label="Enter reward code"
+      :error-messages="errors.collect('code')"
+      v-validate="'required'"
+      data-vv-name="code"
+      required
+    ></v-text-field>
+
+    <v-btn type="submit" class="btn btn-primary">Claim reward</v-btn>
+
   </form>
 </template>
 
