@@ -5,7 +5,7 @@
         <v-subheader v-if="ad.header" :key="ad.header">{{ ad.header }}</v-subheader>
         <v-divider v-else-if="ad.divider" :inset="ad.inset" :key="index"></v-divider>
 
-        <v-list-tile avatar v-else :key="ad.title" @click="">
+        <v-list-tile avatar v-else :key="index" @click="">
           <v-list-tile-avatar>
             <img :src="'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" :alt="ad.createdBy">
           </v-list-tile-avatar>
