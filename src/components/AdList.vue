@@ -73,7 +73,7 @@
             .post(`/ads/${ad.id}/accept`)
             .then(r => {
               notifications.i('Advertisement successfully accepted')
-              router.push('/agreements')
+              router.push('/community/agreements')
             }).catch(e => console.log(e))
       }
     }

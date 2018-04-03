@@ -16,12 +16,12 @@
     <v-tabs-items v-model="activeTab">
       <v-tab-item id="/community/ads">
         <v-card flat>
-          <AdList></AdList>
+          <AdList v-if="activeTab === '/community/ads'"></AdList>
         </v-card>
       </v-tab-item>
       <v-tab-item id="/community/agreements">
         <v-card flat>
-          <AgreementList></AgreementList>
+          <AgreementList v-if="activeTab === '/community/agreements'"></AgreementList>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -38,7 +38,7 @@
     },
     data() {
       return {
-        activeTab: 'ads',
+        activeTab: '/community/ads',
       }
     }
   }
