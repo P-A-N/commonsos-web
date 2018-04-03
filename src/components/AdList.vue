@@ -28,9 +28,12 @@
       </template>
     </v-list>
 
-    <v-btn class="create-ad" @click="createAd()" fixed dark fab bottom right color="pink">
+    <v-btn class="create-ad" @click.prevent="openCreateAd()" fixed dark fab bottom right color="pink">
       <v-icon>add</v-icon>
     </v-btn>
+
+    <AdCreate v-if="createAd" v-on:onClose="createAdDialogClosed()"></AdCreate>
+
   </div>
 </template>
 
@@ -38,21 +41,31 @@
 
   import router from '@/router'
   import gateway from '@/gateway'
+  import AdCreate from '@/components/AdCreate'
   import notifications from '@/services/notifications'
 
   export default {
     name: 'AdList',
+    components: {AdCreate},
     created() {
-      gateway.get('/ads').then(r => this.ads = r.data)
+      this.loadAds()
     },
     data() {
       return {
-        ads: []
+        ads: [],
+        createAd: false
       }
     },
     methods: {
-      createAd() {
-        router.push('/ads/create')
+      openCreateAd() {
+        this.createAd = true
+      },
+      createAdDialogClosed() {
+        this.createAd = false
+        this.loadAds()
+      },
+      loadAds() {
+        gateway.get('/ads').then(r => this.ads = r.data)
       },
       acceptAd(ad) {
         if (confirm('Are you sure you would like to accept this service?'))
