@@ -17,8 +17,8 @@
 
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn @click="acceptAd(ad)" icon ripple >
-              <v-icon color="grey lighten-1">done</v-icon>
+            <v-btn @click="acceptAd(ad)" icon color="blue" ripple >
+              <v-icon color="white lighten-1">done</v-icon>
 
             </v-btn>
           </v-list-tile-action>
