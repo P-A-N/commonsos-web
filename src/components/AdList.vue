@@ -51,7 +51,7 @@
       }
     },
     methods: {
-      createNewAd() {
+      createAd() {
         router.push('/ads/create')
       },
       acceptAd(ad) {
