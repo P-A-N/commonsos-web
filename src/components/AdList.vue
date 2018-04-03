@@ -28,7 +28,7 @@
       </template>
     </v-list>
 
-    <v-btn class="create-ad" @click.prevent="openCreateAd()" fixed dark fab bottom right color="pink">
+    <v-btn id="create-ad" @click.prevent="openCreateAd()" fixed dark fab bottom right color="pink">
       <v-icon>add</v-icon>
     </v-btn>
 
@@ -81,7 +81,7 @@
 </script>
 
 <style scoped>
-  .create-ad {
+  #create-ad {
     bottom: 70px;
   }
 </style>
