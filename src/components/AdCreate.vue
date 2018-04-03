@@ -14,7 +14,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
 
-      <form v-on:submit.prevent="createAd">
+      <form v-on:submit.prevent="createAd()">
         <v-card-text>
           <v-text-field v-model="ad.title" label="Title" type="text"
                         :error-messages="errors.collect('title')"
@@ -69,7 +69,6 @@
         this.showDialog = false
         this.$emit('onClose')
       }
-
     }
   }
 </script>
