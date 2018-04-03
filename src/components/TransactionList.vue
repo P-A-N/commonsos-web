@@ -1,14 +1,7 @@
 <template>
   <div>
 
-    <v-toolbar fixed app>
-      <v-toolbar-title>Wallet</v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-btn :to="'/claim-reward'" icon>
-        <v-icon>photo_camera</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <app-toolbar title="Wallet"></app-toolbar>
 
     <div v-if="user">
       Balance {{user.balance}}
@@ -31,9 +24,13 @@
 <script>
   import gateway from '@/gateway'
   import eventbus from '@/eventbus'
+  import AppToolbar from '@/components/AppToolbar'
   import userService from '@/services/UserService'
 
   export default {
+    components: {
+      AppToolbar
+    },
     data() {
       return {
         user: userService.user(),

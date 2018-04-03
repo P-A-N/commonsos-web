@@ -1,17 +1,11 @@
 <template>
   <div>
-    <v-toolbar fixed app>
-      <v-toolbar-title>Community</v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-btn :to="'/claim-reward'" icon>
-        <v-icon>photo_camera</v-icon>
-      </v-btn>
-      <v-tabs right fixed-tabs slot="extension" v-model="activeTab">
+    <app-toolbar title="Community">
+      <v-tabs slot="extension" right fixed-tabs v-model="activeTab">
         <v-tab :to="'/community/ads'">Advertisements</v-tab>
         <v-tab :to="'/community/agreements'">My services</v-tab>
       </v-tabs>
-    </v-toolbar>
+    </app-toolbar>
 
     <v-tabs-items v-model="activeTab">
       <v-tab-item id="/community/ads">
@@ -31,10 +25,11 @@
 <script>
   import AdList from '@/components/AdList'
   import AgreementList from '@/components/AgreementList'
+  import AppToolbar from '@/components/AppToolbar'
 
   export default {
     components: {
-      AdList, AgreementList
+      AdList, AgreementList, AppToolbar
     },
     data() {
       return {
