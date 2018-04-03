@@ -24,7 +24,7 @@
         </tr>
       </tbody>
     </table>
-    <div v-else class="alert alert-info">No advertisements have been accepted yet</div>
+    <v-alert v-else type="info" value="true">No advertisements have been accepted yet</v-alert>
   </div>
 </template>
 
