@@ -6,9 +6,7 @@
         <v-divider v-else-if="ad.divider" :inset="ad.inset" :key="index"></v-divider>
 
         <v-list-tile avatar v-else :key="index" class="ad">
-          <v-list-tile-avatar>
-            <img :src="'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" :alt="ad.createdBy">
-          </v-list-tile-avatar>
+          <v-list-tile-avatar><avatar :userId="ad.createdBy"/></v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="ad.title"></v-list-tile-title>
             <v-list-tile-sub-title v-html="ad.description"></v-list-tile-sub-title>
@@ -43,11 +41,12 @@
   import gateway from '@/gateway'
   import AdCreate from '@/components/AdCreate'
   import Modal from '@/components/Modal'
+  import Avatar from '@/components/Avatar'
   import notifications from '@/services/notifications'
 
   export default {
     name: 'AdList',
-    components: {AdCreate, Modal},
+    components: {AdCreate, Modal, Avatar},
     created() {
       this.loadAds()
     },

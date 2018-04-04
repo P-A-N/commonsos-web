@@ -5,9 +5,7 @@
         <v-layout align-center row slot="header">
 
           <v-flex xs3>
-            <v-avatar>
-              <img :src="'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'">
-            </v-avatar>
+            <avatar :userId="agreement.providerId"/>
           </v-flex>
 
           <v-flex>
@@ -39,8 +37,10 @@
 <script>
   import gateway from '@/gateway'
   import router from '@/router'
+  import Avatar from '@/components/Avatar'
 
   export default {
+    components: {Avatar},
     created() {
       gateway.get('agreements').then(r => this.agreements = r.data)
     },
