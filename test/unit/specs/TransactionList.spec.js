@@ -3,6 +3,7 @@ import {mount} from '@vue/test-utils'
 import gateway from '@/gateway'
 import Vue from 'vue'
 import VueMoment from 'vue-moment'
+import userService from '@/services/UserService'
 
 describe('TransactionList.vue', () => {
 
@@ -19,12 +20,21 @@ describe('TransactionList.vue', () => {
         {createdAt: '2018-02-24T11:22:33', remitterId: 'user2', beneficiaryId: 'user1', amount: 2.22}
       ]
     }))
+    spyOn(userService, 'user').and.returnValue({id: 'user1'})
 
     let wrapper = mount(TransactionList)
 
     setTimeout(() => {
-      expect(wrapper.text()).toContain('1.11 points 2 months ago from user1 to user2')
-      expect(wrapper.text()).toContain(('2.22 points 23 days ago from user2 to user1'))
+      let transactions = wrapper.findAll('.transaction')
+
+      expect(transactions.at(0).text()).toContain('2 months ago')
+      expect(transactions.at(0).text()).toContain('from user1 to user2')
+      expect(transactions.at(0).text()).toContain('-1.11')
+
+      expect(transactions.at(1).text()).toContain('23 days ago')
+      expect(transactions.at(1).text()).toContain('from user2 to user1')
+      expect(transactions.at(1).text()).toContain('+2.22')
+
       expect(gateway.get).toHaveBeenCalledWith('transactions')
       done()
     }, 0)
