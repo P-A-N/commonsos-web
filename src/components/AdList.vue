@@ -1,34 +1,37 @@
 <template>
   <div>
-    <v-list three-line>
-      <template v-for="(ad, index) in ads">
-        <v-subheader v-if="ad.header" :key="ad.header">{{ ad.header }}</v-subheader>
-        <v-divider v-else-if="ad.divider" :inset="ad.inset" :key="index"></v-divider>
-
-        <v-list-tile avatar v-else :key="index" class="ad">
-          <v-list-tile-avatar><avatar :userId="ad.createdBy"/></v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="ad.title"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="ad.description"></v-list-tile-sub-title>
-            <v-list-tile-sub-title v-html="ad.location"></v-list-tile-sub-title>
-            <v-list-tile-sub-title v-html="ad.points"></v-list-tile-sub-title>
-
-          </v-list-tile-content>
-          <v-list-tile-action>
+    <v-expansion-panel v-if="ads.length" popout>
+      <v-expansion-panel-content v-for="(ad, index) in ads" :key="index" hide-actions class="ad">
+        <v-layout align-center row slot="header">
+          <v-flex xs3>
+            <avatar :userId="ad.createdBy"/>
+          </v-flex>
+          <v-flex>
+            <div>{{ad.title}}</div>
+          </v-flex>
+          <v-flex xs2 class="body-2 red--text text-xs-right">
+            {{ad.points}}
+          </v-flex>
+        </v-layout>
+        <v-card>
+          <v-card-text>
+            {{ad.description}}
+            <v-chip>{{ad.location}}</v-chip>
+            </v-card-text>
+          <v-card-actions>
+            <v-spacer/>
             <v-btn v-if="ad.acceptable" class="accept-ad" @click="acceptAd(ad)" fab small dark color="blue">
               <v-icon color="white lighten-1">done</v-icon>
-
             </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-divider v-if="index + 1 < ads.length" ></v-divider>
-      </template>
-    </v-list>
+          </v-card-actions>
+        </v-card>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
 
     <v-btn id="create-ad" @click.prevent="openCreateAdDialog()" fixed dark fab bottom right color="pink">
       <v-icon>add</v-icon>
     </v-btn>
+
     <modal v-if="createAd" title="New advertisement" @close="closeCreateAdDialog">
       <AdCreate slot-scope="modal" :closeModal="modal.close"></AdCreate>
     </modal>

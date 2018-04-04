@@ -23,8 +23,15 @@ describe('AdList.vue', () => {
     let wrapper = mount(AdList)
 
     setTimeout(() => {
-      expect(wrapper.text()).toContain('title1 description1 location1 1.11')
-      expect(wrapper.text()).toContain('title2 description2 location2 2.22')
+      let ads = wrapper.findAll('.ad')
+      expect(ads.at(0).text()).toContain('title1')
+      expect(ads.at(0).text()).toContain('1.11')
+      expect(ads.at(0).text()).toContain('description1')
+      expect(ads.at(0).text()).toContain('location1')
+      expect(ads.at(1).text()).toContain('title2')
+      expect(ads.at(1).text()).toContain('2.22')
+      expect(ads.at(1).text()).toContain('description2')
+      expect(ads.at(1).text()).toContain('location2')
       done()
     }, 0)
   })
