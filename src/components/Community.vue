@@ -9,14 +9,10 @@
 
     <v-tabs-items v-model="activeTab">
       <v-tab-item id="/community/ads">
-        <v-card flat>
-          <AdList v-if="activeTab === '/community/ads'"></AdList>
-        </v-card>
+        <AdList v-if="activeTab === '/community/ads'"></AdList>
       </v-tab-item>
       <v-tab-item id="/community/agreements">
-        <v-card flat>
-          <AgreementList v-if="activeTab === '/community/agreements'"></AgreementList>
-        </v-card>
+        <AgreementList v-if="activeTab === '/community/agreements'"></AgreementList>
       </v-tab-item>
     </v-tabs-items>
   </div>
