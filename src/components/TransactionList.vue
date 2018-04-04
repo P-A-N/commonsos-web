@@ -64,7 +64,7 @@
         this.user = user
       },
       otherPartyUserId(transaction) {
-        return transaction.remitterId === this.user.id ? transaction.remitterId : transaction.beneficiaryId
+        return transaction.remitterId === this.user.id ? transaction.beneficiaryId : transaction.remitterId
       },
       isDebit(transaction) {
         return transaction.remitterId === this.user.id
