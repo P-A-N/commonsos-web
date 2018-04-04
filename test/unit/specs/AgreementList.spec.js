@@ -25,10 +25,20 @@ describe('AgreementList.vue', () => {
     let wrapper = mount(AgreementList)
 
     setTimeout(() => {
-      let adRows = wrapper.findAll('table tbody tr')
-      expect(adRows.at(0).text()).toContain('2 months ago user1 title1 description1 my home 1.11')
-      expect(adRows.at(1).text()).toContain('23 days ago user2 title2 description2 my home 2.22')
       expect(gateway.get).toHaveBeenCalledWith('agreements')
+
+      let agreements = wrapper.findAll('.agreement')
+
+      expect(agreements.at(0).text()).toContain('title1 2 months ago');
+      expect(agreements.at(0).text()).toContain('1.11');
+      expect(agreements.at(0).text()).toContain('description1');
+      expect(agreements.at(0).text()).toContain('my home');
+
+      expect(agreements.at(1).text()).toContain('title2 23 days ago');
+      expect(agreements.at(1).text()).toContain('2.22');
+      expect(agreements.at(1).text()).toContain('description2');
+      expect(agreements.at(1).text()).toContain('my home');
+
       done()
     }, 0)
   })

@@ -1,29 +1,41 @@
 <template>
   <div>
-    <table v-if="agreements.length" class="table table-stackable table-hover table-striped">
-      <thead>
-        <tr>
-          <th>Accepted at</th>
-          <th>Provided by</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Location</th>
-          <th>Reward</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="agreement in agreements" @click="showDetails(agreement)" class="">
-          <td data-title="Accepted at">{{agreement.createdAt | moment('from') }}</td>
-          <td data-title="Provided by">{{agreement.providerId}}</td>
-          <td data-title="Title">{{agreement.title}}</td>
-          <td data-title="Description">{{agreement.description}}</td>
-          <td data-title="Location">{{agreement.location}}</td>
-          <td data-title="Reward">{{agreement.points}}</td>
-          <td class="actions"><a href="#" @click.prevent="showDetails(agreement)">Show details</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <v-expansion-panel v-if="agreements.length" popout>
+      <v-expansion-panel-content v-for="(agreement, index) in agreements" :key="index" hide-actions class="agreement">
+        <v-layout align-center row slot="header">
+
+          <v-flex xs3>
+            <v-avatar>
+              <img :src="'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'">
+            </v-avatar>
+          </v-flex>
+
+          <v-flex>
+            <div>{{agreement.title}}</div>
+            <div class="caption">{{agreement.createdAt | moment('from') }}</div>
+          </v-flex>
+
+          <v-flex xs2 class="body-2">
+            {{agreement.points}}
+          </v-flex>
+        </v-layout>
+        <v-card>
+          <v-card-text>
+            {{agreement.description}}
+          </v-card-text>
+          <v-card-text >
+            {{agreement.location}}
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer/>
+            <v-btn @click.prevent="showDetails(agreement)">
+              Show reward QR
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
     <v-alert v-else type="info" value="true">No advertisements have been accepted yet</v-alert>
   </div>
 </template>
