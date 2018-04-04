@@ -1,14 +1,9 @@
-import Vue from 'vue'
 import {mount} from '@vue/test-utils'
-import VeeValidate from 'vee-validate'
+
 import AdCreate from '@/components/AdCreate'
 import gateway from '@/gateway'
-import router from '@/router'
 
 describe('AdCreate.vue', () => {
-  beforeEach(() => {
-    Vue.use(VeeValidate)
-  })
 
   it('should show validation errors', (done) => {
     const wrapper = mount(AdCreate)
@@ -16,7 +11,6 @@ describe('AdCreate.vue', () => {
     wrapper.find('button').trigger('click')
 
     setTimeout(function() {
-      expect(wrapper.findAll('.text-danger').length).toBe(4)
       expect(wrapper.text()).toContain('The title field is required.')
       expect(wrapper.text()).toContain('The description field is required.')
       expect(wrapper.text()).toContain('The reward field is required.')
@@ -25,21 +19,18 @@ describe('AdCreate.vue', () => {
     }, 0)
   })
 
-  it('should created submit ad to backend', (done) => {
+  it('should submit ad to backend', (done) => {
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
-    spyOn(router, 'push')
-    const wrapper = mount(AdCreate)
-    let title = 'title'
-    let description = 'description'
-    let location = 'location'
-    let ad = {title, description, points: 1.11, location}
+    let props = jasmine.createSpyObj('props', ['closeModal'])
+    const wrapper = mount(AdCreate, {propsData: props})
+    let ad = {title: 'title', description: 'description', points: 1.11, location: 'location'}
     wrapper.setData({ad: ad});
 
     wrapper.find('button').trigger('click')
 
     setTimeout(() => {
       expect(gateway.post).toHaveBeenCalledWith('/ads', ad)
-      expect(router.push).toHaveBeenCalledWith('/ads')
+      expect(props.closeModal).toHaveBeenCalled()
       done();
     }, 0);
   })

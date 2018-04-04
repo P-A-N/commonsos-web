@@ -1,4 +1,9 @@
 import Vue from 'vue'
+import VeeValidate from 'vee-validate'
+Vue.use(VeeValidate)
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
+//Vuetify.install(Vue)
 
 Vue.config.productionTip = false
 

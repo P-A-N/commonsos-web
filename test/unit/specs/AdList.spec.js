@@ -1,5 +1,5 @@
 import AdList from '@/components/AdList'
-import {mount} from '@vue/test-utils'
+import {mount, shallow} from '@vue/test-utils'
 import router from '@/router'
 import gateway from '@/gateway'
 import notifications from '@/services/notifications'
@@ -23,15 +23,14 @@ describe('AdList.vue', () => {
     let wrapper = mount(AdList)
 
     setTimeout(() => {
-      let adRows = wrapper.findAll('table tbody tr')
-      expect(adRows.at(0).text()).toContain('user1 title1 description1 1.11 location1')
-      expect(adRows.at(1).text()).toContain('user2 title2 description2 2.22 location2')
+      expect(wrapper.text()).toContain('title1 description1 location1 1.11')
+      expect(wrapper.text()).toContain('title2 description2 location2 2.22')
       done()
     }, 0)
   })
 
-  it('should open "create ad" form', (done) => {
-    let wrapper = mount(AdList)
+  xit('should open "create ad" form', (done) => {
+    let wrapper = shallow(AdList)
 
     wrapper.find('button#create-ad').trigger('click')
 
@@ -57,9 +56,10 @@ describe('AdList.vue', () => {
       let wrapper = mount(AdList)
 
       setTimeout(() => {
-        let adRows = wrapper.findAll('table tbody tr')
-        expect(adRows.at(0).contains('button.accept-ad')).toBeTruthy()
-        expect(adRows.at(1).contains('button.accept-ad')).toBeFalsy()
+        let ads = wrapper.findAll('.ad')
+
+        expect(ads.at(0).contains('button.accept-ad')).toBeTruthy()
+        expect(ads.at(1).contains('button.accept-ad')).toBeFalsy()
         done()
       }, 0)
     });
@@ -71,8 +71,8 @@ describe('AdList.vue', () => {
       setTimeout(() => {
         wrapper.findAll('button.accept-ad').at(0).trigger('click')
 
-        let adRows = wrapper.findAll('table tbody tr')
-        expect(adRows.length).toBe(2)
+        let ads = wrapper.findAll('.ad')
+        expect(ads.length).toBe(2)
         expect(gateway.post).not.toHaveBeenCalled()
         done()
       }, 0)
@@ -90,7 +90,7 @@ describe('AdList.vue', () => {
 
         setTimeout(() => {
           expect(gateway.post).toHaveBeenCalledWith('/ads/ad1/accept')
-          expect(router.push).toHaveBeenCalledWith('/agreements')
+          expect(router.push).toHaveBeenCalledWith('/community/agreements')
           expect(notifications.i).toHaveBeenCalledWith('Advertisement successfully accepted')
           done()
         }, 0)

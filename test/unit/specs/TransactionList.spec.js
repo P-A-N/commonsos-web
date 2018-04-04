@@ -23,9 +23,8 @@ describe('TransactionList.vue', () => {
     let wrapper = mount(TransactionList)
 
     setTimeout(() => {
-      let adRows = wrapper.findAll('table tbody tr')
-      expect(adRows.at(0).text()).toContain('2 months ago user1 user2 1.11')
-      expect(adRows.at(1).text()).toContain('23 days ago user2 user1 2.22')
+      expect(wrapper.text()).toContain('1.11 points 2 months ago from user1 to user2')
+      expect(wrapper.text()).toContain(('2.22 points 23 days ago from user2 to user1'))
       expect(gateway.get).toHaveBeenCalledWith('transactions')
       done()
     }, 0)

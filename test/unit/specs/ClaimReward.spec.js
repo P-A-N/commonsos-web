@@ -1,14 +1,16 @@
 import {mount} from '@vue/test-utils'
 import ClaimReward from '@/components/ClaimReward'
 import gateway from '@/gateway'
-import router from '@/router'
+import userService from '@/services/UserService'
 
 describe('ClaimReward.vue', () => {
 
   it('claims reward', (done) => {
-    const wrapper = mount(ClaimReward)
-    spyOn(router, 'push')
+    spyOn(userService, 'loadUser')
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {amount: 1299.01}}))
+
+    let props = jasmine.createSpyObj('props', ['closeModal'])
+    const wrapper = mount(ClaimReward, {propsData: props})
     wrapper.vm.code = '12345'
 
     wrapper.find('button').trigger('click')
@@ -16,11 +18,13 @@ describe('ClaimReward.vue', () => {
     setTimeout(function() {
       expect(gateway.post).toHaveBeenCalledWith('/claim-reward', {code: '12345'})
       expect(wrapper.text()).toContain('You have successfully claimed your reward of 1299.01 points!')
+      expect(props.closeModal).toHaveBeenCalled()
+      expect(userService.loadUser).toHaveBeenCalled()
       done()
     }, 0)
   })
 
-  it('failed claim should display error', (done) => {
+  it('claim fails with error', (done) => {
     const wrapper = mount(ClaimReward)
     spyOn(gateway, 'post').and.returnValue(Promise.reject({key: 'error key'}))
     wrapper.vm.code = 'wrongcode'
