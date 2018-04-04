@@ -5,7 +5,7 @@
         <v-subheader v-if="ad.header" :key="ad.header">{{ ad.header }}</v-subheader>
         <v-divider v-else-if="ad.divider" :inset="ad.inset" :key="index"></v-divider>
 
-        <v-list-tile avatar v-else :key="index" @click="">
+        <v-list-tile avatar v-else :key="index" class="ad">
           <v-list-tile-avatar>
             <img :src="'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460'" :alt="ad.createdBy">
           </v-list-tile-avatar>
@@ -17,7 +17,7 @@
 
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn v-if="ad.acceptable" @click="acceptAd(ad)" icon color="blue" ripple >
+            <v-btn v-if="ad.acceptable" class="accept-ad" @click="acceptAd(ad)" icon color="blue" ripple>
               <v-icon color="white lighten-1">done</v-icon>
 
             </v-btn>
@@ -28,12 +28,12 @@
       </template>
     </v-list>
 
-    <v-btn id="create-ad" @click.prevent="openCreateAd()" fixed dark fab bottom right color="pink">
+    <v-btn id="create-ad" @click.prevent="openCreateAdDialog()" fixed dark fab bottom right color="pink">
       <v-icon>add</v-icon>
     </v-btn>
-
-    <AdCreate v-if="createAd" v-on:onClose="createAdDialogClosed()"></AdCreate>
-
+    <modal v-if="createAd" title="New advertisement" @close="closeCreateAdDialog">
+      <AdCreate slot-scope="modal" :closeModal="modal.close"></AdCreate>
+    </modal>
   </div>
 </template>
 
@@ -42,11 +42,12 @@
   import router from '@/router'
   import gateway from '@/gateway'
   import AdCreate from '@/components/AdCreate'
+  import Modal from '@/components/Modal'
   import notifications from '@/services/notifications'
 
   export default {
     name: 'AdList',
-    components: {AdCreate},
+    components: {AdCreate, Modal},
     created() {
       this.loadAds()
     },
@@ -57,10 +58,10 @@
       }
     },
     methods: {
-      openCreateAd() {
+      openCreateAdDialog() {
         this.createAd = true
       },
-      createAdDialogClosed() {
+      closeCreateAdDialog() {
         this.createAd = false
         this.loadAds()
       },
