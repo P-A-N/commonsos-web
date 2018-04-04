@@ -17,7 +17,7 @@
 
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn v-if="ad.acceptable" class="accept-ad" @click="acceptAd(ad)" icon color="blue" ripple>
+            <v-btn v-if="ad.acceptable" class="accept-ad" @click="acceptAd(ad)" fab small dark color="blue">
               <v-icon color="white lighten-1">done</v-icon>
 
             </v-btn>
