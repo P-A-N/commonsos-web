@@ -61,11 +61,11 @@
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
           gateway.post('/ads', this.ad)
-            .then(() => this.closeDialog())
+            .then(() => this.close())
             .catch(error => console.log(error))
         })
       },
-      closeDialog() {
+      close() {
         this.showDialog = false
         this.$emit('onClose')
       }
