@@ -15,17 +15,13 @@
             <div class="caption">{{agreement.createdAt | moment('from') }}</div>
           </v-flex>
 
-          <v-flex xs2 class="body-2">
+          <v-flex xs2 class="body-2 red--text text-xs-right">
             {{agreement.points}}
           </v-flex>
         </v-layout>
         <v-card>
-          <v-card-text>
-            {{agreement.description}}
-          </v-card-text>
-          <v-card-text >
-            {{agreement.location}}
-          </v-card-text>
+          <v-card-text>{{agreement.location}}</v-card-text>
+          <v-card-text>{{agreement.description}}</v-card-text>
           <v-card-actions>
             <v-spacer/>
             <v-btn @click.prevent="showDetails(agreement)">
