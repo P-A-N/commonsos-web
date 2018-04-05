@@ -15,12 +15,11 @@
         </v-layout>
         <v-card>
           <v-card-text>
-            {{ad.description}}
+            <div>{{ad.description}}</div>
             <v-chip>{{ad.location}}</v-chip>
             </v-card-text>
           <v-card-actions>
-            <v-spacer/>
-            <v-btn v-if="ad.acceptable" class="accept-ad grey lighten-3" @click="acceptAd(ad)" small flat>
+            <v-btn v-if="ad.acceptable" class="accept-ad" color="blue" @click="acceptAd(ad)" flat>
               Accept
             </v-btn>
           </v-card-actions>

@@ -21,8 +21,7 @@
           <v-card-text>{{agreement.location}}</v-card-text>
           <v-card-text>{{agreement.description}}</v-card-text>
           <v-card-actions>
-            <v-spacer/>
-            <v-btn @click.prevent="showDetails(agreement)">
+            <v-btn @click.prevent="showDetails(agreement)" flat color="blue" class="accept-ad">
               Show reward QR
             </v-btn>
           </v-card-actions>
