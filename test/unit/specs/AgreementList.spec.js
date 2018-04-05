@@ -8,9 +8,9 @@ import VueMoment from 'vue-moment'
 describe('AgreementList.vue', () => {
 
   beforeEach(() => {
+    Vue.use(VueMoment)
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
     spyOn(router, 'push')
-    Vue.use(VueMoment)
     jasmine.clock().mockDate(new Date('2018-03-19T11:58:00'));
   })
 

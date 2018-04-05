@@ -21,7 +21,7 @@
           <v-card-text>{{agreement.location}}</v-card-text>
           <v-card-text>{{agreement.description}}</v-card-text>
           <v-card-actions>
-            <v-btn @click.prevent="showDetails(agreement)" flat color="blue" class="accept-ad">
+            <v-btn @click.prevent="showQR(agreement)" flat color="blue" class="accept-ad">
               Show reward QR
             </v-btn>
           </v-card-actions>
@@ -30,27 +30,34 @@
     </v-expansion-panel>
 
     <v-alert v-else type="info" value="true">No advertisements have been accepted yet</v-alert>
+
+    <modal v-if="agreementToShowQrFor" title="Reward QR" @close="agreementToShowQrFor = null">
+      <AgreementDetails :id="agreementToShowQrFor.id" slot-scope="modal" :closeModal="modal.close"></AgreementDetails>
+    </modal>
+
   </div>
 </template>
 
 <script>
   import gateway from '@/gateway'
-  import router from '@/router'
   import Avatar from '@/components/Avatar'
+  import Modal from '@/components/Modal'
+  import AgreementDetails from '@/components/AgreementDetails'
 
   export default {
-    components: {Avatar},
+    components: {Avatar, Modal, AgreementDetails},
     created() {
       gateway.get('agreements').then(r => this.agreements = r.data)
     },
     methods: {
-      showDetails(agreement) {
-        router.push('/agreements/'+agreement.id)
+      showQR(agreement) {
+        this.agreementToShowQrFor = agreement
       }
     },
     data() {
       return {
-        agreements: []
+        agreements: [],
+        agreementToShowQrFor: null
       }
     }
   }
