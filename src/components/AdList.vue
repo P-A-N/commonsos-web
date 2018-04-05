@@ -9,7 +9,7 @@
           <v-flex>
             <div>{{ad.title}}</div>
           </v-flex>
-          <v-flex xs2 class="body-2 red--text text-xs-right">
+          <v-flex xs2 class="body-2 text-xs-right">
             {{ad.points}}
           </v-flex>
         </v-layout>
@@ -20,8 +20,8 @@
             </v-card-text>
           <v-card-actions>
             <v-spacer/>
-            <v-btn v-if="ad.acceptable" class="accept-ad" @click="acceptAd(ad)" fab small dark color="blue">
-              <v-icon color="white lighten-1">done</v-icon>
+            <v-btn v-if="ad.acceptable" class="accept-ad grey lighten-3" @click="acceptAd(ad)" small flat>
+              Accept
             </v-btn>
           </v-card-actions>
         </v-card>
