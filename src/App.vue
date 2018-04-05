@@ -13,10 +13,6 @@
         <span>Community</span>
         <v-icon>people</v-icon>
       </v-btn>
-      <v-btn disabled>
-        <span>Message</span>
-        <v-icon>mail</v-icon>
-      </v-btn>
       <v-btn @click.prevent="logout()">
         <span>Logout</span>
         <v-icon>person</v-icon>
