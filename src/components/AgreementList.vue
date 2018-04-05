@@ -13,7 +13,7 @@
             <div class="caption">{{agreement.createdAt | moment('from') }}</div>
           </v-flex>
 
-          <v-flex xs2 class="body-2 red--text text-xs-right">
+          <v-flex xs2 class="body-2 text-xs-right">
             {{agreement.points}}
           </v-flex>
         </v-layout>
