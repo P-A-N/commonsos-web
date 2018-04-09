@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-toolbar title="Messages">
+    <app-toolbar :title="counterParty.fullName">
       <v-btn slot="left" icon @click.prevent="closeModal()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -25,6 +25,9 @@
       <v-layout row wrap>
         <v-flex>
           <form @submit.prevent="sendMessage()" fixed bottom>
+            <v-chip small v-if="currentAd">
+              Ad: {{currentAd.title}}
+            </v-chip>
             <v-text-field v-model="message" label="Message" type="text" auto-grow multi-line/>
             <v-btn type="submit" color="primary">Send</v-btn>
           </form>
@@ -43,10 +46,14 @@
     components: {
       AppToolbar, Avatar
     },
-    props: ['closeModal'],
+    props: ['closeModal', 'currentAd'],
     data() {
       return {
         message: "",
+        counterParty: {
+          userId: 'elderly2',
+          fullName: 'Kirill Klenski'
+        },
         messages: [
           {message: 'Hello my friend', userId: 'worker', createdAt: '2018-04-07T20:51:00'},
           {message: 'Hi!', userId: 'elderly1', createdAt: '2018-04-09T21:51:00'},
@@ -56,17 +63,8 @@
     },
     methods: {
       sendMessage() {
-        this.messages.push({message: this.message, createdAt: new Date(), userId: 'worker'})
+        this.messages.push({message: this.title, createdAt: new Date(), userId: 'worker'})
         this.message = ""
-        this.showReply()
-      },
-      showReply() {
-        console.log("scrolling to", this.$refs.reply)
-        this.$vuetify.goTo(this.$refs.reply, {
-          duration: 300,
-          offset: 0,
-          easing: 'easeInOutCubic'
-        })
       }
     },
   }

@@ -22,10 +22,17 @@
             <v-btn v-if="ad.acceptable" class="accept-ad" color="blue" @click="acceptAd(ad)" flat>
               Accept
             </v-btn>
+            <v-btn v-if="ad.acceptable" color="blue" @click="messageForAd(ad)" flat>
+              Send Message
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
+
+    <modal v-if="messageThreadForAd" title="Message thread" @close="messageThreadForAd = null">
+      <MessageThread slot-scope="modal" :close-modal="modal.close" :current-ad="messageThreadForAd"></MessageThread>
+    </modal>
 
   </div>
 </template>
@@ -36,17 +43,19 @@
   import gateway from '@/gateway'
   import AdCreate from '@/components/AdCreate'
   import Modal from '@/components/Modal'
+  import MessageThread from '@/components/MessageThread'
   import Avatar from '@/components/Avatar'
   import notifications from '@/services/notifications'
 
   export default {
     name: 'AdList',
-    components: {AdCreate, Modal, Avatar},
+    components: {AdCreate, Modal, Avatar, MessageThread},
     created() {
       this.loadAds()
     },
     data() {
       return {
+        messageThreadForAd: null,
         ads: [],
       }
     },
@@ -62,6 +71,9 @@
               notifications.i('Advertisement successfully accepted')
               router.push('/community/agreements')
             }).catch(e => console.log(e))
+      },
+      messageForAd(ad) {
+        this.messageThreadForAd = ad
       }
     }
   }
