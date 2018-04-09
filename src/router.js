@@ -13,7 +13,7 @@ let router = new Router({
     {path: '/wallet', component: TransactionList},
     {path: '/community/ads', component: Community},
     {path: '/community/ads/create', component: Community},
-    {path: '/community/agreements', component: Community},
+    {path: '/community/my-ads', component: Community},
     {path: '/login', component: Login},
     {path: '/agreements/:id', component: AgreementDetails, props: true},
     {path: '/transactions', component: TransactionList},

@@ -2,8 +2,8 @@
   <div>
     <app-toolbar title="Community">
       <v-tabs slot="extension" right fixed-tabs v-model="activeTab">
-        <v-tab :to="'/community/ads'">Advertisements</v-tab>
-        <v-tab :to="'/community/agreements'">My services</v-tab>
+        <v-tab :to="'/community/ads'">All ads</v-tab>
+        <v-tab :to="'/community/my-ads'">My ads</v-tab>
       </v-tabs>
     </app-toolbar>
 
@@ -11,8 +11,8 @@
       <v-tab-item id="/community/ads">
         <AdList v-if="activeTab === '/community/ads'"></AdList>
       </v-tab-item>
-      <v-tab-item id="/community/agreements">
-        <AgreementList v-if="activeTab === '/community/agreements'"></AgreementList>
+      <v-tab-item id="/community/my-ads">
+        <MyAds v-if="activeTab === '/community/my-ads'"></MyAds>
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -20,12 +20,12 @@
 
 <script>
   import AdList from '@/components/AdList'
-  import AgreementList from '@/components/AgreementList'
+  import MyAds from '@/components/MyAds'
   import AppToolbar from '@/components/AppToolbar'
 
   export default {
     components: {
-      AdList, AgreementList, AppToolbar
+      AdList, MyAds, AppToolbar
     },
     data() {
       return {
