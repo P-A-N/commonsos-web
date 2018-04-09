@@ -27,13 +27,6 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
-    <v-btn id="create-ad" @click.prevent="openCreateAdDialog()" fixed dark fab bottom right color="pink">
-      <v-icon>add</v-icon>
-    </v-btn>
-
-    <modal v-if="createAd" title="New advertisement" @close="closeCreateAdDialog">
-      <AdCreate slot-scope="modal" :closeModal="modal.close"></AdCreate>
-    </modal>
   </div>
 </template>
 
@@ -55,17 +48,9 @@
     data() {
       return {
         ads: [],
-        createAd: false
       }
     },
     methods: {
-      openCreateAdDialog() {
-        this.createAd = true
-      },
-      closeCreateAdDialog() {
-        this.createAd = false
-        this.loadAds()
-      },
       loadAds() {
         gateway.get('/ads').then(r => this.ads = r.data)
       },
@@ -81,9 +66,3 @@
     }
   }
 </script>
-
-<style scoped>
-  #create-ad {
-    bottom: 70px;
-  }
-</style>

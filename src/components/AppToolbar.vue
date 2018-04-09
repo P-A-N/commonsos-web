@@ -11,6 +11,7 @@
         <claim-reward slot-scope="modal" :closeModal="modal.close"/>
       </modal>
 
+      <slot name="default" slot="default"></slot>
       <slot name="extension" slot="extension"></slot>
     </v-toolbar>
   </div>
