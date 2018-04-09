@@ -1,6 +1,10 @@
 <template>
   <div>
-    <app-toolbar title="Wallet"></app-toolbar>
+    <app-toolbar title="Wallet">
+      <v-btn icon @click="showClaimReward = true">
+        <v-icon>photo_camera</v-icon>
+      </v-btn>
+    </app-toolbar>
 
     <v-card flat>
       <v-card-title primary-title>
@@ -40,7 +44,13 @@
         <v-divider v-if="index + 1 < transactions.length"></v-divider>
       </template>
     </v-list>
+
+    <modal v-if="showClaimReward" @close="showClaimReward = false" title="Claim reward">
+      <claim-reward slot-scope="modal" :closeModal="modal.close"/>
+    </modal>
+
     <v-alert v-else type="info" value="true">No transactions</v-alert>
+
   </div>
 </template>
 
@@ -50,13 +60,18 @@
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
   import userService from '@/services/UserService'
+  import Modal from '@/components/Modal'
+  import ClaimReward from '@/components/ClaimReward'
 
   export default {
-    components: {AppToolbar, Avatar},
+    components: {
+      AppToolbar, Avatar, Modal, ClaimReward
+    },
     data() {
       return {
         user: userService.user(),
-        transactions: []
+        transactions: [],
+        showClaimReward: false
       }
     },
     methods: {
