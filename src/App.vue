@@ -13,6 +13,10 @@
         <span>Community</span>
         <v-icon>people</v-icon>
       </v-btn>
+      <v-btn :to="'/messages'">
+        <span>Messages</span>
+        <v-icon>message</v-icon>
+      </v-btn>
       <v-btn @click.prevent="logout()">
         <span>Logout</span>
         <v-icon>person</v-icon>

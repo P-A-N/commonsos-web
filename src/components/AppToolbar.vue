@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-toolbar fixed app>
+      <slot name="left"></slot>
       <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <slot name="default" slot="default"></slot>

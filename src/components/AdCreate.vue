@@ -1,5 +1,4 @@
 <template>
-
   <form v-on:submit.prevent="createAd()">
     <v-card-text>
       <v-text-field v-model="ad.title" label="Title" type="text"
