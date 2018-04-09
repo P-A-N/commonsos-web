@@ -5,6 +5,7 @@
         <v-layout align-center row slot="header">
           <v-flex xs10>
             {{ad.title}}
+            {{ad.createdAt | moment('from') }}
             </v-flex>
           <v-flex xs2>
             <v-btn @click.prevent="" flat small icon color="blue">
