@@ -1,5 +1,4 @@
 import axios from 'axios';
-import router from '@/router';
 import notifications from '@/services/notifications'
 
 let axiosInstance = axios.create({
@@ -8,7 +7,7 @@ let axiosInstance = axios.create({
 
 export let handleError = error => {
   if (401 === error.response.status) {
-    router.push('/login')
+    window.$router.push('/login')
     return Promise.reject(error)
   }
   else if (468 === error.response.status) {

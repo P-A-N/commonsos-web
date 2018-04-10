@@ -34,14 +34,11 @@
 </template>
 
 <script>
-
-  import router from '@/router'
   import gateway from '@/gateway'
   import AdCreate from '@/components/AdCreate'
   import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
   import Avatar from '@/components/Avatar'
-  import notifications from '@/services/notifications'
 
   export default {
     name: 'AdList',

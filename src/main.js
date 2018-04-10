@@ -14,9 +14,11 @@ Vue.use(VeeValidate)
 Vue.use(VueMoment)
 Vue.config.productionTip = false
 
-window.vm = new Vue({
+window.$vm = new Vue({
   el: '#app',
   router,
   components: { App },
   template: '<App/>'
 })
+
+window.$router = router

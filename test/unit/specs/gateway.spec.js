@@ -1,4 +1,3 @@
-import router from '@/router'
 import {handleError} from '@/gateway'
 import notifications from '@/services/notifications'
 
@@ -29,7 +28,7 @@ describe('gateway', () => {
 
     let result = handleError(error)
 
-    expect(router.currentRoute.path).toEqual('/login')
+    expect(window.$router.push).toHaveBeenCalledWith('/login')
     expect(result).toEqual(Promise.reject(error))
   })
 })

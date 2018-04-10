@@ -1,5 +1,5 @@
 import eventbus from '@/eventbus'
-import router from '@/router'
+//import router from '@/router'
 import gateway from '@/gateway'
 
 let instance = {
@@ -13,14 +13,14 @@ let instance = {
   login(username, password) {
     return gateway.post('/login', {username, password}).then(r => {
       this.setUser(r.data)
-      router.push('/')
+      window.$router.push('/')
     })
   },
 
   logout() {
     return gateway.post('/logout').then(() => {
       this.setUser(null)
-      router.push('/login')
+      window.$router.push('/login')
     })
   },
 
