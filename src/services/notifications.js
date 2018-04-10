@@ -1,12 +1,12 @@
-import Vue from 'vue'
-import 'vue-toastr/src/vue-toastr.scss'
-import './notifications.css'
-import Toastr from 'vue-toastr'
+import eventbus from '@/eventbus'
 
-Vue.use(Toastr)
+export default {
 
-let instance = Vue.prototype.$toastr
-instance.defaultTimeout = 5000;
-instance.defaultProgressBar = false;
+  e(message) {
+    eventbus.$emit('global-message', {text: message, type: 'error'})
+  },
 
-export default instance
+  i(message) {
+    eventbus.$emit('global-message', {text: message, type: 'info'})
+  }
+}
