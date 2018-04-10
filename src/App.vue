@@ -22,14 +22,22 @@
         <v-icon>person</v-icon>
       </v-btn>
     </v-bottom-nav>
+
+    <global-notification/>
+
   </v-app>
 </template>
 
 <script>
   import eventbus from '@/eventbus'
   import userService from '@/services/UserService'
+  import GlobalNotification from '@/components/GlobalNotification'
 
   export default {
+
+    components: {
+      GlobalNotification
+    },
     data() {
       return {
         user: null
