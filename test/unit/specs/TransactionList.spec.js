@@ -36,6 +36,20 @@ describe('TransactionList.vue', () => {
       expect(transactions.at(1).text()).toContain('+2.22')
 
       expect(gateway.get).toHaveBeenCalledWith('transactions')
+      expect(wrapper.text()).not.toContain('No transactions')
+      done()
+    }, 0)
+  })
+
+  it('should display alert when no transactions present', (done) => {
+    gateway.get.and.returnValue(Promise.resolve({data: []}))
+    spyOn(userService, 'user').and.returnValue({id: 'user1'})
+
+    let wrapper = mount(TransactionList)
+
+    setTimeout(() => {
+      expect(wrapper.findAll('.transaction').length).toBe(0)
+      expect(wrapper.text()).toContain('No transactions')
       done()
     }, 0)
   })

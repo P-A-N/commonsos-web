@@ -45,11 +45,11 @@
       </template>
     </v-list>
 
+    <v-alert v-else type="info" value="true">No transactions</v-alert>
+
     <modal v-if="showClaimReward" @close="showClaimReward = false" title="Claim reward">
       <claim-reward slot-scope="modal" :closeModal="modal.close"/>
     </modal>
-
-    <v-alert v-else type="info" value="true">No transactions</v-alert>
 
   </div>
 </template>
