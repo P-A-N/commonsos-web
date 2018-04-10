@@ -19,9 +19,6 @@
             <v-chip>{{ad.location}}</v-chip>
             </v-card-text>
           <v-card-actions>
-            <v-btn v-if="ad.acceptable" class="accept-ad" color="blue" @click="acceptAd(ad)" flat>
-              Accept
-            </v-btn>
             <v-btn v-if="ad.acceptable" color="blue" @click="messageForAd(ad)" flat>
               Send Message
             </v-btn>
@@ -33,7 +30,6 @@
     <modal v-if="messageThreadForAd" title="Message thread" @close="messageThreadForAd = null">
       <MessageThread slot-scope="modal" :close-modal="modal.close" :current-ad="messageThreadForAd"></MessageThread>
     </modal>
-
   </div>
 </template>
 
@@ -62,15 +58,6 @@
     methods: {
       loadAds() {
         gateway.get('/ads').then(r => this.ads = r.data)
-      },
-      acceptAd(ad) {
-        if (confirm('Are you sure you would like to accept this service?'))
-          gateway
-            .post(`/ads/${ad.id}/accept`)
-            .then(r => {
-              notifications.i('Advertisement successfully accepted')
-              router.push('/community/agreements')
-            }).catch(e => console.log(e))
       },
       messageForAd(ad) {
         this.messageThreadForAd = ad
