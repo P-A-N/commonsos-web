@@ -31,7 +31,7 @@
             </v-flex>
 
             <v-flex>
-              <div class="">from {{transaction.remitterId}} to {{transaction.beneficiaryId}}</div>
+              <div class="">from {{transaction.remitter.fullName}} to {{transaction.beneficiary.fullName}}</div>
               <div class="caption">{{transaction.createdAt | moment('from') }}</div>
             </v-flex>
 
@@ -79,10 +79,10 @@
         this.user = user
       },
       otherPartyUserId(transaction) {
-        return transaction.remitterId === this.user.id ? transaction.beneficiaryId : transaction.remitterId
+        return transaction.remitter.id === this.user.id ? transaction.beneficiary.id : transaction.remitter.id
       },
       isDebit(transaction) {
-        return transaction.remitterId === this.user.id
+        return transaction.remitter.id === this.user.id
       },
       formattedAmount(transaction) {
         return (this.isDebit(transaction) ? '-' : '+') + transaction.amount
