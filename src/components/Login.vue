@@ -27,11 +27,12 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <router-link flat to="/create-account">Create account</router-link>
+        <v-spacer></v-spacer>
       <v-btn color="primary" @click.prevent="login()">Login</v-btn>
     </v-card-actions>
-
   </v-card>
+
 </template>
 
 <script>

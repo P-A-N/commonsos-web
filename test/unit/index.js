@@ -9,4 +9,6 @@ Vue.config.productionTip = false
 const testsContext = require.context('./specs', true, /\.spec$/)
 testsContext.keys().forEach(testsContext)
 
-window.$router = jasmine.createSpyObj('router', ['push'])
+beforeEach(() => {
+  window.$router = jasmine.createSpyObj('router', ['push', 'resolve'])
+})

@@ -1,15 +1,17 @@
 import {mount} from '@vue/test-utils'
 import Login from '@/components/Login'
 import userService from '@/services/UserService'
+import VueRouter from 'vue-router'
 
 describe('Login.vue', () => {
+  let wrapper
 
-  beforeEach(function () {
-
+  beforeEach(() => {
+    let router = new VueRouter()
+    wrapper = mount(Login, {router})
   })
 
   it('logs in', (done) => {
-    const wrapper = mount(Login)
     wrapper.vm.username = 'user'
     wrapper.vm.password = 'password'
     spyOn(userService, 'login').and.returnValue(Promise.resolve())
@@ -23,7 +25,6 @@ describe('Login.vue', () => {
   })
 
   it('shows error message for invalid credentials', (done) => {
-    const wrapper = mount(Login)
     spyOn(userService, 'login').and.returnValue(Promise.reject({}))
     wrapper.vm.username = 'user'
     wrapper.vm.password = 'password'
@@ -37,8 +38,6 @@ describe('Login.vue', () => {
   })
 
   it('shows validation errors', (done) => {
-    const wrapper = mount(Login)
-
     wrapper.vm.username = null
     wrapper.vm.password = null
 

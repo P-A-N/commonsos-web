@@ -17,6 +17,13 @@ let instance = {
     })
   },
 
+  createAndLogin(newUser) {
+    return gateway.post('/create-account', newUser).then(r => {
+      this.setUser(r.data)
+      window.$router.push('/')
+    })
+  },
+
   logout() {
     return gateway.post('/logout').then(() => {
       this.setUser(null)
