@@ -46,9 +46,9 @@
         password: '',
         error: null,
         predefinedUsers: {
-          worker: 'secret',
-          elderly1: 'secret1',
-          elderly2: 'secret2'
+          worker: 'secret00',
+          elderly1: 'secret00',
+          elderly2: 'secret00'
         }
       }
     },
