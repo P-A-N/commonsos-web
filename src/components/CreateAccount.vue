@@ -83,7 +83,7 @@
         this.error = ''
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
-          userService.createAndLogin(this.user).catch(e => this.error = e)
+          userService.createAndLogin(this.user).catch(e => this.error = e.key)
         })
       },
       setUser(username, password) {

@@ -47,7 +47,7 @@ describe('CreateAccount.vue', () => {
 
   it('shows server errors', (done) => {
     wrapper.setData({user: validUser, password2: 'password'})
-    spyOn(userService, 'createAndLogin').and.returnValue(Promise.reject({message: 'error message'}))
+    spyOn(userService, 'createAndLogin').and.returnValue(Promise.reject({key: 'error message'}))
 
     wrapper.find('button').trigger('click')
 
