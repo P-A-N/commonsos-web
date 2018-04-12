@@ -16,11 +16,11 @@ describe('TransactionList.vue', () => {
   it('should display user transactions', (done) => {
     gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {createdAt: '2018-01-30T22:51:00', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11},
-        {createdAt: '2018-02-24T11:22:33', remitter: {id: 'user2', fullName: 'name2'}, beneficiary: {id: 'user1', fullName: 'name1'}, amount: 2.22}
+        {createdAt: '2018-01-30T22:51:00', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11, debit:true},
+        {createdAt: '2018-02-24T11:22:33', remitter: {id: 'user2', fullName: 'name2'}, beneficiary: {id: 'user1', fullName: 'name1'}, amount: 2.22, debit:false}
       ]
     }))
-    spyOn(userService, 'user').and.returnValue({id: 'user1'})
+    spyOn(userService, 'user').and.returnValue({})
 
     let wrapper = mount(TransactionList)
 

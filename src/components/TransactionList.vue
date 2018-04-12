@@ -35,7 +35,7 @@
               <div class="caption">{{transaction.createdAt | moment('from') }}</div>
             </v-flex>
 
-            <v-flex xs2 class="body-3 text-xs-right" :class="{'debit': isDebit(transaction), 'credit': !isDebit(transaction)}">
+            <v-flex xs2 class="body-3 text-xs-right" :class="{'debit': transaction.debit, 'credit': !transaction.debit}">
               {{formattedAmount(transaction)}}
             </v-flex>
           </v-layout>
@@ -79,13 +79,10 @@
         this.user = user
       },
       otherPartyUserId(transaction) {
-        return transaction.remitter.id === this.user.id ? transaction.beneficiary.id : transaction.remitter.id
-      },
-      isDebit(transaction) {
-        return transaction.remitter.id === this.user.id
+        return transaction.debit ? transaction.beneficiary.id : transaction.remitter.id
       },
       formattedAmount(transaction) {
-        return (this.isDebit(transaction) ? '-' : '+') + transaction.amount
+        return (transaction.debit ? '-' : '+') + transaction.amount
       }
     },
     created() {
