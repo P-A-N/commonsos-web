@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user" >
     <app-toolbar title="Profile"/>
 
     <v-container fluid grid-list-lg mt-3>
@@ -34,7 +34,7 @@
               <span class="headline">Balance</span>
             </v-flex>
             <v-flex class="text-xs-right">
-              <span class="title">{{user ? user.balance : ''}}</span>
+              <span class="title">{{user.balance}}</span>
             </v-flex>
           </v-layout>
         </v-card-title>
@@ -57,6 +57,7 @@
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
   import userService from '@/services/UserService'
+  import eventbus from '@/eventbus'
 
   export default {
     components: {
@@ -68,7 +69,16 @@
       }
     },
     methods: {
-      logout: () => userService.logout()
+      logout: () => userService.logout(),
+      onUserChanged(user) {
+        this.user = user
+      }
+    },
+    created() {
+      eventbus.$on('userChanged', this.onUserChanged)
+    },
+    destroyed() {
+      eventbus.$off('userChanged', this.onUserChanged)
     }
   }
 </script>
