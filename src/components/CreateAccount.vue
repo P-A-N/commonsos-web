@@ -48,7 +48,16 @@
                       :error-messages="errors.collect('lastName')"
                       v-validate="'required'"
                       data-vv-name="lastName"/>
+
+        <vuetify-google-autocomplete
+          id="map"
+          append-icon="search"
+          placeholder="Enter your region"
+          country="jp"
+          types="(cities)"
+          v-model="user.location"/>
       </v-form>
+
     </v-card-text>
 
     <v-card-actions>
@@ -64,7 +73,7 @@
   import userService from '@/services/UserService'
 
   export default {
-    name: 'Login',
+    name: 'CreateAccount',
     data() {
       return {
         user:  {
@@ -72,6 +81,7 @@
           password: null,
           firstName: null,
           lastName: null,
+          location: null
         },
         password2: null,
         hidePassword: true,

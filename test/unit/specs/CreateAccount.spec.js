@@ -2,6 +2,7 @@ import {mount} from '@vue/test-utils'
 import CreateAccount from '@/components/CreateAccount'
 import userService from '@/services/UserService'
 import VueRouter from 'vue-router'
+import Vue from 'vue'
 
 describe('CreateAccount.vue', () => {
   let wrapper
@@ -13,6 +14,8 @@ describe('CreateAccount.vue', () => {
   }
 
   beforeEach(() => {
+    Vue.component('vuetify-google-autocomplete', {template: '<div/>'})
+
     let router = new VueRouter()
     wrapper = mount(CreateAccount, {router})
   })
