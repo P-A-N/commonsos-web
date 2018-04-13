@@ -1,5 +1,4 @@
 import eventbus from '@/eventbus'
-//import router from '@/router'
 import gateway from '@/gateway'
 
 let instance = {
