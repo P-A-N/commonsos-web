@@ -4,7 +4,7 @@
       <router-view/>
     </v-content>
 
-    <v-bottom-nav v-if="user" fixed :value="true" app>
+    <v-bottom-nav fixed :value="true" app>
       <v-btn :to="'/wallet'">
         <span>Wallet</span>
         <v-icon>account_balance_wallet</v-icon>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-  import eventbus from '@/eventbus'
   import userService from '@/services/UserService'
   import GlobalNotification from '@/components/GlobalNotification'
 
@@ -38,13 +37,7 @@
     components: {
       GlobalNotification
     },
-    data() {
-      return {
-        user: null
-      }
-    },
     created() {
-      eventbus.$on('userChanged', (user) => this.user = user)
       userService.loadUser()
     }
   }
