@@ -48,7 +48,8 @@
         predefinedUsers: {
           worker: 'secret00',
           elderly1: 'secret00',
-          elderly2: 'secret00'
+          elderly2: 'secret00',
+          admin: 'secret00'
         }
       }
     },
