@@ -17,8 +17,8 @@
         <span>Messages</span>
         <v-icon>message</v-icon>
       </v-btn>
-      <v-btn @click.prevent="logout()">
-        <span>Logout</span>
+      <v-btn :to="'/profile'">
+        <span>Profile</span>
         <v-icon>person</v-icon>
       </v-btn>
     </v-bottom-nav>
@@ -46,9 +46,6 @@
     created() {
       eventbus.$on('userChanged', (user) => this.user = user)
       userService.loadUser()
-    },
-    methods: {
-      logout: () => userService.logout()
     }
   }
 </script>
