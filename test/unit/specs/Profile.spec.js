@@ -1,6 +1,7 @@
 import Profile from '@/components/Profile'
 import {mount} from '@vue/test-utils'
 import userService from '@/services/UserService'
+import VueRouter from 'vue-router'
 
 describe('Profile.vue', () => {
 
@@ -9,7 +10,8 @@ describe('Profile.vue', () => {
   })
 
   it('should display user profile', (done) => {
-    let wrapper = mount(Profile)
+    let router = new VueRouter()
+    let wrapper = mount(Profile, {router})
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('foo bar')
@@ -19,8 +21,10 @@ describe('Profile.vue', () => {
 
   it('should logout user', () => {
     spyOn(userService, 'logout')
+    let router = new VueRouter()
+    let wrapper = mount(Profile, {router})
 
-    mount(Profile).find('button.logout').trigger('click')
+    wrapper.find('button.logout').trigger('click')
 
     expect(userService.logout).toHaveBeenCalled()
   })
