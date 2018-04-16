@@ -48,6 +48,12 @@
     </v-container>
 
     <v-container fluid grid-list-lg>
+      <v-btn block to="/search-user">
+        Admin: Topup users
+      </v-btn>
+    </v-container>
+
+    <v-container fluid grid-list-lg>
       <v-btn class="logout" flat color="grey" block @click.prevent="logout()">Logout</v-btn>
     </v-container>
   </div>

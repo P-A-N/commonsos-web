@@ -6,6 +6,7 @@ import TransactionList from '@/components/TransactionList'
 import Community from '@/components/Community'
 import Messages from '@/components/Messages'
 import Profile from '@/components/Profile'
+import SearchUser from '@/components/SearchUser'
 import CreateAccount from '@/components/CreateAccount'
 
 Vue.use(Router)
@@ -17,6 +18,7 @@ let router = new Router({
     {path: '/community', component: Community},
     {path: '/messages', component: Messages},
     {path: '/profile', component: Profile},
+    {path: '/search-user', component: SearchUser},
     {path: '/login', component: Login},
     {path: '/create-account', component: CreateAccount},
     {path: '/agreements/:id', component: AgreementDetails, props: true}
