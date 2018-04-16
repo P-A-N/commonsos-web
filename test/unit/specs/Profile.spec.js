@@ -5,27 +5,41 @@ import VueRouter from 'vue-router'
 
 describe('Profile.vue', () => {
 
+  let router
+
   beforeEach(() => {
-    spyOn(userService, 'user').and.returnValue({fullName: 'foo bar'})
+    router = new VueRouter()
   })
 
   it('should display user profile', (done) => {
-    let router = new VueRouter()
+    spyOn(userService, 'user').and.returnValue({fullName: 'foo bar'})
     let wrapper = mount(Profile, {router})
 
     setTimeout(() => {
+      expect(wrapper.find('.admin').element).toBeUndefined()
       expect(wrapper.text()).toContain('foo bar')
       done()
     }, 0)
   })
 
   it('should logout user', () => {
+    spyOn(userService, 'user').and.returnValue({fullName: 'foo bar'})
     spyOn(userService, 'logout')
-    let router = new VueRouter()
     let wrapper = mount(Profile, {router})
 
     wrapper.find('button.logout').trigger('click')
 
     expect(userService.logout).toHaveBeenCalled()
+  })
+
+  it('should display topup button to admin', (done) => {
+    spyOn(userService, 'user').and.returnValue({admin: true})
+
+    let wrapper = mount(Profile, {router})
+
+    setTimeout(() => {
+      expect(wrapper.find('.admin').element).toBeDefined()
+      done()
+    }, 0)
   })
 })
