@@ -39,6 +39,25 @@ describe('MakePayment.vue', () => {
     }, 0)
   })
 
+  it('should not submit transaction to backend if user does not confirm', (done) => {
+    let props = {
+      beneficiary: {id: 'beneficiary id', fullName: 'Joe Dow'},
+      amount: '123.45',
+      description: 'foo bar'
+    }
+
+    const wrapper = mount(MakePayment, {propsData: props})
+    spyOn(window, 'confirm').and.returnValue(false)
+
+    wrapper.find('button').trigger('click')
+
+    setTimeout(() => {
+      expect(window.confirm).toHaveBeenCalledWith('Transfer 123.45 coins to Joe Dow?')
+      expect(gateway.post).not.toHaveBeenCalled()
+      done();
+    }, 0);
+  })
+
   it('should submit transaction to backend', (done) => {
     let props = {
         closeModal: jasmine.createSpy(),
@@ -48,6 +67,7 @@ describe('MakePayment.vue', () => {
       }
     spyOn(userService, 'loadUser')
     spyOn(notifications, 'i')
+    spyOn(window, 'confirm').and.returnValue(true)
     const wrapper = mount(MakePayment, {propsData: props})
 
     wrapper.find('button').trigger('click')

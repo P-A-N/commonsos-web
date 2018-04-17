@@ -39,6 +39,7 @@
       makePayment() {
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
+          if (!confirm(`Transfer ${this.transaction.amount} coins to ${this.beneficiary.fullName}?`)) return
           gateway.post('/transactions', this.transaction)
             .then(() => {
               userService.loadUser()
