@@ -42,40 +42,50 @@
     </v-container>
 
     <v-container v-if="loggedInUser && loggedInUser.admin" fluid grid-list-lg>
-      <v-btn class="top-up" block @click.prevent="makePayment()">
+      <v-btn class="top-up" block @click.prevent="makePayment=true">
         Top-up
       </v-btn>
     </v-container>
 
+    <modal v-if="makePayment" title="Make payment" @close="paymentDone()">
+      <make-payment amount="2000" :beneficiary="user" description="Funds from municipality" slot-scope="modal" :closeModal="modal.close"></make-payment>
+    </modal>
   </div>
 </template>
 
 <script>
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
+  import Modal from '@/components/Modal'
+  import MakePayment from '@/components/MakePayment'
   import userService from '@/services/UserService'
   import gateway from '@/gateway'
 
   export default {
     props: ['userId'],
     components: {
-      AppToolbar, Avatar
+      AppToolbar, Avatar, MakePayment, Modal
     },
     data() {
       return {
         loggedInUser: userService.user(),
-        user: {}
+        user: {},
+        makePayment: false
       }
     },
     created() {
-      gateway.get(`/users/${this.userId}`).then(r => this.user = r.data)
+      this.loadUser();
     },
     methods: {
-      makePayment: function() {
-        alert('payment')
-      },
       goback() {
         this.$router.back()
+      },
+      loadUser() {
+        gateway.get(`/users/${this.userId}`).then(r => this.user = r.data)
+      },
+      paymentDone() {
+        this.makePayment=false
+        this.loadUser();
       }
     }
   }

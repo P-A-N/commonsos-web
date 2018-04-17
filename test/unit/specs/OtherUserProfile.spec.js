@@ -1,5 +1,5 @@
 import OtherUserProfile from '@/components/OtherUserProfile'
-import {mount} from '@vue/test-utils'
+import {mount, shallow} from '@vue/test-utils'
 import userService from '@/services/UserService'
 import VueRouter from 'vue-router'
 import gateway from '@/gateway'
@@ -10,11 +10,11 @@ describe('OtherUserProfile.vue', () => {
 
   beforeEach(() => {
     router = new VueRouter()
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {fullName: 'other user full name'}}))
   })
 
   it('should display other user profile', (done) => {
     spyOn(userService, 'user').and.returnValue({admin: false})
-    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {fullName: 'other user full name'}}))
 
     let wrapper = mount(OtherUserProfile, {router, propsData: {userId: 'otheruserid'}})
 
