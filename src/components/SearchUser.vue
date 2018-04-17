@@ -14,9 +14,8 @@
 
     <v-list v-if="users.length" three-line>
       <template v-for="(user, index) in users">
-        <v-list-tile>
+        <v-list-tile class="user" @click.prevent="showProfile(user)">
           <v-layout align-center row>
-
             <v-flex xs3>
               <avatar :userId="user.id"/>
             </v-flex>
@@ -51,6 +50,9 @@
       loadUsers: function () {
         gateway.get('/users?q=' + encodeURI(this.filter)).then(r => this.users = r.data)
       },
+      showProfile: function(user) {
+        this.$router.push('/profile/'+user.id);
+      }
     }
   }
 </script>

@@ -6,6 +6,7 @@ import TransactionList from '@/components/TransactionList'
 import Community from '@/components/Community'
 import Messages from '@/components/Messages'
 import Profile from '@/components/Profile'
+import OtherUserProfile from '@/components/OtherUserProfile'
 import SearchUser from '@/components/SearchUser'
 import CreateAccount from '@/components/CreateAccount'
 
@@ -18,6 +19,7 @@ let router = new Router({
     {path: '/community', component: Community},
     {path: '/messages', component: Messages},
     {path: '/profile', component: Profile},
+    {path: '/profile/:userId', component: OtherUserProfile, props: true},
     {path: '/search-user', component: SearchUser},
     {path: '/login', component: Login},
     {path: '/create-account', component: CreateAccount},
