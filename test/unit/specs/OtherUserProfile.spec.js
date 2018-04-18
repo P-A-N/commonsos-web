@@ -7,10 +7,12 @@ import gateway from '@/gateway'
 describe('OtherUserProfile.vue', () => {
 
   let router
+  let userDataOnServer
 
   beforeEach(() => {
     router = new VueRouter()
-    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {fullName: 'other user full name'}}))
+    userDataOnServer = {fullName: 'other user full name', balance: 10}
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: userDataOnServer}))
   })
 
   it('should display other user profile', (done) => {
@@ -29,11 +31,28 @@ describe('OtherUserProfile.vue', () => {
   it('should display topup button to admin', (done) => {
     spyOn(userService, 'user').and.returnValue({admin: true})
 
-    let wrapper = mount(OtherUserProfile, {router})
+    let wrapper = shallow(OtherUserProfile, {router})
 
     setTimeout(() => {
       expect(wrapper.find('.top-up').element).toBeDefined()
       done()
+    }, 0)
+  })
+
+  it('should reload user balance after modal topup is done', (done) => {
+    spyOn(userService, 'user').and.returnValue({admin: true})
+    let wrapper = shallow(OtherUserProfile, {router})
+
+    setTimeout(() => {
+      expect(wrapper.vm.otherUser.balance).toBe(10)
+
+      userDataOnServer.balance = 20
+      wrapper.vm.paymentDone()
+
+      setTimeout(() => {
+        expect(wrapper.vm.otherUser.balance).toBe(20)
+        done()
+      }, 0)
     }, 0)
   })
 })

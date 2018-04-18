@@ -19,8 +19,8 @@ describe('gateway', () => {
 
     let result = handleError(error)
 
+    expect(notifications.e).toHaveBeenCalledWith('messageKey')
     expect(result).toEqual(Promise.reject({key: 'messageKey'}))
-    expect(notifications.e).not.toHaveBeenCalled()
   })
 
   it('redirects to login in case user is not authenticated', () => {

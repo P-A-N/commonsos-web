@@ -3,6 +3,7 @@ import CreateAccount from '@/components/CreateAccount'
 import userService from '@/services/UserService'
 import VueRouter from 'vue-router'
 import Vue from 'vue'
+import notifications from '@/services/notifications'
 
 describe('CreateAccount.vue', () => {
   let wrapper
@@ -25,11 +26,13 @@ describe('CreateAccount.vue', () => {
       user: validUser,
       password2: 'password'})
     spyOn(userService, 'createAndLogin').and.returnValue(Promise.resolve({}))
+    spyOn(notifications, 'i')
 
     wrapper.find('button').trigger('click')
 
     setTimeout(() => {
       expect(userService.createAndLogin).toHaveBeenCalledWith(validUser)
+      expect(notifications.i).toHaveBeenCalledWith('Welcome to Community OS')
       done()
     }, 0)
   })
@@ -44,18 +47,6 @@ describe('CreateAccount.vue', () => {
       expect(wrapper.text()).toContain('The password field is required.')
       expect(wrapper.text()).toContain('The firstName field is required.')
       expect(wrapper.text()).toContain('The lastName field is required.')
-      done()
-    }, 0)
-  })
-
-  it('shows server errors', (done) => {
-    wrapper.setData({user: validUser, password2: 'password'})
-    spyOn(userService, 'createAndLogin').and.returnValue(Promise.reject({key: 'error message'}))
-
-    wrapper.find('button').trigger('click')
-
-    setTimeout(() => {
-      expect(wrapper.text()).toContain('error message')
       done()
     }, 0)
   })

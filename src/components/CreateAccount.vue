@@ -6,13 +6,11 @@
       <v-spacer></v-spacer>
     </v-toolbar>
 
-    <v-alert type="error" value="true" v-if="error">{{error}}</v-alert>
-
     <v-card-text>
       <v-form>
         <v-text-field prepend-icon="person" v-model="user.username" label="Username" type="text"
                       :error-messages="errors.collect('username')"
-                      v-validate="'required'"
+                      v-validate="'required|min:4'"
                       data-vv-name="username"
                       hint="At least 4 characters"
                       min="4"
@@ -71,6 +69,7 @@
 
 <script>
   import userService from '@/services/UserService'
+  import notifications from '@/services/notifications'
 
   export default {
     name: 'CreateAccount',
@@ -93,7 +92,8 @@
         this.error = ''
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
-          userService.createAndLogin(this.user).catch(e => this.error = e.key)
+          userService.createAndLogin(this.user)
+          notifications.i('Welcome to Community OS')
         })
       },
       setUser(username, password) {

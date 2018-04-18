@@ -11,6 +11,7 @@ export let handleError = error => {
     return Promise.reject(error)
   }
   else if (468 === error.response.status) {
+    notifications.e(error.response.data.key)
     return Promise.reject(error.response.data)
   }
   else {

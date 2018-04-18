@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" >
+  <div v-if="user">
     <app-toolbar title="Profile"/>
 
     <v-container fluid grid-list-lg mt-3>
@@ -63,28 +63,15 @@
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
   import userService from '@/services/UserService'
-  import eventbus from '@/eventbus'
+  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
+    mixins: [LoggedInUserConsumerMixin],
     components: {
       AppToolbar, Avatar
     },
-    data() {
-      return {
-        user: userService.user(),
-      }
-    },
     methods: {
-      logout: () => userService.logout(),
-      onUserChanged(user) {
-        this.user = user
-      }
-    },
-    created() {
-      eventbus.$on('userChanged', this.onUserChanged)
-    },
-    destroyed() {
-      eventbus.$off('userChanged', this.onUserChanged)
+      logout: () => userService.logout()
     }
   }
 </script>
