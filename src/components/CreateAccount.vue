@@ -6,8 +6,6 @@
       <v-spacer></v-spacer>
     </v-toolbar>
 
-    <v-alert type="error" value="true" v-if="error">{{error}}</v-alert>
-
     <v-card-text>
       <v-form>
         <v-text-field prepend-icon="person" v-model="user.username" label="Username" type="text"
@@ -93,7 +91,7 @@
         this.error = ''
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
-          userService.createAndLogin(this.user).catch(e => this.error = e.key)
+          userService.createAndLogin(this.user)
         })
       },
       setUser(username, password) {

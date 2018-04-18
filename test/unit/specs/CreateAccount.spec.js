@@ -48,18 +48,6 @@ describe('CreateAccount.vue', () => {
     }, 0)
   })
 
-  it('shows server errors', (done) => {
-    wrapper.setData({user: validUser, password2: 'password'})
-    spyOn(userService, 'createAndLogin').and.returnValue(Promise.reject({key: 'error message'}))
-
-    wrapper.find('button').trigger('click')
-
-    setTimeout(() => {
-      expect(wrapper.text()).toContain('error message')
-      done()
-    }, 0)
-  })
-
   it('shows error for not matching passwords', (done) => {
     wrapper.setData({user: validUser})
     wrapper.setData({password2: 'different'})

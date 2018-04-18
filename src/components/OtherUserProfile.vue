@@ -48,7 +48,7 @@
     </v-container>
 
     <modal v-if="makePayment" title="Make payment" @close="paymentDone()">
-      <make-payment amount="2000" :beneficiary="user" description="Funds from municipality" slot-scope="modal" :closeModal="modal.close"></make-payment>
+      <make-payment amount="2000" :beneficiary="otherUser" description="Funds from municipality" slot-scope="modal" :closeModal="modal.close"></make-payment>
     </modal>
   </div>
 </template>
