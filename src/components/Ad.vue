@@ -119,8 +119,6 @@
 </template>
 
 <script>
-
-  import router from '@/router'
   import gateway from '@/gateway'
   import AppToolbar from '@/components/AppToolbar'
   import Modal from '@/components/Modal'
@@ -131,12 +129,7 @@
     name: 'Ad',
     components: { AppToolbar, Modal, Avatar, MessageThread },
     created() {
-      gateway.get(`/ads/${this.id}`).then(r => {
-        this.ad = r.data
-        this.ad.photoUrl = '/static/temp/sample-photo-apartment1.jpg'
-      })
-
-
+      gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
     },
     props: ['id', 'closeModal'],
     data() {

@@ -85,7 +85,6 @@
     methods: {
       loadAds() {
         let mockData = (ads) => ads.map(a => {
-          a.photoUrl = '/static/temp/sample-photo-apartment1.jpg'
           a.type = 'Need'
           return a
         })
