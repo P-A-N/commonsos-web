@@ -39,7 +39,7 @@
                 <div class="caption">{{transaction.createdAt | moment('from') }}</div>
               </v-flex>
 
-              <v-flex xs2 class="body-3 text-xs-right" :class="{'debit': transaction.debit, 'credit': !transaction.debit}">
+              <v-flex xs3 class="body-3 text-xs-right" :class="{'debit': transaction.debit, 'credit': !transaction.debit}">
                 {{formattedAmount(transaction)}}
               </v-flex>
             </v-layout>
