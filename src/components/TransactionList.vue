@@ -32,9 +32,10 @@
               </v-flex>
 
               <v-flex>
-                <div class="">
+                <div class="body-2">
                   {{transaction.debit ? transaction.beneficiary.fullName : transaction.remitter.fullName }}
                 </div>
+                <div class="body-1">Ad: [Ad title]</div>
                 <div class="caption">{{transaction.createdAt | moment('from') }}</div>
               </v-flex>
 
