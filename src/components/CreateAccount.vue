@@ -69,6 +69,7 @@
 
 <script>
   import userService from '@/services/UserService'
+  import notifications from '@/services/notifications'
 
   export default {
     name: 'CreateAccount',
@@ -92,6 +93,7 @@
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
           userService.createAndLogin(this.user)
+          notifications.i('Welcome to Community OS')
         })
       },
       setUser(username, password) {
