@@ -2,7 +2,7 @@
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media :src="ad.photos[0].url" height="250px">
+        <v-card-media :src="ad.photoUrl" height="250px">
           <v-layout column class="media">
             <v-card-title>
               <v-btn dark icon @click="$router.go(-1)">
@@ -131,26 +131,17 @@
     name: 'Ad',
     components: { AppToolbar, Modal, Avatar, MessageThread },
     created() {
-      //gateway.get(`/ad/${this.id}`).then(r => this.ad = r.data).catch(error => console.log(error))
+      gateway.get(`/ads/${this.id}`).then(r => {
+        this.ad = r.data
+        this.ad.photoUrl = '/static/temp/sample-photo-apartment1.jpg'
+      })
+
+
     },
     props: ['id', 'closeModal'],
     data() {
       return {
         ad: {
-          "id":"0",
-          "type": "Give",
-          "createdBy":"0",
-          "title":"House cleaning, a longer title testing, will it wrap",
-          "description":"I am a busy person needing help with cleaning. Proposed frequency once a week. Vacuum cleaning, moist cleaning, floors etc. ",
-          "points":1299.01,
-          "location":"Kaga city",
-          "acceptable":true,
-          "createdAt":"2018-04-18T09:51:47.736+03:00",
-          "photos": [
-            {
-              url: '/static/temp/sample-photo-apartment1.jpg'
-            }
-          ]
         },
         messageThreadForAd: null
       }
