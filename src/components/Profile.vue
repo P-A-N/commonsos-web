@@ -56,11 +56,14 @@
     <v-container fluid grid-list-lg>
       <v-btn class="logout" flat color="grey" block @click.prevent="logout()">Logout</v-btn>
     </v-container>
+
+    <app-bottom-nav></app-bottom-nav>
   </div>
 </template>
 
 <script>
   import AppToolbar from '@/components/AppToolbar'
+  import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
   import userService from '@/services/UserService'
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
@@ -68,7 +71,9 @@
   export default {
     mixins: [LoggedInUserConsumerMixin],
     components: {
-      AppToolbar, Avatar
+      AppToolbar,
+      AppBottomNav,
+      Avatar
     },
     methods: {
       logout: () => userService.logout()

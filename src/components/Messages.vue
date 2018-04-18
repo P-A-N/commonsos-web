@@ -22,6 +22,8 @@
       </template>
     </v-list>
 
+    <app-bottom-nav></app-bottom-nav>
+
     <modal v-if="currentThread" title="Message thread" @close="currentThread = null">
       <MessageThread :thread="currentThread" slot-scope="modal" :closeModal="modal.close"></MessageThread>
     </modal>
@@ -31,13 +33,18 @@
 
 <script>
   import AppToolbar from '@/components/AppToolbar'
+  import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
   import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
 
   export default {
     components: {
-      AppToolbar, Avatar, Modal, MessageThread
+      AppToolbar,
+      AppBottomNav,
+      Avatar,
+      Modal,
+      MessageThread
     },
     data() {
       return {

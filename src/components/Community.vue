@@ -8,6 +8,8 @@
 
     <ad-list ref="list"/>
 
+    <app-bottom-nav></app-bottom-nav>
+
     <modal v-if="createAd" title="New advertisement" @close="closeCreateAdDialog">
       <ad-create slot-scope="modal" :closeModal="modal.close"></ad-create>
     </modal>
@@ -17,6 +19,7 @@
 <script>
   import AdList from '@/components/AdList'
   import AppToolbar from '@/components/AppToolbar'
+  import AppBottomNav from "@/components/AppBottomNav";
   import AdCreate from '@/components/AdCreate'
   import Modal from '@/components/Modal'
 
@@ -24,6 +27,7 @@
     components: {
       AdList,
       AppToolbar,
+      AppBottomNav,
       AdCreate,
       Modal
     },

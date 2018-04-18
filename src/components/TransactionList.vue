@@ -53,12 +53,15 @@
       <claim-reward slot-scope="modal" :closeModal="modal.close"/>
     </modal>
 
+    <app-bottom-nav></app-bottom-nav>
+
   </div>
 </template>
 
 <script>
   import gateway from '@/gateway'
   import AppToolbar from '@/components/AppToolbar'
+  import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
   import Modal from '@/components/Modal'
   import ClaimReward from '@/components/ClaimReward'
@@ -67,7 +70,11 @@
   export default {
     mixins: [LoggedInUserConsumerMixin],
     components: {
-      AppToolbar, Avatar, Modal, ClaimReward
+      AppToolbar,
+      Avatar,
+      Modal,
+      ClaimReward,
+      AppBottomNav
     },
     data() {
       return {
