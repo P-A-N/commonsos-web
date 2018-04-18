@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model="visible" :timeout="timeout" :color="color" light>
+  <v-snackbar id="snackbar" v-model="visible" :timeout="timeout" :color="color" light>
     {{message}}
     <v-btn dark flat @click.native="visible = false">Close</v-btn>
   </v-snackbar>
@@ -11,6 +11,11 @@
   export default {
     created() {
       eventbus.$on('global-message', (message) => this.showMessage(message.type, message.text))
+    },
+    watch: {
+      '$route': function() {
+        if (this.color === 'red') this.visible = false
+      }
     },
     data() {
       return {
