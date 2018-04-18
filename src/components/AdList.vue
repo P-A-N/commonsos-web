@@ -18,7 +18,7 @@
                   </v-flex>
                   <v-flex class="text-xs-right mt-0">
                     <v-chip label small color="green" text-color="white" class="my-0">
-                      <v-icon small>label</v-icon>&nbsp;Give
+                      <v-icon small>label</v-icon>&nbsp;Need
                     </v-chip>
                   </v-flex>
                 </v-layout>

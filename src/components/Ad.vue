@@ -18,6 +18,18 @@
             </v-card-title>
             <v-spacer></v-spacer>
           </v-layout>
+
+          <v-chip label
+                  small
+                  class="my-0"
+                  text-color="white"
+                  color="green"
+                  absolute
+                  style="position: absolute; bottom: 15px; left: 10px;"
+          >
+            <v-icon small>label</v-icon>&nbsp;Need
+          </v-chip>
+
         </v-card-media>
         <v-card-title primary-title style="position: relative">
           <div class="headline">{{ad.title}}</div>
