@@ -35,11 +35,11 @@ describe('TransactionList.vue', () => {
       let transactions = wrapper.findAll('.transaction')
 
       expect(transactions.at(0).text()).toContain('2 months ago')
-      expect(transactions.at(0).text()).toContain('from name1 to name2')
+      expect(transactions.at(0).text()).toContain('name2')
       expect(transactions.at(0).text()).toContain('-1.11')
 
       expect(transactions.at(1).text()).toContain('23 days ago')
-      expect(transactions.at(1).text()).toContain('from name2 to name1')
+      expect(transactions.at(1).text()).toContain('name2')
       expect(transactions.at(1).text()).toContain('+2.22')
 
       expect(gateway.get).toHaveBeenCalledWith('transactions')
