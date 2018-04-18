@@ -84,7 +84,7 @@
         gateway.get(`/users/${this.userId}`).then(r => this.user = r.data)
       },
       paymentDone() {
-        this.makePayment=false
+        this.makePayment = false
         this.loadUser();
       }
     }
