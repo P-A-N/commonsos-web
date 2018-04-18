@@ -54,8 +54,7 @@
               <v-icon color="primary">access_time</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>30 September</v-list-tile-title>
-              <v-list-tile-sub-title>9:30 to 19:00</v-list-tile-sub-title>
+              <v-list-tile-title>30 September 9:30 to 19:00</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-divider inset></v-divider>
