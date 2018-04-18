@@ -92,8 +92,7 @@
         this.error = ''
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
-          userService.createAndLogin(this.user)
-          notifications.i('Welcome to Community OS')
+          userService.createAndLogin(this.user).then(() => notifications.i('Welcome to Community OS'))
         })
       },
       setUser(username, password) {
