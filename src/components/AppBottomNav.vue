@@ -16,5 +16,24 @@
       <span>Profile</span>
       <v-icon>person</v-icon>
     </v-btn>
+    <v-btn to="/admin" v-if="user && user.admin">
+      <span>Admin</span>
+      <v-icon>build</v-icon>
+    </v-btn>
   </v-bottom-nav>
 </template>
+
+<script>
+  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
+
+  export default {
+    mixins: [LoggedInUserConsumerMixin],
+    props: ['title']
+  }
+</script>
+
+<style>
+  .bottom-nav .btn {
+    min-width: 65px;
+  }
+</style>

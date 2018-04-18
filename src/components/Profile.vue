@@ -47,12 +47,6 @@
       </v-btn>
     </v-container>
 
-    <v-container v-if="user.admin" fluid grid-list-lg>
-      <v-btn class="admin" block to="/search-user">
-        Admin: Topup users
-      </v-btn>
-    </v-container>
-
     <v-container fluid grid-list-lg>
       <v-btn class="logout" flat color="grey" block @click.prevent="logout()">Logout</v-btn>
     </v-container>
