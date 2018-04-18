@@ -56,20 +56,19 @@
 
 <script>
   import gateway from '@/gateway'
-  import eventbus from '@/eventbus'
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
-  import userService from '@/services/UserService'
   import Modal from '@/components/Modal'
   import ClaimReward from '@/components/ClaimReward'
+  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
+    mixins: [LoggedInUserConsumerMixin],
     components: {
       AppToolbar, Avatar, Modal, ClaimReward
     },
     data() {
       return {
-        user: userService.user(),
         transactions: [],
         showClaimReward: false
       }
@@ -86,11 +85,7 @@
       }
     },
     created() {
-      eventbus.$on('userChanged', this.onUserChanged)
       gateway.get('transactions').then(r => this.transactions = r.data)
-    },
-    destroyed() {
-      eventbus.$off('userChanged', this.onUserChanged)
     }
   }
 </script>

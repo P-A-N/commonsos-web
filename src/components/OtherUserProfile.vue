@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user" >
+  <div v-if="otherUser" >
     <app-toolbar title="Profile">
       <v-btn slot="left" icon @click="goback()">
         <v-icon>arrow_back</v-icon>
@@ -13,12 +13,12 @@
             <v-layout align-center row>
 
               <v-flex ml-3 xs2>
-                <avatar :userId="user.id"/>
+                <avatar :userId="otherUser.id"/>
               </v-flex>
 
               <v-flex my-2>
-                <div class="headline">{{user.fullName}}</div>
-                <div class="caption" v-if="user.location"><v-icon small>location_on</v-icon>{{user.location}}</div>
+                <div class="headline">{{otherUser.fullName}}</div>
+                <div class="caption" v-if="otherUser.location"><v-icon small>location_on</v-icon>{{otherUser.location}}</div>
               </v-flex>
             </v-layout>
           </v-card>
@@ -34,14 +34,14 @@
               <span class="headline">Balance</span>
             </v-flex>
             <v-flex class="text-xs-right">
-              <span class="title">{{user.balance}}</span>
+              <span class="title">{{otherUser.balance}}</span>
             </v-flex>
           </v-layout>
         </v-card-title>
       </v-card>
     </v-container>
 
-    <v-container v-if="loggedInUser && loggedInUser.admin" fluid grid-list-lg>
+    <v-container v-if="user && user.admin" fluid grid-list-lg>
       <v-btn class="top-up" block @click.prevent="makePayment=true">
         Top-up
       </v-btn>
@@ -58,34 +58,34 @@
   import Avatar from '@/components/Avatar'
   import Modal from '@/components/Modal'
   import MakePayment from '@/components/MakePayment'
-  import userService from '@/services/UserService'
   import gateway from '@/gateway'
+  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
     props: ['userId'],
+    mixins: [LoggedInUserConsumerMixin],
     components: {
       AppToolbar, Avatar, MakePayment, Modal
     },
     data() {
       return {
-        loggedInUser: userService.user(),
-        user: {},
+        otherUser: {},
         makePayment: false
       }
     },
     created() {
-      this.loadUser();
+      this.loadOtherUser();
     },
     methods: {
       goback() {
         this.$router.back()
       },
-      loadUser() {
-        gateway.get(`/users/${this.userId}`).then(r => this.user = r.data)
+      loadOtherUser() {
+        gateway.get(`/users/${this.userId}`).then(r => this.otherUser = r.data)
       },
       paymentDone() {
         this.makePayment = false
-        this.loadUser();
+        this.loadOtherUser();
       }
     }
   }

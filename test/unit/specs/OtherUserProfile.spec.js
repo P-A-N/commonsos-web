@@ -44,13 +44,13 @@ describe('OtherUserProfile.vue', () => {
     let wrapper = shallow(OtherUserProfile, {router})
 
     setTimeout(() => {
-      expect(wrapper.vm.user.balance).toBe(10)
+      expect(wrapper.vm.otherUser.balance).toBe(10)
 
       userDataOnServer.balance = 20
       wrapper.vm.paymentDone()
 
       setTimeout(() => {
-        expect(wrapper.vm.user.balance).toBe(20)
+        expect(wrapper.vm.otherUser.balance).toBe(20)
         done()
       }, 0)
     }, 0)
