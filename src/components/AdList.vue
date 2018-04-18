@@ -6,8 +6,7 @@
                 v-for="(ad, index) in ads"
                 :key="index"
                 hide-actions
-                class="ad"
-        >
+                class="ad">
           <v-card :to="'/community/ad/' + ad.id">
 
             <v-container fluid grid-list-lg>
@@ -20,7 +19,7 @@
                     <v-layout column="true">
                       <v-flex class="pb-0">
                         <v-icon small>access_time</v-icon>
-                        <span class="caption">September 30 at 9:30 to 19:00</span>
+                        <span class="caption">{{ad.createdAt | moment('LLL') }}</span>
                       </v-flex>
 
                       <v-flex class="pb-0">
@@ -38,19 +37,17 @@
                 </v-flex>
                 <v-flex xs5>
                   <v-card-media
-                      src="/static/temp/sample-photo-apartment1.jpg"
+                      :src="ad.photoUrl"
                       height="125px"
                       cover
-                      style="position: relative"
-                  >
+                      style="position: relative">
                     <v-chip
                         label small
                         color="green"
                         text-color="white"
                         style="position: absolute; right: 10px; top: 10px;"
-                        class="ma-0"
-                    >
-                      <v-icon small>label</v-icon>&nbsp;Need
+                        class="ma-0">
+                      <v-icon small>label</v-icon>&nbsp;{{ad.type}}
                     </v-chip>
 
                   </v-card-media>
@@ -66,33 +63,6 @@
 
     </v-container>
   </div>
-
-  <!--<v-expansion-panel v-if="ads.length" popout>-->
-    <!--<v-expansion-panel-content v-for="(ad, index) in ads" :key="index" hide-actions class="ad">-->
-      <!--<v-layout align-center row slot="header">-->
-        <!--<v-flex xs3>-->
-          <!--<avatar :userId="ad.createdBy"/>-->
-        <!--</v-flex>-->
-        <!--<v-flex>-->
-          <!--<div>{{ad.title}}</div>-->
-        <!--</v-flex>-->
-        <!--<v-flex xs2 class="body-2 text-xs-right">-->
-          <!--{{ad.points}}-->
-        <!--</v-flex>-->
-      <!--</v-layout>-->
-      <!--<v-card>-->
-        <!--<v-card-text>-->
-          <!--<div>{{ad.description}}</div>-->
-          <!--<v-chip>{{ad.location}}</v-chip>-->
-        <!--</v-card-text>-->
-        <!--<v-card-actions>-->
-          <!--<v-btn v-if="ad.acceptable" color="blue" @click="messageForAd(ad)" flat>-->
-            <!--Send Message-->
-          <!--</v-btn>-->
-        <!--</v-card-actions>-->
-      <!--</v-card>-->
-    <!--</v-expansion-panel-content>-->
-  <!--</v-expansion-panel>-->
 
 </template>
 
@@ -114,7 +84,12 @@
     },
     methods: {
       loadAds() {
-        gateway.get('/ads').then(r => this.ads = r.data)
+        let mockData = (ads) => ads.map(a => {
+          a.photoUrl = '/static/temp/sample-photo-apartment1.jpg'
+          a.type = 'Need'
+          return a
+        })
+        gateway.get('/ads').then(r => this.ads = mockData(r.data))
       }
     }
   }

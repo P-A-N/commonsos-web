@@ -1,48 +1,35 @@
 import AdList from '@/components/AdList'
-import {mount, shallow} from '@vue/test-utils'
-import router from '@/router'
+import {mount} from '@vue/test-utils'
 import gateway from '@/gateway'
-import notifications from '@/services/notifications'
+import VueRouter from 'vue-router'
 
 describe('AdList.vue', () => {
+  let router
 
   beforeEach(() => {
-    spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
-    spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
-    spyOn(router, 'push')
+    router = new VueRouter()
   })
 
   it('should display ads list', (done) => {
-    gateway.get.and.returnValue(Promise.resolve({
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({
       data: [
-        {createdBy: 'user1', title: 'title1', description: 'description1', points: 1.11, location: 'location1', acceptable: true},
-        {createdBy: 'user2', title: 'title2', description: 'description2', points: 2.22, location: 'location2', acceptable: false}
+        {createdAt: '2018-02-13T12:30', title: 'title1', points: 1.11, location: 'location1'},
+        {createdAt: '2018-02-23T15:40', title: 'title2', points: 2.22, location: 'location2'}
       ]
     }))
 
-    let wrapper = mount(AdList)
+    let wrapper = mount(AdList, {router})
 
     setTimeout(() => {
       let ads = wrapper.findAll('.ad')
+
       expect(ads.at(0).text()).toContain('title1')
       expect(ads.at(0).text()).toContain('1.11')
-      expect(ads.at(0).text()).toContain('description1')
       expect(ads.at(0).text()).toContain('location1')
+
       expect(ads.at(1).text()).toContain('title2')
       expect(ads.at(1).text()).toContain('2.22')
-      expect(ads.at(1).text()).toContain('description2')
       expect(ads.at(1).text()).toContain('location2')
-      done()
-    }, 0)
-  })
-
-  xit('should open "create ad" form', (done) => {
-    let wrapper = shallow(AdList)
-
-    wrapper.find('button#create-ad').trigger('click')
-
-    setTimeout(() => {
-      expect(router.push).toHaveBeenCalledWith('/ads/create')
       done()
     }, 0)
   })
