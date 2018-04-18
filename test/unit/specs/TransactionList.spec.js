@@ -49,7 +49,7 @@ describe('TransactionList.vue', () => {
 
     setTimeout(() => {
       expect(wrapper.findAll('.transaction').length).toBe(0)
-      expect(wrapper.text()).toContain('No transactions')
+      expect(wrapper.text()).toContain('You don\'t have any coins yet.')
       done()
     }, 0)
   })
