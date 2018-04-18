@@ -27,8 +27,8 @@
     </v-card-text>
 
     <v-card-actions>
-      <router-link flat to="/create-account">Create account</router-link>
-        <v-spacer></v-spacer>
+      <v-btn flat color="primary" to="/create-account">Create account</v-btn>
+      <v-spacer></v-spacer>
       <v-btn color="primary" @click.prevent="login()">Login</v-btn>
     </v-card-actions>
   </v-card>

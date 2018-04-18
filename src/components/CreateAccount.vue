@@ -2,8 +2,15 @@
   <v-card>
 
     <v-toolbar app dark color="primary">
+      <v-btn icon to="/login">
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
       <v-toolbar-title>Create account</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn icon
+             @click.prevent="createAccount()">
+        <v-icon>check</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <v-card-text>
@@ -59,9 +66,11 @@
     </v-card-text>
 
     <v-card-actions>
-      <router-link flat to="/login">Login with existing account</router-link>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" @click.prevent="createAccount()">Create</v-btn>
+      <v-btn
+          block
+          color="primary" @click.prevent="createAccount()">
+        Create
+      </v-btn>
     </v-card-actions>
 
   </v-card>
