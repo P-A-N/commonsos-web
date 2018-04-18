@@ -1,16 +1,14 @@
 <template>
   <div>
-    <app-toolbar title="Search user profile">
-      <v-btn slot="left" icon to="/profile">
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-    </app-toolbar>
+    <app-toolbar title="Admin"></app-toolbar>
 
-    <v-container>
+    <v-subheader>Top-up users</v-subheader>
+
+    <div class="px-3">
       <v-form>
-        <v-text-field v-model="filter" @keyup="loadUsers()" label="Enter name" type="text"/>
+        <v-text-field v-model="filter" @keyup="loadUsers()" label="Find user by name" type="text"/>
       </v-form>
-    </v-container>
+    </div>
 
     <v-list v-if="users.length" three-line>
       <template v-for="(user, index) in users">
@@ -21,7 +19,11 @@
             </v-flex>
 
             <v-flex>
-              <div class="headline">{{user.fullName}}</div>
+              <div class="title">{{user.fullName}}</div>
+            </v-flex>
+
+            <v-flex mr-3 xs1>
+              <v-icon>keyboard_arrow_right</v-icon>
             </v-flex>
           </v-layout>
 
@@ -29,17 +31,25 @@
         <v-divider v-if="index + 1 < users.length"></v-divider>
       </template>
     </v-list>
+
+    <app-bottom-nav></app-bottom-nav>
+
   </div>
 </template>
 
 <script>
   import AppToolbar from '@/components/AppToolbar'
+  import AppBottomNav from '@/components/AppBottomNav'
   import Avatar from '@/components/Avatar'
   import gateway from '@/gateway'
 
   export default {
 
-    components: {Avatar, AppToolbar},
+    components: {
+      Avatar,
+      AppToolbar,
+      AppBottomNav
+    },
     data() {
       return {
         filter: null,

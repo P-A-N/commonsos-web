@@ -24,7 +24,7 @@ let router = new Router({
     {path: '/messages', component: Messages},
     {path: '/profile', component: Profile},
     {path: '/profile/:userId', component: OtherUserProfile, props: true},
-    {path: '/search-user', component: SearchUser},
+    {path: '/admin', component: SearchUser},
     {path: '/login', component: Login},
     {path: '/create-account', component: CreateAccount},
     {path: '/agreements/:id', component: AgreementDetails, props: true}
