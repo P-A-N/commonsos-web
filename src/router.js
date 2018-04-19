@@ -15,7 +15,7 @@ Vue.use(Router)
 
 let router = new Router({
   routes: [
-    {path: '/', redirect: '/wallet'},
+    {path: '/', redirect: '/community'},
     {path: '/wallet', component: TransactionList},
     {path: '/community', component: Community},
     {path: '/community/ad/:id', component: Ad, props: true},
