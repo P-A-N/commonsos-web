@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-toolbar title="Wallet">
-      <v-btn icon @click="showClaimReward = true">
+      <v-btn icon @click="showClaimReward = true" v-if="false">
         <v-icon>photo_camera</v-icon>
       </v-btn>
     </app-toolbar>
