@@ -148,7 +148,7 @@
           "createdAt":"2018-04-18T09:51:47.736+03:00",
           "photos": [
             {
-              url: '/static/temp/sample-photo-apartment1.jpg'
+              url: '/static/temp/sample-ad-photo-0.jpg'
             }
           ]
         },
