@@ -54,6 +54,8 @@
                       v-validate="'required'"
                       data-vv-name="lastName"/>
 
+        <v-text-field v-model="user.description" label="Describe yourself" type="text"/>
+
         <vuetify-google-autocomplete
           id="map"
           append-icon="search"
@@ -89,6 +91,7 @@
           password: null,
           firstName: null,
           lastName: null,
+          description: null,
           location: null
         },
         password2: null,
