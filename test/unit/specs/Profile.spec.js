@@ -31,15 +31,4 @@ describe('Profile.vue', () => {
 
     expect(userService.logout).toHaveBeenCalled()
   })
-
-  it('should display topup button to admin', (done) => {
-    spyOn(userService, 'user').and.returnValue({admin: true})
-
-    let wrapper = mount(Profile, {router})
-
-    setTimeout(() => {
-      expect(wrapper.find('.admin').element).toBeDefined()
-      done()
-    }, 0)
-  })
 })

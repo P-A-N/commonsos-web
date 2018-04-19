@@ -1,8 +1,8 @@
 <template>
-  <v-layout row>
+  <v-layout v-if="ad" row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media :src="ad.photos[0].url" height="250px">
+        <v-card-media :src="ad.photoUrl" height="250px">
           <v-layout column class="media">
             <v-card-title>
               <v-btn dark icon @click="$router.go(-1)">
@@ -25,8 +25,7 @@
                   text-color="white"
                   color="green"
                   absolute
-                  style="position: absolute; bottom: 15px; left: 10px;"
-          >
+                  style="position: absolute; bottom: 15px; left: 10px;">
             <v-icon small>label</v-icon>&nbsp;Need
           </v-chip>
 
@@ -42,8 +41,7 @@
               top
               right
               color="primary"
-              @click="messageForAd(ad)"
-          >
+              @click="messageForAd(ad)">
             <v-icon>message</v-icon>
           </v-btn>
         </v-card-title>
@@ -84,15 +82,15 @@
 
         <v-container fluid grid-list-lg>
 
-          <v-card flat>
+          <v-card flat :to="`/profile/${ad.createdBy.id}`">
             <v-layout align-center row>
 
               <v-flex ml-3 xs2>
-                <avatar :userId="ad.createdBy"/>
+                <avatar :userId="ad.createdBy.id"/>
               </v-flex>
 
               <v-flex my-2>
-                <div class="title">Satayoshi Nakabe</div>
+                <div class="title">{{ad.createdBy.fullName}}</div>
               </v-flex>
 
               <v-flex mr-3 xs1>
@@ -109,18 +107,18 @@
 
       </v-card>
     </v-flex>
-
     <modal v-if="messageThreadForAd" title="Message thread" @close="messageThreadForAd = null">
       <MessageThread slot-scope="modal" :close-modal="modal.close" :current-ad="messageThreadForAd"></MessageThread>
     </modal>
-
   </v-layout>
+  <div v-else>
+    Loading...
+  </div>
+
 
 </template>
 
 <script>
-
-  import router from '@/router'
   import gateway from '@/gateway'
   import AppToolbar from '@/components/AppToolbar'
   import Modal from '@/components/Modal'
@@ -131,27 +129,12 @@
     name: 'Ad',
     components: { AppToolbar, Modal, Avatar, MessageThread },
     created() {
-      //gateway.get(`/ad/${this.id}`).then(r => this.ad = r.data).catch(error => console.log(error))
+      gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
     },
     props: ['id', 'closeModal'],
     data() {
       return {
-        ad: {
-          "id":"0",
-          "type": "Give",
-          "createdBy":"0",
-          "title":"House cleaning, a longer title testing, will it wrap",
-          "description":"I am a busy person needing help with cleaning. Proposed frequency once a week. Vacuum cleaning, moist cleaning, floors etc. ",
-          "points":1299.01,
-          "location":"Kaga city",
-          "acceptable":true,
-          "createdAt":"2018-04-18T09:51:47.736+03:00",
-          "photos": [
-            {
-              url: '/static/temp/sample-ad-photo-0.jpg'
-            }
-          ]
-        },
+        ad: null,
         messageThreadForAd: null
       }
     },

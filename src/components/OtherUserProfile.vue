@@ -26,7 +26,7 @@
       </v-layout>
     </v-container>
 
-    <v-container fluid grid-list-lg>
+    <v-container v-if="otherUser.balance" fluid grid-list-lg>
       <v-card flat>
         <v-card-title primary-title>
           <v-layout align-center row>

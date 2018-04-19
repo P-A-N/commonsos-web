@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
-Vue.use(VeeValidate)
 import Vuetify from 'vuetify'
+import VueMoment from 'vue-moment'
+
+Vue.use(VeeValidate)
 Vue.use(Vuetify)
+Vue.use(VueMoment)
 
 Vue.config.productionTip = false
 

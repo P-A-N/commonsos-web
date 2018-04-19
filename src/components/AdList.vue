@@ -6,8 +6,7 @@
                 v-for="(ad, index) in ads"
                 :key="index"
                 hide-actions
-                class="ad"
-        >
+                class="ad">
           <v-card :to="'/community/ad/' + ad.id">
 
             <v-container fluid grid-list-lg>
@@ -20,7 +19,7 @@
                     <v-layout column="true">
                       <v-flex class="pt-1 pb-0">
                         <v-icon small>access_time</v-icon>
-                        <span class="caption">September 30, 9:30</span>
+                        <span class="caption">{{ad.createdAt | moment('LLL') }}</span>
                       </v-flex>
 
                       <v-flex class="pt-1 pb-0">
@@ -38,19 +37,17 @@
                 </v-flex>
                 <v-flex xs5 class="py-1">
                   <v-card-media
-                      :src="'/static/temp/sample-ad-photo-' + ad.id + '.jpg'"
+                      :src="ad.photoUrl"
                       height="125px"
                       cover
-                      style="position: relative"
-                  >
+                      style="position: relative">
                     <v-chip
                         label small
                         color="green"
                         text-color="white"
                         style="position: absolute; right: 10px; top: 10px;"
-                        class="ma-0"
-                    >
-                      <v-icon small>label</v-icon>&nbsp;Need
+                        class="ma-0">
+                      <v-icon small>label</v-icon>&nbsp;{{ad.type}}
                     </v-chip>
 
                   </v-card-media>
@@ -87,7 +84,11 @@
     },
     methods: {
       loadAds() {
-        gateway.get('/ads').then(r => this.ads = r.data)
+        let mockData = (ads) => ads.map(a => {
+          a.type = 'Need'
+          return a
+        })
+        gateway.get('/ads').then(r => this.ads = mockData(r.data))
       }
     }
   }

@@ -23,7 +23,21 @@ describe('OtherUserProfile.vue', () => {
     setTimeout(() => {
       expect(wrapper.find('.top-up').element).toBeUndefined()
       expect(wrapper.text()).toContain('other user full name')
+      expect(wrapper.text()).toContain('Balance 10')
       expect(gateway.get).toHaveBeenCalledWith('/users/otheruserid')
+      done()
+    }, 0)
+  })
+
+  it('should not display balance if not given', (done) => {
+    spyOn(userService, 'user').and.returnValue({admin: false})
+    userDataOnServer.balance = null
+
+    let wrapper = mount(OtherUserProfile, {router, propsData: {userId: 'otheruserid'}})
+
+    setTimeout(() => {
+      expect(wrapper.text()).toContain('other user full name')
+      expect(wrapper.text()).not.toContain('Balance')
       done()
     }, 0)
   })

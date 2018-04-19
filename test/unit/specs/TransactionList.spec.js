@@ -4,8 +4,15 @@ import gateway from '@/gateway'
 import Vue from 'vue'
 import VueMoment from 'vue-moment'
 import userService from '@/services/UserService'
+import VueRouter from 'vue-router'
 
 describe('TransactionList.vue', () => {
+
+  let router
+
+  beforeEach(() => {
+    router = new VueRouter()
+  })
 
   beforeEach(() => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
@@ -22,17 +29,17 @@ describe('TransactionList.vue', () => {
     }))
     spyOn(userService, 'user').and.returnValue({})
 
-    let wrapper = mount(TransactionList)
+    let wrapper = mount(TransactionList, {router})
 
     setTimeout(() => {
       let transactions = wrapper.findAll('.transaction')
 
       expect(transactions.at(0).text()).toContain('2 months ago')
-      expect(transactions.at(0).text()).toContain('from name1 to name2')
+      expect(transactions.at(0).text()).toContain('name2')
       expect(transactions.at(0).text()).toContain('-1.11')
 
       expect(transactions.at(1).text()).toContain('23 days ago')
-      expect(transactions.at(1).text()).toContain('from name2 to name1')
+      expect(transactions.at(1).text()).toContain('name2')
       expect(transactions.at(1).text()).toContain('+2.22')
 
       expect(gateway.get).toHaveBeenCalledWith('transactions')
@@ -45,7 +52,7 @@ describe('TransactionList.vue', () => {
     gateway.get.and.returnValue(Promise.resolve({data: []}))
     spyOn(userService, 'user').and.returnValue({id: 'user1'})
 
-    let wrapper = mount(TransactionList)
+    let wrapper = mount(TransactionList, {router})
 
     setTimeout(() => {
       expect(wrapper.findAll('.transaction').length).toBe(0)
