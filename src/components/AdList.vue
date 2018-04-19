@@ -84,11 +84,7 @@
     },
     methods: {
       loadAds() {
-        let mockData = (ads) => ads.map(a => {
-          a.type = 'Need'
-          return a
-        })
-        gateway.get('/ads').then(r => this.ads = mockData(r.data))
+        gateway.get('/ads').then(r => this.ads = r.data)
       }
     }
   }

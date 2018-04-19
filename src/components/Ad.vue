@@ -26,7 +26,7 @@
                   color="green"
                   absolute
                   style="position: absolute; bottom: 15px; left: 10px;">
-            <v-icon small>label</v-icon>&nbsp;Need
+            <v-icon small>label</v-icon>&nbsp;{{ad.type}}
           </v-chip>
 
         </v-card-media>
