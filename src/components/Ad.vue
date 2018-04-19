@@ -102,12 +102,12 @@
             </v-layout>
           </v-card>
 
-          <v-btn v-if="!ad.own" large block color="primary" @click="messageForAd(ad)" class="ml-0 mt-3">
+          <v-btn v-if="!ad.own" large block color="primary" @click="messageForAd(ad)" class="ml-0 mt-3 message-button">
             <v-icon small left>message</v-icon>
             Send Message
           </v-btn>
 
-          <v-btn v-if="!ad.own" large block flat outline color="secondary" @click="makePayment = true" class="ml-0 mt-3 pay-button">
+          <v-btn v-if="ad.payable" large block flat outline color="secondary" @click="makePayment = true" class="ml-0 mt-3 pay-button">
             <v-icon small left>account_balance_wallet</v-icon>
             Pay for service
           </v-btn>
