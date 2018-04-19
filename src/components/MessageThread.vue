@@ -51,13 +51,13 @@
       return {
         message: "",
         counterParty: {
-          userId: 'elderly2',
+          userId: 1,
           fullName: 'Sato Haruto'
         },
         messages: [
-          {message: 'Hello my friend', userId: 'worker', createdAt: '2018-04-07T20:51:00'},
-          {message: 'Hi!', userId: 'elderly1', createdAt: '2018-04-09T21:51:00'},
-          {message: 'Good to see you', userId: 'elderly1', createdAt: '2018-04-09T22:01:00'},
+          { message: 'Hello my friend', userId: 1, createdAt: '2018-04-07T20:51:00'},
+          { message: 'Hi!', userId: 0, createdAt: '2018-04-09T21:51:00'},
+          { message: 'Good to see you', userId: 1, createdAt: '2018-04-09T22:01:00'},
           ]
       }
     },

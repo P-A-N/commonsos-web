@@ -6,7 +6,7 @@
       </v-btn>
     </app-toolbar>
 
-    <v-list three-line>
+    <v-list two-line>
       <template v-for="(item, index) in messageThreads">
         <v-subheader v-if="item.header" :key="item.header">{{ item.header }}</v-subheader>
         <v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider>
@@ -51,11 +51,11 @@
         currentThread: null,
         messageThreads: [
           {header: 'Recent chats'},
-          {title: 'About tomorrows cleaning', subtitle: 'Cleaning service', userId: 'worker'},
+          {title: 'About tomorrows cleaning', subtitle: 'Cleaning service', userId: 1},
           {divider: true, inset: true},
-          {title: 'See you tomorrow!', subtitle: 'Need more potatos', userId: 'worker'},
+          {title: 'See you tomorrow!', subtitle: 'Need more potatos', userId: 1},
           {divider: true, inset: true},
-          {title: 'Good to have mutual understanding', subtitle: 'Nice service', userId: 'kelly'},
+          {title: 'Good to have mutual understanding', subtitle: 'Nice service', userId: 2},
           ]
       }
     },
