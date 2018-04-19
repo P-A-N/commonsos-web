@@ -14,20 +14,20 @@
               <v-layout row>
                 <v-flex xs7>
                   <div>
-                    <h3 class="title mb-0">{{ad.title}}</h3>
+                    <h3 class="subtitle mb-0">{{ad.title}}</h3>
 
                     <v-layout column="true">
-                      <v-flex class="pb-0">
+                      <v-flex class="pt-1 pb-0">
                         <v-icon small>access_time</v-icon>
                         <span class="caption">{{ad.createdAt | moment('LLL') }}</span>
                       </v-flex>
 
-                      <v-flex class="pb-0">
+                      <v-flex class="pt-1 pb-0">
                         <v-icon small>location_on</v-icon>
                         <span class="caption">{{ad.location}}</span>
                       </v-flex>
 
-                      <v-flex class="body-2">
+                      <v-flex class="pt-1 body-2">
                         <v-icon small>account_balance_wallet</v-icon>
                         <span class="caption">{{ad.points}}</span>
                       </v-flex>
@@ -35,7 +35,7 @@
 
                   </div>
                 </v-flex>
-                <v-flex xs5>
+                <v-flex xs5 class="py-1">
                   <v-card-media
                       :src="ad.photoUrl"
                       height="125px"
