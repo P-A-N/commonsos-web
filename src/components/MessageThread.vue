@@ -8,7 +8,7 @@
 
     <v-list two-line>
       <template v-for="(item, index) in messages">
-        <v-list-tile avatar @click="">
+        <v-list-tile avatar>
           <v-list-tile-avatar>
             <avatar :userId="item.userId"/>
           </v-list-tile-avatar>
