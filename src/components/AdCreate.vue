@@ -1,6 +1,14 @@
 <template>
   <form v-on:submit.prevent="createAd()">
     <v-card-text>
+      <div>Type</div>
+      <v-radio-group v-model="ad.type" row
+                     v-validate="'required'"
+                     :error-messages="errors.collect('type')"
+                     data-vv-name="type">
+        <v-radio label="Want" value="WANT"></v-radio>
+        <v-radio label="Give" value="GIVE"></v-radio>
+      </v-radio-group>
       <v-text-field v-model="ad.title" label="Title" type="text"
                     :error-messages="errors.collect('title')"
                     v-validate="'required'"
@@ -9,7 +17,7 @@
                     :error-messages="errors.collect('description')"
                     v-validate="'required'"
                     data-vv-name="description"/>
-      <v-text-field v-model="ad.points" label="Reward" type="text"
+      <v-text-field v-model="ad.amount" label="Reward" type="text"
                     :error-messages="errors.collect('reward')"
                     v-validate="'required|decimal'"
                     data-vv-name="reward"/>
@@ -33,7 +41,7 @@
       props: ['closeModal'],
       data() {
         return {
-          ad: {},
+          ad: {type: null},
         }
       },
       methods: {

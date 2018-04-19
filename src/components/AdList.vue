@@ -37,7 +37,7 @@
                 </v-flex>
                 <v-flex xs5 class="py-1">
                   <v-card-media
-                      :src="ad.photoUrl"
+                      :src="ad.photoUrl || '/static/temp/ad-placeholder.png'"
                       height="125px"
                       cover
                       style="position: relative">
@@ -84,11 +84,7 @@
     },
     methods: {
       loadAds() {
-        let mockData = (ads) => ads.map(a => {
-          a.type = 'Need'
-          return a
-        })
-        gateway.get('/ads').then(r => this.ads = mockData(r.data))
+        gateway.get('/ads').then(r => this.ads = r.data)
       }
     }
   }

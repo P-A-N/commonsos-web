@@ -13,8 +13,8 @@ describe('AdList.vue', () => {
   it('should display ads list', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({
       data: [
-        {createdAt: '2018-02-13T12:30', title: 'title1', points: 1.11, location: 'location1'},
-        {createdAt: '2018-02-23T15:40', title: 'title2', points: 2.22, location: 'location2'}
+        {createdAt: '2018-02-13T12:30', title: 'title1', points: 1.11, location: 'location1', type: 'GIVE'},
+        {createdAt: '2018-02-23T15:40', title: 'title2', points: 2.22, location: 'location2', type: 'WANT'}
       ]
     }))
 
@@ -26,10 +26,12 @@ describe('AdList.vue', () => {
       expect(ads.at(0).text()).toContain('title1')
       expect(ads.at(0).text()).toContain('1.11')
       expect(ads.at(0).text()).toContain('location1')
+      expect(ads.at(0).text()).toContain('GIVE')
 
       expect(ads.at(1).text()).toContain('title2')
       expect(ads.at(1).text()).toContain('2.22')
       expect(ads.at(1).text()).toContain('location2')
+      expect(ads.at(1).text()).toContain('WANT')
       done()
     }, 0)
   })
