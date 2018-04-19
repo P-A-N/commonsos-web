@@ -5,7 +5,8 @@
     <v-card>
       <v-card-media src="https://image.jimcdn.com/app/cms/image/transf/none/path/s09a03e3ad80f8a02/image/i788e42d25ed4115e/version/1493969515/image.jpg"
                     height="250px">
-        <v-layout column class="media">
+        <v-layout column
+                  class="media card-image-gradient">
           <v-card-title>
             <v-spacer></v-spacer>
             <v-btn dark icon class="mr-2">

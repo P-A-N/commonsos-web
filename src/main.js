@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 import VueMoment from 'vue-moment'
 import 'vuetify/dist/vuetify.css'
+import './assets/scss/main.scss'
 import Vuetify from 'vuetify'
 import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 
