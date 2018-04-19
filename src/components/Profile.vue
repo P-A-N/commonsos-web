@@ -1,55 +1,81 @@
 <template>
   <div v-if="user">
-    <app-toolbar title="Profile"/>
+    <!--<app-toolbar title="Profile"/>-->
 
-    <v-container fluid grid-list-lg mt-3>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card flat>
-            <v-layout align-center row>
+    <v-card>
+      <v-card-media src="https://image.jimcdn.com/app/cms/image/transf/none/path/s09a03e3ad80f8a02/image/i788e42d25ed4115e/version/1493969515/image.jpg"
+                    height="250px">
+        <v-layout column class="media">
+          <v-card-title>
+            <v-spacer></v-spacer>
+            <v-btn dark icon class="mr-2">
+              <v-icon>collections_bookmark</v-icon>
+            </v-btn>
+            <v-btn dark icon class="mr-2">
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <!--<v-btn dark icon>-->
+            <!--<v-icon>more_vert</v-icon>-->
+            <!--</v-btn>-->
+          </v-card-title>
+          <v-spacer></v-spacer>
+        </v-layout>
 
-              <v-flex ml-3 xs2>
-                <avatar :userId="user.id"/>
-              </v-flex>
+      </v-card-media>
+      <v-card-title
+          primary-title
+          class="pb-0"
+          style="position: relative"
+      >
+        <div class="headline">{{user.fullName}}</div>
+        <div>I am an Engineer, currently unemployed. I like helping elderly people, I can help with daily chores.</div>
+      </v-card-title>
+      <v-list>
 
-              <v-flex my-2>
-                <div class="headline">{{user.fullName}}</div>
-                <div class="caption" v-if="user.location"><v-icon small>location_on</v-icon>{{user.location}}</div>
-              </v-flex>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon color="primary">location_on</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{user.location}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider inset></v-divider>
 
-              <v-flex mr-3 xs1>
-                <v-icon>keyboard_arrow_right</v-icon>
-              </v-flex>
-            </v-layout>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon color="primary">account_balance_wallet</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{user.balance}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+      </v-list>
+
+      <v-divider></v-divider>
+
+    </v-card>
+
 
     <v-container fluid grid-list-lg>
-      <v-card flat>
-        <v-card-title primary-title>
-          <v-layout align-center row>
-            <v-flex>
-              <span class="headline">Balance</span>
-            </v-flex>
-            <v-flex class="text-xs-right">
-              <span class="title">{{user.balance}}</span>
-            </v-flex>
-          </v-layout>
-        </v-card-title>
-      </v-card>
-    </v-container>
-
-    <v-container fluid grid-list-lg>
-      <v-btn block @click.prevent="">
+      <v-btn
+          block
+          color="primary"
+          @click.prevent="">
+        <v-icon class="mr-2">collections_bookmark</v-icon>
         Manage my ads
+      </v-btn>
+      <v-btn class="logout mt-4"
+             flat
+             block
+             color="grey"
+             @click.prevent="logout()">
+        <v-icon class="mr-2">power_settings_new</v-icon>
+        Logout
       </v-btn>
     </v-container>
 
-    <v-container fluid grid-list-lg>
-      <v-btn class="logout" flat color="grey" block @click.prevent="logout()">Logout</v-btn>
-    </v-container>
 
     <app-bottom-nav></app-bottom-nav>
   </div>
