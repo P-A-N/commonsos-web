@@ -28,7 +28,7 @@
             <v-layout align-center row>
 
               <v-flex xs3>
-                <avatar :userId="otherPartyUserId(transaction)"/>
+                <avatar :user="otherPartyUser(transaction)"/>
               </v-flex>
 
               <v-flex>
@@ -89,8 +89,8 @@
       onUserChanged(user) {
         this.user = user
       },
-      otherPartyUserId(transaction) {
-        return transaction.debit ? transaction.beneficiary.id : transaction.remitter.id
+      otherPartyUser(transaction) {
+        return transaction.debit ? transaction.beneficiary : transaction.remitter
       },
       formattedAmount(transaction) {
         return (transaction.debit ? '-' : '+') + transaction.amount

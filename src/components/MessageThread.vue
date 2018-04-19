@@ -10,7 +10,7 @@
       <template v-for="(item, index) in messages">
         <v-list-tile avatar>
           <v-list-tile-avatar>
-            <avatar :userId="item.userId"/>
+            <avatar :user="counterParty"/>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>{{item.createdAt | moment('from')}}</v-list-tile-title>
@@ -52,7 +52,8 @@
         message: "",
         counterParty: {
           userId: 1,
-          fullName: 'Sato Haruto'
+          fullName: 'Sato Haruto',
+          avatarUrl: 'https://image.jimcdn.com/app/cms/image/transf/none/path/s09a03e3ad80f8a02/image/i788e42d25ed4115e/version/1493969515/image.jpg'
         },
         messages: [
           { message: 'Hello my friend', userId: 1, createdAt: '2018-04-07T20:51:00'},

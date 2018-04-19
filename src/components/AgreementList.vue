@@ -5,7 +5,7 @@
         <v-layout align-center row slot="header">
 
           <v-flex xs3>
-            <avatar :userId="agreement.providerId"/>
+            <avatar :user="agreement.serviceProvider"/>
           </v-flex>
 
           <v-flex>

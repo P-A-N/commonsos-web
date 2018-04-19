@@ -15,7 +15,7 @@
         <v-list-tile class="user" @click.prevent="showProfile(user)">
           <v-layout align-center row>
             <v-flex xs3>
-              <avatar :userId="user.id"/>
+              <avatar :user="user"/>
             </v-flex>
 
             <v-flex>

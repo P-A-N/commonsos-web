@@ -17,8 +17,8 @@ describe('AgreementList.vue', () => {
   it('should display my agreements', (done) => {
     gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {createdAt: '2018-01-30T22:51:00', providerId: 'user1', title: 'title1', description: 'description1', location: 'my home', points: 1.11},
-        {createdAt: '2018-02-24T11:22:33', providerId: 'user2', title: 'title2', description: 'description2', location: 'my home', points: 2.22}
+        {createdAt: '2018-01-30T22:51:00', serviceProvider: {id: 'user1'}, title: 'title1', description: 'description1', location: 'my home', points: 1.11},
+        {createdAt: '2018-02-24T11:22:33', serviceProvider: {id: 'user2'}, title: 'title2', description: 'description2', location: 'my home', points: 2.22}
       ]
     }))
 

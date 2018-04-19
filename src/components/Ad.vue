@@ -89,7 +89,7 @@
             <v-layout align-center row>
 
               <v-flex ml-3 xs2>
-                <avatar :userId="ad.createdBy.id"/>
+                <avatar :user="ad.createdBy"/>
               </v-flex>
 
               <v-flex my-2>
