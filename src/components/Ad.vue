@@ -31,8 +31,11 @@
 
         </v-card-media>
         <v-card-title primary-title style="position: relative">
-          <div class="headline">{{ad.title}}</div>
-          <div>{{ad.description}}</div>
+          <v-layout column>
+            <div class="headline">{{ad.title}}</div>
+            <div>{{ad.description}}</div>
+          </v-layout>
+
           <v-btn
               v-if="ad.acceptable"
               absolute
