@@ -6,7 +6,7 @@
       </v-btn>
     </app-toolbar>
 
-    <v-list three-line>
+    <v-list two-line>
       <template v-for="(item, index) in messages">
         <v-list-tile avatar @click="">
           <v-list-tile-avatar>
@@ -52,7 +52,7 @@
         message: "",
         counterParty: {
           userId: 'elderly2',
-          fullName: 'Kirill Klenski'
+          fullName: 'Sato Haruto'
         },
         messages: [
           {message: 'Hello my friend', userId: 'worker', createdAt: '2018-04-07T20:51:00'},
