@@ -23,7 +23,7 @@ describe('AdCreate.vue', () => {
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
     let props = jasmine.createSpyObj('props', ['closeModal'])
     const wrapper = mount(AdCreate, {propsData: props})
-    let ad = {title: 'title', description: 'description', points: 1.11, location: 'location'}
+    let ad = {title: 'title', description: 'description', amount: 1.11, location: 'location', type: 'WANT'}
     wrapper.setData({ad: ad});
 
     wrapper.find('button').trigger('click')
