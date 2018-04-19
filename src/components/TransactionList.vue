@@ -13,7 +13,7 @@
             <span class="headline">Balance</span>
           </v-flex>
           <v-flex class="text-xs-right">
-            <span class="title">{{user ? user.balance : ''}}</span>
+            <span class="title"><v-icon style="vertical-align: bottom">account_balance_wallet</v-icon> {{user ? user.balance : ''}}</span>
           </v-flex>
         </v-layout>
       </v-card-title>
