@@ -1,45 +1,52 @@
 <template>
   <div v-if="otherUser" >
-    <app-toolbar title="Profile">
-      <v-btn slot="left" icon @click="goback()">
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-    </app-toolbar>
+    <v-card>
+      <v-card-media :src="staticAvatarImages[otherUser.id]"
+                    height="250px">
+        <v-layout column
+                  class="media card-image-gradient">
+          <v-card-title>
+            <v-btn slot="left" dark icon @click="goback()">
+              <v-icon>arrow_back</v-icon>
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-spacer></v-spacer>
+        </v-layout>
 
-    <v-container fluid grid-list-lg mt-3>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card flat>
-            <v-layout align-center row>
+      </v-card-media>
+      <v-card-title
+          primary-title
+          class="pb-0"
+          style="position: relative"
+      >
+        <div class="headline">{{otherUser.fullName}}</div>
+        <div>I am an Engineer, currently unemployed. I like helping elderly people, I can help with daily chores.</div>
+      </v-card-title>
+      <v-list>
 
-              <v-flex ml-3 xs2>
-                <avatar :userId="otherUser.id"/>
-              </v-flex>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon color="primary">location_on</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{otherUser.location}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
-              <v-flex my-2>
-                <div class="headline">{{otherUser.fullName}}</div>
-                <div class="caption" v-if="otherUser.location"><v-icon small>location_on</v-icon>{{otherUser.location}}</div>
-              </v-flex>
-            </v-layout>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+        <v-divider inset v-if="otherUser.balance" ></v-divider>
+        <v-list-tile v-if="otherUser.balance" >
+          <v-list-tile-action>
+            <v-icon color="primary">account_balance_wallet</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{otherUser.balance}}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
 
-    <v-container v-if="otherUser.balance" fluid grid-list-lg>
-      <v-card flat>
-        <v-card-title primary-title>
-          <v-layout align-center row>
-            <v-flex>
-              <span class="headline">Balance</span>
-            </v-flex>
-            <v-flex class="text-xs-right">
-              <span class="title">{{otherUser.balance}}</span>
-            </v-flex>
-          </v-layout>
-        </v-card-title>
-      </v-card>
-    </v-container>
+      </v-list>
+
+    </v-card>
 
     <v-container v-if="user && user.admin" fluid grid-list-lg>
       <v-btn class="top-up" block @click.prevent="makePayment=true">
@@ -70,7 +77,12 @@
     data() {
       return {
         otherUser: {},
-        makePayment: false
+        makePayment: false,
+        staticAvatarImages: {
+          '0': 'https://image.jimcdn.com/app/cms/image/transf/none/path/s09a03e3ad80f8a02/image/i788e42d25ed4115e/version/1493969515/image.jpg',
+          '1': 'https://i.pinimg.com/originals/df/5c/70/df5c70b3b4895c4d9424de3845771182.jpg',
+          '2': 'https://qph.fs.quoracdn.net/main-qimg-42b85e5f162e21ce346da83e8fa569bd-c'
+        }
       }
     },
     created() {
