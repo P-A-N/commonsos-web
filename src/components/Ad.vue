@@ -2,7 +2,7 @@
   <v-layout v-if="ad" row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media :src="ad.photoUrl" height="250px">
+        <v-card-media :src="ad.photoUrl || '/static/temp/ad-placeholder.png'" height="250px">
           <v-layout column class="media">
             <v-card-title>
               <v-btn dark icon @click="$router.go(-1)">
