@@ -106,12 +106,22 @@
             <v-icon small left>message</v-icon>
             Send Message
           </v-btn>
+
+          <v-btn v-if="ad.acceptable" large block flat outline color="secondary" @click="makePayment = true" class="ml-0 mt-3">
+            <v-icon small left>account_balance_wallet</v-icon>
+            Pay for service
+          </v-btn>
         </v-container>
 
       </v-card>
     </v-flex>
+
     <modal v-if="messageThreadForAd" title="Message thread" @close="messageThreadForAd = null">
       <MessageThread slot-scope="modal" :close-modal="modal.close" :current-ad="messageThreadForAd"></MessageThread>
+    </modal>
+
+    <modal v-if="makePayment" title="Make payment" @close="makePayment = false">
+      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :description="'Ad:' + ad.title" slot-scope="modal" :closeModal="modal.close"></make-payment>
     </modal>
   </v-layout>
   <div v-else>
@@ -127,10 +137,12 @@
   import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
   import Avatar from '@/components/Avatar'
+  import MakePayment from '@/components/MakePayment'
+
 
   export default {
     name: 'Ad',
-    components: { AppToolbar, Modal, Avatar, MessageThread },
+    components: { AppToolbar, Modal, Avatar, MessageThread, MakePayment },
     created() {
       gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
     },
@@ -138,7 +150,8 @@
     data() {
       return {
         ad: null,
-        messageThreadForAd: null
+        messageThreadForAd: null,
+        makePayment: false
       }
     },
     methods: {
