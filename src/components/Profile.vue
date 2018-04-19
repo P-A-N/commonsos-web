@@ -30,7 +30,7 @@
       >
         <v-layout column>
           <div class="headline">{{user.fullName}}</div>
-          <div>I am an Engineer, currently unemployed. I like helping elderly people, I can help with daily chores.</div>
+          <div>{{user.description || 'Description not set'}}</div>
         </v-layout>
       </v-card-title>
       <v-list>
