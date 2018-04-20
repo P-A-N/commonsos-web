@@ -35,7 +35,7 @@
                 <div class="body-2">
                   {{transaction.debit ? transaction.beneficiary.fullName : transaction.remitter.fullName }}
                 </div>
-                <div class="body-1">{{transaction.description || 'Ad: [Ad title]'}}</div>
+                <div class="body-1">{{transaction.description}}</div>
                 <div class="caption">{{transaction.createdAt | moment('from') }}</div>
               </v-flex>
 

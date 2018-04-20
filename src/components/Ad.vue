@@ -121,7 +121,7 @@
     </modal>
 
     <modal v-if="makePayment" title="Make payment" @close="makePayment = false">
-      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="'Ad:' + ad.title"
+      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="'Ad: ' + ad.title"
                     slot-scope="modal" :closeModal="modal.close"></make-payment>
     </modal>
   </v-layout>

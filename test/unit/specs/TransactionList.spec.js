@@ -23,7 +23,7 @@ describe('TransactionList.vue', () => {
   it('should display user transactions', (done) => {
     gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {createdAt: '2018-01-30T22:51:00', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11, debit:true},
+        {createdAt: '2018-01-30T22:51:00', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11, debit:true, description: 'Payment description'},
         {createdAt: '2018-02-24T11:22:33', remitter: {id: 'user2', fullName: 'name2'}, beneficiary: {id: 'user1', fullName: 'name1'}, amount: 2.22, debit:false, description:'Topup from community'}
       ]
     }))
@@ -37,7 +37,7 @@ describe('TransactionList.vue', () => {
       expect(transactions.at(0).text()).toContain('2 months ago')
       expect(transactions.at(0).text()).toContain('name2')
       expect(transactions.at(0).text()).toContain('-1.11')
-      expect(transactions.at(0).text()).toContain('Ad: [Ad title]')
+      expect(transactions.at(0).text()).toContain('Payment description')
 
       expect(transactions.at(1).text()).toContain('23 days ago')
       expect(transactions.at(1).text()).toContain('name2')
