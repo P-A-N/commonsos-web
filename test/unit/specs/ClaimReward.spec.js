@@ -1,4 +1,4 @@
-import {mount} from '@vue/test-utils'
+import {mount} from '../test-utils'
 import ClaimReward from '@/components/ClaimReward'
 import gateway from '@/gateway'
 import userService from '@/services/UserService'

@@ -1,6 +1,5 @@
 import AgreementDetails from '@/components/AgreementDetails'
-import {mount} from '@vue/test-utils'
-import router from '@/router'
+import {mount} from '../test-utils'
 import gateway from '@/gateway'
 
 describe('AgreementDetails.vue', () => {

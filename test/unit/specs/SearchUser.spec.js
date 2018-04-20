@@ -1,16 +1,13 @@
-import {mount} from '@vue/test-utils'
+import {mount, router} from '../test-utils'
 import SearchUser from '@/components/SearchUser'
 import gateway from '@/gateway'
-import VueRouter from 'vue-router'
 
 describe('SearchUser.vue', () => {
   let wrapper
-  let router
 
   beforeEach(() => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: [{id: '0', fullName: 'foo'}, {id: '1', fullName: 'foobar'}]}))
-    router = new VueRouter()
-    wrapper = mount(SearchUser, {router})
+    wrapper = mount(SearchUser)
   })
 
   it('searches users', (done) => {

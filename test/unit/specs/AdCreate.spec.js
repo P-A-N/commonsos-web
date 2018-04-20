@@ -1,4 +1,4 @@
-import {mount} from '@vue/test-utils'
+import {mount} from '../test-utils'
 
 import AdCreate from '@/components/AdCreate'
 import gateway from '@/gateway'

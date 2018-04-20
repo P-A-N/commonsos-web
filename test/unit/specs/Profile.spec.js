@@ -1,19 +1,12 @@
 import Profile from '@/components/Profile'
-import {mount} from '@vue/test-utils'
+import {mount} from '../test-utils'
 import userService from '@/services/UserService'
-import VueRouter from 'vue-router'
 
 describe('Profile.vue', () => {
 
-  let router
-
-  beforeEach(() => {
-    router = new VueRouter()
-  })
-
   it('should display user profile', (done) => {
     spyOn(userService, 'user').and.returnValue({fullName: 'foo bar'})
-    let wrapper = mount(Profile, {router})
+    let wrapper = mount(Profile)
 
     setTimeout(() => {
       expect(wrapper.find('.admin').element).toBeUndefined()
@@ -25,7 +18,7 @@ describe('Profile.vue', () => {
   it('should logout user', () => {
     spyOn(userService, 'user').and.returnValue({fullName: 'foo bar'})
     spyOn(userService, 'logout')
-    let wrapper = mount(Profile, {router})
+    let wrapper = mount(Profile)
 
     wrapper.find('button.logout').trigger('click')
 

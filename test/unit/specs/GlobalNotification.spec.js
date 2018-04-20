@@ -1,14 +1,12 @@
-import {mount} from '@vue/test-utils'
-import VueRouter from 'vue-router'
+import {mount, router} from '../test-utils'
+
 import GlobalNotification from '@/components/GlobalNotification'
 
 describe('GlobalNotification.vue', () => {
   let wrapper
-  let router
 
   beforeEach(() => {
-    router = new VueRouter()
-    wrapper = mount(GlobalNotification, {router})
+    wrapper = mount(GlobalNotification)
   })
 
   it('shows error', (done) => {

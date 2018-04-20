@@ -1,7 +1,6 @@
-import {mount} from '@vue/test-utils'
+import {mount} from '../test-utils'
 import CreateAccount from '@/components/CreateAccount'
 import userService from '@/services/UserService'
-import VueRouter from 'vue-router'
 import Vue from 'vue'
 import notifications from '@/services/notifications'
 
@@ -17,8 +16,7 @@ describe('CreateAccount.vue', () => {
   beforeEach(() => {
     Vue.component('vuetify-google-autocomplete', {template: '<div/>'})
 
-    let router = new VueRouter()
-    wrapper = mount(CreateAccount, {router})
+    wrapper = mount(CreateAccount)
   })
 
   it('creates new account', (done) => {

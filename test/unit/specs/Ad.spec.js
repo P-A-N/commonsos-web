@@ -1,14 +1,8 @@
 import Ad from '@/components/Ad'
-import {mount} from '@vue/test-utils'
+import {mount} from '../test-utils'
 import gateway from '@/gateway'
-import VueRouter from 'vue-router'
 
 describe('Ad.vue', () => {
-  let router
-
-  beforeEach(() => {
-    router = new VueRouter()
-  })
 
   it('should display ad details', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {
@@ -23,7 +17,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {router, propsData: {id: '1'}})
+    let wrapper = mount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('WANT')
@@ -43,7 +37,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {router, propsData: {id: '1'}})
+    let wrapper = mount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.findAll('.pay-button').length).toBe(0)
@@ -59,7 +53,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {router, propsData: {id: '1'}})
+    let wrapper = mount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.findAll('.pay-button').length).toBe(0)

@@ -1,14 +1,8 @@
 import AdList from '@/components/AdList'
-import {mount} from '@vue/test-utils'
+import {mount, router} from '../test-utils'
 import gateway from '@/gateway'
-import VueRouter from 'vue-router'
 
 describe('AdList.vue', () => {
-  let router
-
-  beforeEach(() => {
-    router = new VueRouter()
-  })
 
   it('should display ads list', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({
@@ -18,7 +12,7 @@ describe('AdList.vue', () => {
       ]
     }))
 
-    let wrapper = mount(AdList, {router})
+    let wrapper = mount(AdList)
 
     setTimeout(() => {
       let ads = wrapper.findAll('.ad')

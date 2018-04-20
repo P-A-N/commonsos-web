@@ -1,14 +1,12 @@
-import {mount} from '@vue/test-utils'
+import {mount} from '../test-utils'
 import Login from '@/components/Login'
 import userService from '@/services/UserService'
-import VueRouter from 'vue-router'
 
 describe('Login.vue', () => {
   let wrapper
 
   beforeEach(() => {
-    let router = new VueRouter()
-    wrapper = mount(Login, {router})
+    wrapper = mount(Login)
   })
 
   it('logs in', (done) => {

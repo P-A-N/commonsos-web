@@ -1,6 +1,5 @@
 import AgreementList from '@/components/AgreementList'
-import {mount} from '@vue/test-utils'
-import router from '@/router'
+import {mount, router} from '../test-utils'
 import gateway from '@/gateway'
 import Vue from 'vue'
 import VueMoment from 'vue-moment'
