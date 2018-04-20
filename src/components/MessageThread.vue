@@ -28,13 +28,12 @@
             <v-chip small v-if="currentAd">
               Ad: {{currentAd.title}}
             </v-chip>
-            <v-text-field v-model="message" label="Message" type="text" auto-grow multi-line/>
-            <v-btn type="submit" color="primary">Send</v-btn>
+            <v-text-field v-model="message" :label="$t('MessageThread.message')" type="text" auto-grow multi-line/>
+            <v-btn type="submit" color="primary">{{$t('MessageThread.send')}}</v-btn>
           </form>
         </v-flex>
       </v-layout>
     </v-container>
-
   </div>
 </template>
 
@@ -43,6 +42,7 @@
   import Avatar from '@/components/Avatar'
 
   export default {
+    name: 'MessageThread',
     components: {
       AppToolbar, Avatar
     },
