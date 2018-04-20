@@ -13,7 +13,7 @@
                 <v-icon>edit</v-icon>
               </v-btn>
               <!--<v-btn dark icon>-->
-                <!--<v-icon>more_vert</v-icon>-->
+              <!--<v-icon>more_vert</v-icon>-->
               <!--</v-btn>-->
             </v-card-title>
             <v-spacer></v-spacer>
@@ -37,20 +37,19 @@
           </v-layout>
 
           <v-btn
-              v-if="!ad.own"
-              absolute
-              dark
-              fab
-              top
-              right
-              color="primary"
-              @click="messageForAd(ad)">
+            v-if="!ad.own"
+            absolute
+            dark
+            fab
+            top
+            right
+            color="primary"
+            @click="messageForAd(ad)">
             <v-icon>message</v-icon>
           </v-btn>
         </v-card-title>
         <v-list>
-
-          <v-list-tile @click="">
+          <v-list-tile v-if="false" @click="">
             <v-list-tile-action>
               <v-icon color="primary">access_time</v-icon>
             </v-list-tile-action>
@@ -58,7 +57,7 @@
               <v-list-tile-title>30 September 9:30 to 19:00</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-divider inset></v-divider>
+          <v-divider inset v-if="false"></v-divider>
 
           <v-list-tile @click="">
             <v-list-tile-action>
@@ -107,7 +106,8 @@
             Send Message
           </v-btn>
 
-          <v-btn v-if="ad.payable" large block flat outline color="secondary" @click="makePayment = true" class="ml-0 mt-3 pay-button">
+          <v-btn v-if="ad.payable" large block flat outline color="secondary" @click="makePayment = true"
+                 class="ml-0 mt-3 pay-button">
             <v-icon small left>account_balance_wallet</v-icon>
             Pay for service
           </v-btn>
@@ -121,7 +121,8 @@
     </modal>
 
     <modal v-if="makePayment" title="Make payment" @close="makePayment = false">
-      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="'Ad:' + ad.title" slot-scope="modal" :closeModal="modal.close"></make-payment>
+      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="'Ad:' + ad.title"
+                    slot-scope="modal" :closeModal="modal.close"></make-payment>
     </modal>
   </v-layout>
   <div v-else>
@@ -140,7 +141,7 @@
 
   export default {
     name: 'Ad',
-    components: { AppToolbar, Modal, Avatar, MessageThread, MakePayment },
+    components: {AppToolbar, Modal, Avatar, MessageThread, MakePayment},
     created() {
       gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
     },
