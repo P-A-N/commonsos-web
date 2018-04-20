@@ -24,7 +24,7 @@
   import notifications from '@/services/notifications'
 
   export default {
-    props: ['closeModal', 'description', 'amount', 'beneficiary'],
+    props: ['closeModal', 'description', 'amount', 'beneficiary', 'ad'],
     name: 'MakePayment',
     data() {
       return {
@@ -40,6 +40,7 @@
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
           if (!confirm(`Transfer ${this.transaction.amount} coins to ${this.beneficiary.fullName}?`)) return
+          if (this.ad) this.transaction.adId = this.ad.id
           gateway.post('/transactions', this.transaction)
             .then(() => {
               userService.loadUser()

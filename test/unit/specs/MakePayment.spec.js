@@ -80,4 +80,24 @@ describe('MakePayment.vue', () => {
       done();
     }, 0);
   })
+
+  it('should submit specified ad id to backend', (done) => {
+    let props = {
+        closeModal: jasmine.createSpy(),
+        beneficiary: {id: 'beneficiary id', fullName: 'Joe Dow'},
+        amount: '123.45',
+        description: 'foo bar',
+        ad: {id: '33'}
+      }
+
+    spyOn(window, 'confirm').and.returnValue(true)
+    const wrapper = mount(MakePayment, {propsData: props})
+
+    wrapper.find('button').trigger('click')
+
+    setTimeout(() => {
+      expect(gateway.post).toHaveBeenCalledWith('/transactions', {amount: '123.45', description: 'foo bar', beneficiaryId: 'beneficiary id', adId: '33'})
+      done();
+    }, 0);
+  })
 })
