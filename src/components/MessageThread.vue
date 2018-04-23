@@ -7,14 +7,14 @@
     </app-toolbar>
 
     <v-list two-line>
-      <template v-for="(item, index) in messages">
+      <template v-for="message in messages">
         <v-list-tile avatar>
           <v-list-tile-avatar>
-            <avatar :user="counterParty"/>
+            <avatar :user="counterParty.id"/>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title>{{item.createdAt | moment('from')}}</v-list-tile-title>
-            <v-list-tile-sub-title v-html="item.message"></v-list-tile-sub-title>
+            <v-list-tile-title>{{message.createdAt | moment('from')}}</v-list-tile-title>
+            <v-list-tile-sub-title v-html="message.text"></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </template>
@@ -25,10 +25,10 @@
       <v-layout row wrap>
         <v-flex>
           <form @submit.prevent="sendMessage()" fixed bottom>
-            <v-chip small v-if="ad">
-              Ad: {{ad.title}}
+            <v-chip small>
+              {{threadTitle}}
             </v-chip>
-            <v-text-field v-model="message" :label="$t('MessageThread.message')" type="text" auto-grow multi-line/>
+            <v-text-field v-model="messageText" :label="$t('MessageThread.message')" type="text" auto-grow multi-line/>
             <v-btn type="submit" color="primary">{{$t('MessageThread.send')}}</v-btn>
           </form>
         </v-flex>
@@ -40,6 +40,7 @@
 <script>
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
+  import gateway from '@/gateway'
 
   export default {
     name: 'MessageThread',
@@ -49,23 +50,26 @@
     props: ['closeModal', 'ad'],
     data() {
       return {
-        message: "",
-        counterParty: null,
-        messages: [
-          { message: 'Hello my friend', userId: 1, createdAt: '2018-04-07T20:51:00'},
-          { message: 'Hi!', userId: 0, createdAt: '2018-04-09T21:51:00'},
-          { message: 'Good to see you', userId: 1, createdAt: '2018-04-09T22:01:00'},
-          ]
+        counterParty: [],
+        messages: [],
+        messageText: '',
+        threadTitle: ''
       }
     },
     methods: {
       sendMessage() {
-        this.messages.push({message: this.title, createdAt: new Date(), userId: 'worker'})
-        this.message = ""
+        this.messages.push({createdAt: new Date(), text: this.messageText , userId: 'worker'})
+//        gateway.post(`/message-threads/${this.thread.id}/messages/`)
+        this.messageText = ""
       }
     },
     created() {
       this.counterParty = this.ad.createdBy
+      gateway.post(`/message-threads/for-ad/${this.ad.id}`).then(r => {
+        this.messages = r.data.messages
+        this.counterParty = r.data.users[0]
+        this.threadTitle = r.data.title
+      })
     }
   }
 </script>

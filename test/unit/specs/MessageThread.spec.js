@@ -1,17 +1,34 @@
 import MessageThread from '@/components/MessageThread'
 import {mount} from '../test-utils'
+import gateway from '@/gateway'
 
 describe('MessageThread.vue', () => {
 
-  it('should display related advertisement', (done) => {
+  let ad = {id: '11', title: 'Ad title', createdBy: {ids: '22', fullNames: 'Satu Haruto'}}
 
-    let ad = {title: 'The service for sale', createdBy: {id: "22", fullName: 'Satu Haruto'}}
+  let messages = [
+    {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00'},
+    {text: 'Hi!', createdAt: '2018-04-09T21:51:00'}
+  ]
+
+  let thread = {
+    messages: messages,
+    counterParty: {id: '22', fullName: 'Satu Haruto'},
+    title: 'Thread title',
+    users: [{id: '22', fullName: 'Satu Haruto'}]
+  }
+
+  it('should display existing messages and metadata', (done) => {
+    spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: thread}))
 
     let wrapper = mount(MessageThread, {propsData: {ad: ad}})
 
     setTimeout(() => {
-      expect(wrapper.text()).toContain('The service for sale')
+      expect(wrapper.text()).toContain('Thread title')
       expect(wrapper.text()).toContain('Satu Haruto')
+      expect(wrapper.text()).toContain('Hello my friend')
+      expect(wrapper.text()).toContain('Hi!')
+      expect(gateway.post).toHaveBeenCalledWith('/message-threads/for-ad/11')
       done()
     }, 0)
   })
