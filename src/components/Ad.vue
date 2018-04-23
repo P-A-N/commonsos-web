@@ -103,30 +103,30 @@
 
           <v-btn v-if="!ad.own" large block color="primary" @click="messageForAd(ad)" class="ml-0 mt-3 message-button">
             <v-icon small left>message</v-icon>
-            Send Message
+            {{ $t('Ad.sendMessage') }}
           </v-btn>
 
           <v-btn v-if="ad.payable" large block flat outline color="secondary" @click="makePayment = true"
                  class="ml-0 mt-3 pay-button">
             <v-icon small left>account_balance_wallet</v-icon>
-            Pay for service
+            {{ $t('Ad.pay') }}
           </v-btn>
         </v-container>
 
       </v-card>
     </v-flex>
 
-    <modal v-if="messageThreadForAd" title="Message thread" @close="messageThreadForAd = null">
+    <modal v-if="messageThreadForAd" :title="$t('MessageThread.title')" @close="messageThreadForAd = null">
       <MessageThread slot-scope="modal" :close-modal="modal.close" :current-ad="messageThreadForAd"></MessageThread>
     </modal>
 
-    <modal v-if="makePayment" title="Make payment" @close="makePayment = false">
-      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="'Ad: ' + ad.title"
+    <modal v-if="makePayment" :title="$t('Payment.title')" @close="makePayment = false">
+      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="$t('Payment.description',{title: ad.title})"
                     slot-scope="modal" :closeModal="modal.close"></make-payment>
     </modal>
   </v-layout>
   <div v-else>
-    Loading...
+    {{ $t('General.loadingData') }}
   </div>
 
 </template>

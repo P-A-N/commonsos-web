@@ -1,7 +1,23 @@
 export default {
+
+  General: {
+    loadingData: 'Loading..'
+  },
+
+  Ad : {
+    sendMessage: 'Send Message',
+    pay: 'Pay for service'
+  },
+
   MessageThread: {
+    title: 'Message thread',
     message: 'Message',
     send: 'Send'
+  },
+
+  Payment: {
+    title: 'Make payment',
+    description: 'Ad: {title}'
   },
 
   validation: {
