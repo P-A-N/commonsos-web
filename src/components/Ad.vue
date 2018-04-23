@@ -117,7 +117,7 @@
     </v-flex>
 
     <modal v-if="messageThreadForAd" :title="$t('MessageThread.title')" @close="messageThreadForAd = null">
-      <MessageThread slot-scope="modal" :close-modal="modal.close" :current-ad="messageThreadForAd"></MessageThread>
+      <MessageThread slot-scope="modal" :close-modal="modal.close" :ad="messageThreadForAd"></MessageThread>
     </modal>
 
     <modal v-if="makePayment" :title="$t('Payment.title')" @close="makePayment = false">

@@ -25,8 +25,8 @@
       <v-layout row wrap>
         <v-flex>
           <form @submit.prevent="sendMessage()" fixed bottom>
-            <v-chip small v-if="currentAd">
-              Ad: {{currentAd.title}}
+            <v-chip small v-if="ad">
+              Ad: {{ad.title}}
             </v-chip>
             <v-text-field v-model="message" :label="$t('MessageThread.message')" type="text" auto-grow multi-line/>
             <v-btn type="submit" color="primary">{{$t('MessageThread.send')}}</v-btn>
@@ -46,15 +46,11 @@
     components: {
       AppToolbar, Avatar
     },
-    props: ['closeModal', 'currentAd'],
+    props: ['closeModal', 'ad'],
     data() {
       return {
         message: "",
-        counterParty: {
-          userId: 1,
-          fullName: 'Sato Haruto',
-          avatarUrl: 'https://image.jimcdn.com/app/cms/image/transf/none/path/s09a03e3ad80f8a02/image/i788e42d25ed4115e/version/1493969515/image.jpg'
-        },
+        counterParty: null,
         messages: [
           { message: 'Hello my friend', userId: 1, createdAt: '2018-04-07T20:51:00'},
           { message: 'Hi!', userId: 0, createdAt: '2018-04-09T21:51:00'},
@@ -68,5 +64,8 @@
         this.message = ""
       }
     },
+    created() {
+      this.counterParty = this.ad.createdBy
+    }
   }
 </script>
