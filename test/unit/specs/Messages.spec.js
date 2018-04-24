@@ -21,4 +21,17 @@ describe('Messages.vue', () => {
       done()
     }, 0)
   })
+
+  xit('should open details view when message thead is clicked', (done) => {
+    spyOn(router, 'push')
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: threads}))
+
+    let wrapper = mount(Messages)
+
+    setTimeout(() => {
+      wrapper.findAll('.thread').at(1).trigger('click')
+      expect(router.push).toHaveBeenCalledWith('/messages/2')
+      done()
+    }, 0)
+  })
 })
