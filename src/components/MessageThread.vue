@@ -1,11 +1,5 @@
 <template>
   <div>
-    <app-toolbar :title="counterParty.fullName">
-      <v-btn slot="left" icon @click.prevent="closeModal()">
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-    </app-toolbar>
-
     <v-list two-line>
       <template v-for="message in messages">
         <v-list-tile avatar>
