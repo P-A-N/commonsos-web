@@ -47,7 +47,7 @@
     components: {
       AppToolbar, Avatar
     },
-    props: ['closeModal', 'ad'],
+    props: ['closeModal', 'ad', 'thread'],
     data() {
       return {
         counterParty: [],
@@ -58,18 +58,24 @@
     },
     methods: {
       sendMessage() {
-        this.messages.push({createdAt: new Date(), text: this.messageText , userId: 'worker'})
-//        gateway.post(`/message-threads/${this.thread.id}/messages/`)
+        gateway.post(`/message-threads/${this.thread.id}/messages`, {threadId: this.thread.id, text: this.messageText})
+        this.messages.push({text: this.messageText})
         this.messageText = ""
+      },
+      parseThread(data) {
+        this.messages = data.messages
+        this.counterParty = data.users[0]
+        this.threadTitle = data.title
       }
     },
     created() {
-      this.counterParty = this.ad.createdBy
-      gateway.post(`/message-threads/for-ad/${this.ad.id}`).then(r => {
-        this.messages = r.data.messages
-        this.counterParty = r.data.users[0]
-        this.threadTitle = r.data.title
-      })
+      if (this.thread) this.parseThread(this.thread)
+//        gateway.get(`/message-threads/${this.thread.id}`).then(r => this.parseThread(r.data))
+
+      if (this.ad) {
+        this.counterParty = this.ad.createdBy
+        gateway.post(`/message-threads/for-ad/${this.ad.id}`).then(r => this.parseThread(r.data))
+      }
     }
   }
 </script>

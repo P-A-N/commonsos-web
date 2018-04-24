@@ -18,7 +18,7 @@ describe('MessageThread.vue', () => {
     users: [{id: '22', fullName: 'Satu Haruto'}]
   }
 
-  it('should display existing messages and metadata', (done) => {
+  it('should display existing messages and metadata when coming from advertisement', (done) => {
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: thread}))
 
     let wrapper = mount(MessageThread, {propsData: {ad: ad}})
@@ -29,6 +29,35 @@ describe('MessageThread.vue', () => {
       expect(wrapper.text()).toContain('Hello my friend')
       expect(wrapper.text()).toContain('Hi!')
       expect(gateway.post).toHaveBeenCalledWith('/message-threads/for-ad/11')
+      done()
+    }, 0)
+  })
+
+  it('should display existing messages and metadata for existing thread', (done) => {
+    let wrapper = mount(MessageThread, {propsData: {thread: thread}})
+
+    setTimeout(() => {
+      expect(wrapper.text()).toContain('Thread title')
+      expect(wrapper.text()).toContain('Satu Haruto')
+      expect(wrapper.text()).toContain('Hello my friend')
+      expect(wrapper.text()).toContain('Hi!')
+      done()
+    }, 0)
+  })
+
+  it('should post new message to backend', (done) => {
+    spyOn(gateway, 'post')
+    let thread = {id: "11", messages: [], users: [{id: "1"}]}
+    let wrapper = mount(MessageThread, {propsData: {thread: thread}})
+
+    wrapper.vm.messageText = 'Hello'
+
+    wrapper.find('button[type=submit]').trigger('click')
+
+    setTimeout(() => {
+      expect(wrapper.text()).toContain('Hello')
+      expect(wrapper.vm.messageText).toBe('')
+      expect(gateway.post).toHaveBeenCalledWith('/message-threads/11/messages', {threadId: '11', text: 'Hello'})
       done()
     }, 0)
   })
