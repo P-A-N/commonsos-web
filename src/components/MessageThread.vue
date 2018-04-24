@@ -58,7 +58,7 @@
       loadThread() {
         gateway.get(`/message-threads/${this.threadId}`).then(r => {
           this.messages = r.data.messages
-          this.counterParty = r.data.users[0]
+          this.counterParty = r.data.parties[0]
           this.threadTitle = r.data.title
         })
       },

@@ -5,8 +5,8 @@ import gateway from '@/gateway'
 describe('Messages.vue', () => {
 
   let threads = [
-    {id: '1', title: 'Thread one', users: [{id: '22'}]},
-    {id: '2', title: 'Thread two', users: [{id: '22'}]}
+    {id: '1', title: 'Thread one', parties: [{id: '22'}], lastMessage: {text: 'last message for thread one'}},
+    {id: '2', title: 'Thread two', parties: [{id: '22'}], lastMessage: {text: 'last message for thread two'}}
   ]
 
   it('should display existing message theads', (done) => {
@@ -16,7 +16,9 @@ describe('Messages.vue', () => {
 
     setTimeout(() => {
       expect(wrapper.findAll('.thread').at(0).text()).toContain('Thread one')
+      expect(wrapper.findAll('.thread').at(0).text()).toContain('last message for thread one')
       expect(wrapper.findAll('.thread').at(1).text()).toContain('Thread two')
+      expect(wrapper.findAll('.thread').at(1).text()).toContain('last message for thread two')
       expect(gateway.get).toHaveBeenCalledWith('/message-threads')
       done()
     }, 0)

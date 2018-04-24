@@ -6,11 +6,11 @@
       <template v-for="(thread) in messageThreads">
         <v-list-tile class="thread" avatar :to="`/messages/${thread.id}`">
           <v-list-tile-avatar>
-            <avatar :user="thread.users[0]"/>
+            <avatar :user="thread.parties[0]"/>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="thread.title"></v-list-tile-title>
-            <!--<v-list-tile-sub-title v-html="thread.lastMessage.text"></v-list-tile-sub-title>-->
+            <v-list-tile-sub-title v-html="thread.lastMessage.text"></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider :inset="true"></v-divider>

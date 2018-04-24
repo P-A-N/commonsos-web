@@ -12,7 +12,7 @@ describe('MessageThread.vue', () => {
       messages: messages,
       counterParty: {id: '22', fullName: 'Satu Haruto'},
       title: 'Thread title',
-      users: [{id: '22', fullName: 'Satu Haruto'}]
+      parties: [{id: '22', fullName: 'Satu Haruto'}]
     }
 
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: thread}))
