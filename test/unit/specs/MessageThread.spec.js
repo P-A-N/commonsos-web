@@ -10,20 +10,20 @@ describe('MessageThread.vue', () => {
     ]
     let thread = {
       messages: messages,
-      counterParty: {id: '22', fullName: 'Satu Haruto'},
       title: 'Thread title',
       parties: [{id: '22', fullName: 'Satu Haruto'}]
     }
 
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: thread}))
 
-    let wrapper = mount(MessageThread, {propsData: {threadId: 'threadId'}})
+    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('Thread title')
       expect(wrapper.text()).toContain('Satu Haruto')
       expect(wrapper.text()).toContain('Hello my friend')
       expect(wrapper.text()).toContain('Hi!')
+      expect(gateway.get).toHaveBeenCalledWith('/message-threads/11')
       done()
     }, 0)
   })

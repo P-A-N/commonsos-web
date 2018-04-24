@@ -1,12 +1,12 @@
 <template>
   <div>
-    <app-toolbar :title="counterParty.fullName+' | '+threadTitle">
+    <app-toolbar v-if="thread.parties" :title="thread.parties[0].fullName +' | '+ thread.title">
       <v-btn slot="left" icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
     </app-toolbar>
     <v-list three-line>
-      <v-subheader>{{ threadTitle }}</v-subheader>
+      <v-subheader>{{ thread.title }}</v-subheader>
       <template v-for="message in messages">
         <v-list-tile avatar>
           <v-list-tile-avatar v-if="message.createdBy">
@@ -48,18 +48,15 @@
     props: ['threadId'],
     data() {
       return {
-        threadTitle: '',
-        counterParty: {},
+        thread: {},
         messages: [],
-        messageText: '',
       }
     },
     methods: {
       loadThread() {
         gateway.get(`/message-threads/${this.threadId}`).then(r => {
+          this.thread = r.data
           this.messages = r.data.messages
-          this.counterParty = r.data.parties[0]
-          this.threadTitle = r.data.title
         })
       },
       sendMessage() {
