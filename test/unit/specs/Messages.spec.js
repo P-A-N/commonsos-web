@@ -1,16 +1,13 @@
 import Messages from '@/components/Messages'
-import {mount} from '../test-utils'
+import {mount, router} from '../test-utils'
 import gateway from '@/gateway'
 
 describe('Messages.vue', () => {
 
-  let threads = [{
-    title: 'Thread one',
-    users: [{id: '22'}]
-  }, {
-    title: 'Thread two',
-    users: [{id: '22'}]
-  }]
+  let threads = [
+    {id: '1', title: 'Thread one', users: [{id: '22'}]},
+    {id: '2', title: 'Thread two', users: [{id: '22'}]}
+  ]
 
   it('should display existing message theads', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: threads}))
@@ -18,8 +15,8 @@ describe('Messages.vue', () => {
     let wrapper = mount(Messages)
 
     setTimeout(() => {
-      expect(wrapper.text()).toContain('Thread one')
-      expect(wrapper.text()).toContain('Thread two')
+      expect(wrapper.findAll('.thread').at(0).text()).toContain('Thread one')
+      expect(wrapper.findAll('.thread').at(1).text()).toContain('Thread two')
       expect(gateway.get).toHaveBeenCalledWith('/message-threads')
       done()
     }, 0)
