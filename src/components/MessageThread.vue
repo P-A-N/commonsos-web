@@ -45,23 +45,22 @@
     components: {
       AppToolbar, Avatar
     },
-    props: ['closeModal', 'ad', 'threadId'],
+    props: ['threadId'],
     data() {
       return {
-        counterParty: [],
+        threadTitle: '',
+        counterParty: {},
         messages: [],
         messageText: '',
-        threadTitle: ''
       }
     },
     methods: {
       loadThread() {
-        gateway.get(`/message-threads/${this.threadId}`).then(r => this.setThreadData(r.data))
-      },
-      setThreadData(data) {
-        this.messages = data.messages
-        this.counterParty = data.users[0]
-        this.threadTitle = data.title
+        gateway.get(`/message-threads/${this.threadId}`).then(r => {
+          this.messages = r.data.messages
+          this.counterParty = r.data.users[0]
+          this.threadTitle = r.data.title
+        })
       },
       sendMessage() {
         gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
@@ -70,13 +69,7 @@
       },
     },
     created() {
-      if (this.ad) {
-        this.counterParty = this.ad.createdBy
-        gateway.post(`/message-threads/for-ad/${this.ad.id}`).then(r => this.setThreadData(r.data))
-      }
-      else if (this.threadId) {
-        this.loadThread()
-      }
+      this.loadThread()
       this.threadRefresh = setInterval(() => this.loadThread(), 5000);
     },
     destroyed() {

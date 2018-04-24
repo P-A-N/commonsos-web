@@ -116,13 +116,9 @@
       </v-card>
     </v-flex>
 
-    <modal v-if="messageThreadForAd" :title="$t('MessageThread.title')" @close="messageThreadForAd = null">
-      <MessageThread slot-scope="modal" :close-modal="modal.close" :ad="messageThreadForAd"></MessageThread>
-    </modal>
-
     <modal v-if="makePayment" :title="$t('Payment.title')" @close="makePayment = false">
       <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="$t('Payment.description',{title: ad.title})"
-                    slot-scope="modal" :closeModal="modal.close"></make-payment>
+                    slot-scope="modal" :closeModal="modal.close"/>
     </modal>
   </v-layout>
   <div v-else>
@@ -149,13 +145,13 @@
     data() {
       return {
         ad: null,
-        messageThreadForAd: null,
         makePayment: false
       }
     },
     methods: {
       messageForAd(ad) {
-        this.messageThreadForAd = ad
+        gateway.post(`/message-threads/for-ad/${this.id}`)
+          .then(r => $router.push('/messages/'+r.data.id))
       }
     }
   }
