@@ -9,6 +9,10 @@ export default {
     pay: 'Pay for service'
   },
 
+  Messages: {
+    title: 'Messages'
+  },
+
   MessageThread: {
     title: 'Message thread',
     message: 'Message',
