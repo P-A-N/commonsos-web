@@ -61,4 +61,26 @@ describe('MessageThread.vue', () => {
       done()
     }, 0)
   })
+
+  it('should poll messages from backend', (done) => {
+    let thread = {id: "11", messages: [], users: [{id: "1"}]}
+    let updatedThread = {
+      id: "11",
+      messages: [{id: '99', text: 'New message', createdAt: '2018-04-07T20:51:00'}],
+      users: [{id: "1"}]
+    }
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: updatedThread}))
+    jasmine.clock().install()
+
+    let wrapper = mount(MessageThread, {propsData: {thread: thread}})
+
+    jasmine.clock().tick(5000)
+    jasmine.clock().uninstall()
+
+    setTimeout(() => {
+      expect(wrapper.text()).toContain('New message')
+      expect(gateway.get).toHaveBeenCalledWith('/message-threads/11')
+      done()
+    }, 0)
+  })
 })

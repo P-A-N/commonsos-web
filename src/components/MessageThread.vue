@@ -62,20 +62,23 @@
         this.messages.push({text: this.messageText})
         this.messageText = ""
       },
-      parseThread(data) {
+      setThreadData(data) {
         this.messages = data.messages
         this.counterParty = data.users[0]
         this.threadTitle = data.title
       }
     },
     created() {
-      if (this.thread) this.parseThread(this.thread)
-//        gateway.get(`/message-threads/${this.thread.id}`).then(r => this.parseThread(r.data))
-
+      if (this.thread) this.setThreadData(this.thread)
       if (this.ad) {
         this.counterParty = this.ad.createdBy
-        gateway.post(`/message-threads/for-ad/${this.ad.id}`).then(r => this.parseThread(r.data))
+        gateway.post(`/message-threads/for-ad/${this.ad.id}`).then(r => this.setThreadData(r.data))
       }
+      this.threadRefresh = setInterval(
+        () => gateway.get(`/message-threads/${this.thread.id}`).then(r => this.setThreadData(r.data)), 5000);
+    },
+    destroyed() {
+      clearInterval(this.threadRefresh)
     }
   }
 </script>
