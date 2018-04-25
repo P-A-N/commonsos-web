@@ -10,7 +10,8 @@
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="thread.title"></v-list-tile-title>
-            <v-list-tile-sub-title v-if="thread.lastMessage" v-html="thread.lastMessage.text"></v-list-tile-sub-title>
+            <v-list-tile-sub-title v-if="thread.lastMessage">{{thread.lastMessage.text}}</v-list-tile-sub-title>
+            <v-list-tile-sub-title v-if="thread.lastMessage">{{thread.lastMessage.createdAt | moment('from') }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </template>
