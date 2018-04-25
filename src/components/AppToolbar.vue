@@ -1,13 +1,11 @@
 <template>
   <div>
-    <v-toolbar fixed
-               app
-               extension-height="48">
-      <slot name="left"></slot>
+    <v-toolbar fixed app extension-height="48">
+      <slot name="left"/>
       <v-toolbar-title>{{title}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <slot name="default" slot="default"></slot>
-      <slot name="extension" slot="extension"></slot>
+      <v-spacer/>
+      <slot name="default" slot="default"/>
+      <slot name="extension" slot="extension"/>
     </v-toolbar>
   </div>
 </template>
