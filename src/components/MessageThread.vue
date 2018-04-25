@@ -16,10 +16,8 @@
           </v-flex>
           <v-flex class="message-content-wrapper">
             <div class="text-wrapper mb-1" v-html="message.text"></div>
-            <div v-if="message.createdAt" class="grey--text caption">{{message.createdAt |
-              moment('from')}}
-            </div>
-            <v-progress-linear v-else :indeterminate="true"></v-progress-linear>
+            <div v-if="message.createdAt" class="grey--text caption">{{message.createdAt | moment('from')}}</div>
+            <v-progress-linear height="2" v-else :indeterminate="true"></v-progress-linear>
           </v-flex>
         </v-layout>
       </template>
@@ -68,7 +66,7 @@
       },
       sendMessage() {
         if (this.messageText === "") return
-        let newMessage = {text: this.messageText, createdBy: {}, createdAt: null}
+        let newMessage = {text: this.messageText, createdBy: this.user, createdAt: null}
         this.messages.push(newMessage)
         gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
           .then(r => Object.assign(newMessage, r.data))
