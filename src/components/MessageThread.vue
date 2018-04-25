@@ -6,7 +6,7 @@
       </v-btn>
       <v-toolbar-title slot="extension">{{thread.title}}</v-toolbar-title>
     </app-toolbar>
-    <div class="pt-3">
+    <div class="messages-list pt-3">
 
       <template v-for="(message, index) in messages">
         <v-layout mb-3 class="message-wrapper"
@@ -28,12 +28,12 @@
       </template>
     </div>
 
-    <v-card color="grey lighten-4" class="mt-1 mb-4" flat>
+    <v-card color="grey" class="chat-text-input" flat>
       <v-card-text style="padding: 0">
               <form @submit.prevent="sendMessage()">
                 <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
                               type="text" flat solo rows="2" multi-line/>
-                  <v-btn type="submit" small primary absolute bottom right fab><v-icon>send</v-icon>
+                  <v-btn type="submit" small primary absolute top right fab><v-icon>send</v-icon>
                   </v-btn>
               </form>
       </v-card-text>

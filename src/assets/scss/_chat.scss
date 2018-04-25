@@ -1,4 +1,20 @@
 $messageHeight: 64px;
+$text-input-height: 80px;
+
+.messages-list {
+  margin-bottom: $text-input-height * 1.5;
+}
+
+.chat-text-input {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -1px 0 0 rgba(50, 50, 50, 0.3);
+  background-color: #FFF;
+  textarea {
+    min-height: $text-input-height;
+  }
+}
 
 .message-wrapper {
   .avatar-wrapper {
