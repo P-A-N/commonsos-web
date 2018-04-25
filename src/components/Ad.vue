@@ -105,21 +105,10 @@
             <v-icon small left>message</v-icon>
             {{ $t('Ad.sendMessage') }}
           </v-btn>
-
-          <v-btn v-if="ad.payable" large block flat outline color="secondary" @click="makePayment = true"
-                 class="ml-0 mt-3 pay-button">
-            <v-icon small left>account_balance_wallet</v-icon>
-            {{ $t('Ad.pay') }}
-          </v-btn>
         </v-container>
 
       </v-card>
     </v-flex>
-
-    <modal v-if="makePayment" :title="$t('Payment.title')" @close="makePayment = false">
-      <make-payment :amount="ad.points" :beneficiary="ad.createdBy" :ad="ad" :description="$t('Payment.description',{title: ad.title})"
-                    slot-scope="modal" :closeModal="modal.close"/>
-    </modal>
   </v-layout>
   <div v-else>
     {{ $t('General.loadingData') }}
@@ -130,22 +119,19 @@
 <script>
   import gateway from '@/gateway'
   import AppToolbar from '@/components/AppToolbar'
-  import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
   import Avatar from '@/components/Avatar'
-  import MakePayment from '@/components/MakePayment'
 
   export default {
     name: 'Ad',
-    components: {AppToolbar, Modal, Avatar, MessageThread, MakePayment},
+    components: {AppToolbar, Avatar, MessageThread},
     created() {
       gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
     },
     props: ['id', 'closeModal'],
     data() {
       return {
-        ad: null,
-        makePayment: false
+        ad: null
       }
     },
     methods: {

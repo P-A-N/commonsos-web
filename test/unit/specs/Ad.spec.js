@@ -13,7 +13,6 @@ describe('Ad.vue', () => {
         location: 'location2',
         type: 'WANT',
         own: false,
-        payable: true,
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
@@ -23,7 +22,6 @@ describe('Ad.vue', () => {
       expect(wrapper.text()).toContain('WANT')
       expect(wrapper.text()).toContain('Nice details')
       expect(wrapper.text()).toContain('Mayor job')
-      expect(wrapper.findAll('.pay-button').length).toBe(1)
       expect(wrapper.findAll('.message-button').length).toBe(1)
       expect(gateway.get).toHaveBeenCalledWith('/ads/1')
       done()
@@ -40,7 +38,6 @@ describe('Ad.vue', () => {
     let wrapper = mount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
-      expect(wrapper.findAll('.pay-button').length).toBe(0)
       expect(wrapper.findAll('.message-button').length).toBe(1)
       done()
     }, 0)
@@ -56,7 +53,6 @@ describe('Ad.vue', () => {
     let wrapper = mount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
-      expect(wrapper.findAll('.pay-button').length).toBe(0)
       expect(wrapper.findAll('.message-button').length).toBe(0)
       done()
     }, 0)
