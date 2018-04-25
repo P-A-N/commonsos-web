@@ -50,6 +50,7 @@
       return {
         thread: {},
         messages: [],
+        messageText: ''
       }
     },
     methods: {
