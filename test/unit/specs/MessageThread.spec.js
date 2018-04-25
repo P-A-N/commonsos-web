@@ -11,7 +11,8 @@ describe('MessageThread.vue', () => {
     let thread = {
       messages: messages,
       title: 'Thread title',
-      parties: [{id: '22', fullName: 'Satu Haruto'}]
+      parties: [{id: '22', fullName: 'Satu Haruto'}],
+      ad: {payable: true}
     }
 
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: thread}))
@@ -57,7 +58,7 @@ describe('MessageThread.vue', () => {
     let updatedThread = {
       id: '11',
       messages: [{id: '99', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: {}}],
-      users: [{id: '1'}]
+      users: [{id: '1'}],
     }
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: updatedThread}))
     jasmine.clock().install()

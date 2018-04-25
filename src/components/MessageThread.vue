@@ -4,7 +4,7 @@
       <v-btn slot="left" icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-btn icon flat @click="makePayment(thread.adId)">
+      <v-btn v-if="payable" icon flat @click="makePayment = true">
         {{$t('MessageThread.pay')}}
       </v-btn>
       <v-toolbar-title slot="extension">
@@ -40,7 +40,7 @@
     </v-card>
     <div ref="messageInput"></div>
 
-    <modal v-if="ad" :title="$t('MessageThread.makePaymentModalTitle')" @close="paymentDone()">
+    <modal v-if="makePayment" :title="$t('MessageThread.makePaymentModalTitle')" @close="makePayment = false">
       <make-payment :amount="ad.points" :beneficiary="counterParty" :ad="ad" :description="$t('Payment.description',{title: ad.title})"
                     slot-scope="modal" :closeModal="modal.close"/>
     </modal>
@@ -65,10 +65,16 @@
     data() {
       return {
         ad: null,
+        makePayment: false,
         thread: {},
         counterParty: {},
         messages: [],
         messageText: ''
+      }
+    },
+    computed: {
+      payable() {
+        return this.ad && this.ad.payable;
       }
     },
     methods: {
@@ -77,6 +83,7 @@
           this.thread = r.data
           this.counterParty = this.thread.parties[0]
           this.messages = r.data.messages
+          this.ad = r.data.ad
         })
       },
       sendMessage() {
@@ -96,12 +103,6 @@
       my(message) {
         return this.user.id === message.createdBy.id
       },
-      makePayment(adId) {
-        gateway.get(`/ads/${adId}`).then(r => this.ad = r.data)
-      },
-      paymentDone() {
-        this.ad = null;
-      }
     },
     created() {
       this.loadThread().then(() => this.scrollToEnd())
