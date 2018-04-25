@@ -9,17 +9,19 @@
     <div class="messages-list pt-3">
 
       <template v-for="(message, index) in messages">
-        <v-layout mb-3 class="message-wrapper"
+        <v-layout mb-2 class="message-wrapper"
                   v-bind:class="{
                   me: user.id === message.createdBy.id,
-                  them: user.id !== message.createdBy.id
+                  them: user.id !== message.createdBy.id,
+                  'same-sender-as-previous': index > 0 && messages[index-1].createdBy.id === message.createdBy.id,
+                  'next-will-also-be-from-this-sender': index < messages.length - 1 && messages[index + 1].createdBy.id === message.createdBy.id
                  }">
-          <v-flex d-flex justify-center class="avatar-wrapper">
+          <v-flex class="avatar-wrapper">
             <avatar v-if="message.createdBy" :user="message.createdBy" />
           </v-flex>
           <v-flex class="message-content-wrapper">
-            <div class="text-wrapper mb-1" v-html="message.text"></div>
-            <div v-if="message.createdAt" class="grey--text caption">{{message.createdAt |
+            <div class="text-wrapper" v-html="message.text"></div>
+            <div v-if="message.createdAt" class="grey--text caption message-time mt-1">{{message.createdAt |
               moment('from')}}
             </div>
             <v-progress-linear v-else :indeterminate="true"></v-progress-linear>
