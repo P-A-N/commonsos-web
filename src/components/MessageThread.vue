@@ -1,29 +1,32 @@
 <template>
   <div>
-    <app-toolbar v-if="thread.parties" :title="thread.parties[0].fullName +' | '+ thread.title">
+    <app-toolbar v-if="thread.parties" :title="thread.parties[0].fullName">
       <v-btn slot="left" icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
+      <v-toolbar-title slot="extension">{{thread.title}}</v-toolbar-title>
     </app-toolbar>
-    <v-list three-line>
-      <v-subheader>{{ thread.title }}</v-subheader>
-      <template v-for="(message, index) in messages">
-        <v-list-tile avatar>
-          <v-list-tile-avatar v-if="message.createdBy">
-            <img :src="message.createdBy.avatarUrl">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-sub-title v-html="message.text"></v-list-tile-sub-title>
-            <v-list-tile-sub-title v-if="message.createdAt" class="grey--text caption">{{message.createdAt |
-              moment('from')}}
-            </v-list-tile-sub-title>
-            <v-progress-linear v-else :indeterminate="true"></v-progress-linear>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider v-if="index != messages.length-1"></v-divider>
-      </template>
-    </v-list>
+    <div class="pt-3">
 
+      <template v-for="(message, index) in messages">
+        <v-layout mb-3 class="message-wrapper"
+                  v-bind:class="{
+                  me: user.id === message.createdBy.id,
+                  them: user.id !== message.createdBy.id
+                 }">
+          <v-flex d-flex justify-center class="avatar-wrapper">
+            <avatar v-if="message.createdBy" :user="message.createdBy" />
+          </v-flex>
+          <v-flex class="message-content-wrapper">
+            <div class="text-wrapper mb-1" v-html="message.text"></div>
+            <div v-if="message.createdAt" class="grey--text caption">{{message.createdAt |
+              moment('from')}}
+            </div>
+            <v-progress-linear v-else :indeterminate="true"></v-progress-linear>
+          </v-flex>
+        </v-layout>
+      </template>
+    </div>
 
     <v-card color="grey lighten-4" class="mt-1 mb-4" flat>
       <v-card-text style="padding: 0">
@@ -43,12 +46,14 @@
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
   import gateway from '@/gateway'
+  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
     name: 'MessageThread',
     components: {
       AppToolbar, Avatar
     },
+    mixins: [LoggedInUserConsumerMixin],
     props: ['threadId'],
     data() {
       return {
