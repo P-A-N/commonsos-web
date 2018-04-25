@@ -29,17 +29,23 @@ describe('MessageThread.vue', () => {
   })
 
   it('should post new message to backend', (done) => {
-    spyOn(gateway, 'post')
+    jasmine.clock().mockDate(new Date('2018-04-07T20:51:01Z'));
+
+    spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {createdAt: '2018-04-07T20:51:00Z'}}))
     let wrapper = mount(MessageThread)
     wrapper.vm.threadId = '11'
     wrapper.vm.messageText = 'Hello'
 
     wrapper.find('button[type=submit]').trigger('click')
 
+    expect(wrapper.text()).toContain('Hello')
+    expect(wrapper.text()).not.toContain('a few seconds ago')
+
     setTimeout(() => {
       expect(wrapper.text()).toContain('Hello')
       expect(wrapper.vm.messageText).toBe('')
       expect(gateway.post).toHaveBeenCalledWith('/message-threads/11/messages', {threadId: '11', text: 'Hello'})
+      expect(wrapper.text()).toContain('a few seconds ago')
       done()
     }, 0)
   })

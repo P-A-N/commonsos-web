@@ -61,8 +61,10 @@
         })
       },
       sendMessage() {
+        let newMessage = {text: this.messageText, createdAt: null}
+        this.messages.push(newMessage)
         gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
-        this.messages.push({text: this.messageText})
+          .then(r => Object.assign(newMessage, r.data))
         this.messageText = ""
       },
     },
