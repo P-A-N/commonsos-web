@@ -25,13 +25,14 @@
     <v-container>
       <v-layout row wrap>
         <v-flex>
-          <form @submit.prevent="sendMessage()" fixed bottom>
+          <form @submit.prevent="sendMessage()">
             <v-text-field v-model="messageText" :label="$t('MessageThread.message')" type="text" auto-grow multi-line/>
             <v-btn type="submit" color="primary">{{$t('MessageThread.send')}}</v-btn>
           </form>
         </v-flex>
       </v-layout>
     </v-container>
+    <div ref="messageInput"></div>
   </div>
 </template>
 
@@ -58,6 +59,7 @@
         gateway.get(`/message-threads/${this.threadId}`).then(r => {
           this.thread = r.data
           this.messages = r.data.messages
+          this.scrollToEnd()
         })
       },
       sendMessage() {
@@ -66,7 +68,13 @@
         gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
           .then(r => Object.assign(newMessage, r.data))
         this.messageText = ""
+        this.scrollToEnd()
       },
+      scrollToEnd() {
+        this.$nextTick(() => {
+          this.$vuetify.goTo(this.$refs.messageInput, {duration: 400})
+        })
+      }
     },
     created() {
       this.loadThread()
