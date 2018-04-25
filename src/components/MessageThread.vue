@@ -10,10 +10,7 @@
 
       <template v-for="(message, index) in messages">
         <v-layout mb-3 class="message-wrapper"
-                  v-bind:class="{
-                  me: user.id === message.createdBy.id,
-                  them: user.id !== message.createdBy.id
-                 }">
+                  v-bind:class="{ me: my(message), them: !my(message) }">
           <v-flex d-flex justify-center class="avatar-wrapper">
             <avatar v-if="message.createdBy" :user="message.createdBy" />
           </v-flex>
@@ -64,15 +61,14 @@
     },
     methods: {
       loadThread() {
-        gateway.get(`/message-threads/${this.threadId}`).then(r => {
+        return gateway.get(`/message-threads/${this.threadId}`).then(r => {
           this.thread = r.data
           this.messages = r.data.messages
-          this.scrollToEnd()
         })
       },
       sendMessage() {
         if (this.messageText === "") return
-        let newMessage = {text: this.messageText, createdAt: null}
+        let newMessage = {text: this.messageText, createdBy: {}, createdAt: null}
         this.messages.push(newMessage)
         gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
           .then(r => Object.assign(newMessage, r.data))
@@ -83,10 +79,13 @@
         this.$nextTick(() => {
           this.$vuetify.goTo(this.$refs.messageInput, {duration: 400})
         })
+      },
+      my(message) {
+        return this.user.id === message.createdBy.id
       }
     },
     created() {
-      this.loadThread()
+      this.loadThread().then(() => this.scrollToEnd())
       this.threadRefresh = setInterval(() => this.loadThread(), 5000);
     },
     destroyed() {

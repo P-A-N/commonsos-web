@@ -5,8 +5,8 @@ import gateway from '@/gateway'
 describe('MessageThread.vue', () => {
   it('should display existing messages and metadata for existing thread', (done) => {
     let messages = [
-      {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00'},
-      {text: 'Hi!', createdAt: '2018-04-09T21:51:00'}
+      {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00', createdBy: {}},
+      {text: 'Hi!', createdAt: '2018-04-09T21:51:00', createdBy: {}}
     ]
     let thread = {
       messages: messages,
@@ -16,7 +16,8 @@ describe('MessageThread.vue', () => {
 
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: thread}))
 
-    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
+    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}, mocks: {user: {}}})
+    wrapper.vm.user = {}
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('Thread title')
@@ -33,6 +34,7 @@ describe('MessageThread.vue', () => {
 
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {createdAt: '2018-04-07T20:51:00Z'}}))
     let wrapper = mount(MessageThread)
+    wrapper.vm.user = {}
     wrapper.vm.threadId = '11'
     wrapper.vm.messageText = 'Hello'
 
@@ -53,13 +55,14 @@ describe('MessageThread.vue', () => {
   it('should poll messages from backend', (done) => {
     let updatedThread = {
       id: '11',
-      messages: [{id: '99', text: 'New message', createdAt: '2018-04-07T20:51:00'}],
+      messages: [{id: '99', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: {}}],
       users: [{id: '1'}]
     }
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: updatedThread}))
     jasmine.clock().install()
 
     let wrapper = mount(MessageThread)
+    wrapper.vm.user = {}
     wrapper.vm.threadId = '11'
 
     jasmine.clock().tick(5000)
