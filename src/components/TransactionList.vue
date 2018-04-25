@@ -25,13 +25,11 @@
       <v-list v-if="transactions.length" three-line class="pt-0">
         <template v-for="(transaction, index) in transactions">
           <v-list-tile :key="transaction.title" class="transaction">
-            <v-layout align-center row>
-
-              <v-flex xs3>
-                <avatar :user="otherPartyUser(transaction)"/>
-              </v-flex>
-
-              <v-flex xs9>
+            <v-list-tile-avatar>
+              <avatar :user="otherPartyUser(transaction)"/>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <div style="width: 100%;">
                 <v-layout row justify-space-between>
                   <div class="body-3">
                     {{transaction.debit ? transaction.beneficiary.fullName : transaction.remitter.fullName }}
@@ -42,12 +40,11 @@
                 </v-layout>
                 <v-list-tile-sub-title v-html="transaction.description"></v-list-tile-sub-title>
                 <div class="caption grey--text">{{transaction.createdAt | moment('from') }}</div>
-              </v-flex>
-
-            </v-layout>
+              </div>
+            </v-list-tile-content>
 
           </v-list-tile>
-          <v-divider v-if="index + 1 < transactions.length"></v-divider>
+          <v-divider v-if="index + 1 < transactions.length" inset></v-divider>
         </template>
       </v-list>
       <v-alert v-else type="info" value="true">You don't have any coins yet. You may be eligible for free 2000 coins to use on different services. Contact local municipality to get more information.</v-alert>
