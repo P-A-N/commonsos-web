@@ -16,7 +16,9 @@ export default {
   MessageThread: {
     title: 'Message thread',
     message: 'Message',
-    send: 'Send'
+    send: 'Send',
+    pay: 'Pay',
+    makePaymentModalTitle: 'Pay for service'
   },
 
   Payment: {

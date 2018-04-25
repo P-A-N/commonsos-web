@@ -1,18 +1,22 @@
 <template>
   <div>
-    <app-toolbar v-if="thread.parties" :title="thread.parties[0].fullName">
+    <app-toolbar :title="counterParty.fullName">
       <v-btn slot="left" icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title slot="extension">{{thread.title}}</v-toolbar-title>
+      <v-btn icon flat @click="makePayment(thread.adId)">
+        {{$t('MessageThread.pay')}}
+      </v-btn>
+      <v-toolbar-title slot="extension">
+        {{thread.title}}
+      </v-toolbar-title>
     </app-toolbar>
     <div class="messages-list pt-3">
-
       <template v-for="(message, index) in messages">
         <v-layout mb-3 class="message-wrapper"
                   v-bind:class="{ me: my(message), them: !my(message) }">
           <v-flex d-flex justify-center class="avatar-wrapper">
-            <avatar v-if="message.createdBy" :user="message.createdBy" />
+            <avatar v-if="message.createdBy" :user="message.createdBy"/>
           </v-flex>
           <v-flex class="message-content-wrapper">
             <div class="text-wrapper mb-1" v-html="message.text"></div>
@@ -25,15 +29,21 @@
 
     <v-card color="grey" class="chat-text-input" flat>
       <v-card-text style="padding: 0">
-              <form @submit.prevent="sendMessage()">
-                <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
-                              type="text" flat solo rows="2" multi-line/>
-                  <v-btn type="submit" small primary absolute top right fab><v-icon>send</v-icon>
-                  </v-btn>
-              </form>
+        <form @submit.prevent="sendMessage()">
+          <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
+                        type="text" flat solo rows="2" multi-line/>
+          <v-btn type="submit" small primary absolute top right fab>
+            <v-icon>send</v-icon>
+          </v-btn>
+        </form>
       </v-card-text>
     </v-card>
     <div ref="messageInput"></div>
+
+    <modal v-if="ad" :title="$t('MessageThread.makePaymentModalTitle')" @close="paymentDone()">
+      <make-payment :amount="ad.points" :beneficiary="counterParty" :ad="ad" :description="$t('Payment.description',{title: ad.title})"
+                    slot-scope="modal" :closeModal="modal.close"/>
+    </modal>
   </div>
 </template>
 
@@ -41,18 +51,22 @@
   import AppToolbar from '@/components/AppToolbar'
   import Avatar from '@/components/Avatar'
   import gateway from '@/gateway'
+  import Modal from '@/components/Modal'
+  import MakePayment from '@/components/MakePayment'
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
     name: 'MessageThread',
     components: {
-      AppToolbar, Avatar
+      AppToolbar, Avatar, Modal, MakePayment
     },
     mixins: [LoggedInUserConsumerMixin],
     props: ['threadId'],
     data() {
       return {
+        ad: null,
         thread: {},
+        counterParty: {},
         messages: [],
         messageText: ''
       }
@@ -61,6 +75,7 @@
       loadThread() {
         return gateway.get(`/message-threads/${this.threadId}`).then(r => {
           this.thread = r.data
+          this.counterParty = this.thread.parties[0]
           this.messages = r.data.messages
         })
       },
@@ -80,6 +95,12 @@
       },
       my(message) {
         return this.user.id === message.createdBy.id
+      },
+      makePayment(adId) {
+        gateway.get(`/ads/${adId}`).then(r => this.ad = r.data)
+      },
+      paymentDone() {
+        this.ad = null;
       }
     },
     created() {

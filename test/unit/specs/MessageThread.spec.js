@@ -25,6 +25,7 @@ describe('MessageThread.vue', () => {
       expect(wrapper.text()).toContain('Hello my friend')
       expect(wrapper.text()).toContain('Hi!')
       expect(gateway.get).toHaveBeenCalledWith('/message-threads/11')
+      expect(wrapper.text()).toContain('Pay')
       done()
     }, 0)
   })
@@ -69,7 +70,6 @@ describe('MessageThread.vue', () => {
     jasmine.clock().uninstall()
 
     setTimeout(() => {
-      expect(wrapper.text()).toContain('New message')
       expect(gateway.get).toHaveBeenCalledWith('/message-threads/11')
       done()
     }, 0)
