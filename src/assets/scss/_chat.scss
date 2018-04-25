@@ -18,7 +18,9 @@ $text-input-height: 80px;
 
 .message-wrapper {
   .avatar-wrapper {
-    width: $messageHeight * 1.5;
+    display: flex;
+    justify-content: center;
+    flex: 0 0 $messageHeight * 1.33;
   }
 
   .message-content-wrapper {
@@ -45,6 +47,10 @@ $text-input-height: 80px;
 
   &.them {
 
+    .message-content-wrapper {
+      align-items: flex-start;
+    }
+
     .text-wrapper {
       background: $primary-color;
       float: left;
@@ -65,8 +71,11 @@ $text-input-height: 80px;
   }
 
   &.me {
-    text-align: right;
     flex-direction: row-reverse;
+
+    .message-content-wrapper {
+      align-items: flex-end;
+    }
 
     .text-wrapper {
       float: right;
@@ -85,5 +94,24 @@ $text-input-height: 80px;
         right: -9px;
       }
     }
+
+    .message-time {
+      text-align: right;
+    }
   }
+
+  &.same-sender-as-previous {
+    .avatar-wrapper {
+      .avatar {
+        display: none;
+      }
+    }
+  }
+
+  &.next-will-also-be-from-this-sender {
+    .message-time {
+      display: none;
+    }
+  }
+
 }

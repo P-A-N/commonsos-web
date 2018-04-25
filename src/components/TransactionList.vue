@@ -22,7 +22,7 @@
     <v-divider></v-divider>
 
     <div v-if="transactions != null">
-      <v-list v-if="transactions.length" three-line>
+      <v-list v-if="transactions.length" three-line class="pt-0">
         <template v-for="(transaction, index) in transactions">
           <v-list-tile :key="transaction.title" class="transaction">
             <v-layout align-center row>
@@ -31,17 +31,19 @@
                 <avatar :user="otherPartyUser(transaction)"/>
               </v-flex>
 
-              <v-flex>
-                <div class="body-2">
-                  {{transaction.debit ? transaction.beneficiary.fullName : transaction.remitter.fullName }}
-                </div>
-                <div class="body-1">{{transaction.description}}</div>
-                <div class="caption">{{transaction.createdAt | moment('from') }}</div>
+              <v-flex xs9>
+                <v-layout row justify-space-between>
+                  <div class="body-3">
+                    {{transaction.debit ? transaction.beneficiary.fullName : transaction.remitter.fullName }}
+                  </div>
+                  <div class="body-3 text-xs-right" :class="{'debit': transaction.debit, 'credit': !transaction.debit}">
+                    {{formattedAmount(transaction)}}
+                  </div>
+                </v-layout>
+                <v-list-tile-sub-title v-html="transaction.description"></v-list-tile-sub-title>
+                <div class="caption grey--text">{{transaction.createdAt | moment('from') }}</div>
               </v-flex>
 
-              <v-flex xs3 class="body-3 text-xs-right" :class="{'debit': transaction.debit, 'credit': !transaction.debit}">
-                {{formattedAmount(transaction)}}
-              </v-flex>
             </v-layout>
 
           </v-list-tile>

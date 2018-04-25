@@ -13,15 +13,21 @@
     </app-toolbar>
     <div class="messages-list pt-3">
       <template v-for="(message, index) in messages">
-        <v-layout mb-3 class="message-wrapper"
-                  v-bind:class="{ me: my(message), them: !my(message) }">
-          <v-flex d-flex justify-center class="avatar-wrapper">
-            <avatar v-if="message.createdBy" :user="message.createdBy"/>
+        <v-layout mb-2 class="message-wrapper"
+                  v-bind:class="{
+                  me: my(message), them: !my(message),
+                  'same-sender-as-previous': index > 0 && messages[index-1].createdBy.id === message.createdBy.id,
+                  'next-will-also-be-from-this-sender': index < messages.length - 1 && messages[index + 1].createdBy.id === message.createdBy.id
+                 }">
+          <v-flex class="avatar-wrapper">
+            <avatar v-if="message.createdBy" :user="message.createdBy" />
           </v-flex>
           <v-flex class="message-content-wrapper">
-            <div class="text-wrapper mb-1" v-html="message.text"></div>
-            <div v-if="message.createdAt" class="grey--text caption">{{message.createdAt | moment('from')}}</div>
-            <v-progress-linear height="2" v-else :indeterminate="true"></v-progress-linear>
+            <div class="text-wrapper" v-html="message.text"></div>
+            <div v-if="message.createdAt" class="grey--text caption message-time mt-1">{{message.createdAt |
+              moment('from')}}
+            </div>
+            <v-progress-linear v-else :indeterminate="true"></v-progress-linear>
           </v-flex>
         </v-layout>
       </template>
@@ -29,13 +35,12 @@
 
     <v-card color="grey" class="chat-text-input" flat>
       <v-card-text style="padding: 0">
-        <form @submit.prevent="sendMessage()">
-          <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
-                        type="text" flat solo rows="2" multi-line/>
-          <v-btn type="submit" small primary absolute top right fab>
-            <v-icon>send</v-icon>
-          </v-btn>
-        </form>
+              <form @submit.prevent="sendMessage()">
+                <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
+                              type="text" flat solo rows="2" multi-line/>
+                  <v-btn type="submit" small absolute top right fab color="primary"><v-icon>send</v-icon>
+                  </v-btn>
+              </form>
       </v-card-text>
     </v-card>
     <div ref="messageInput"></div>
