@@ -35,7 +35,7 @@
               <form @submit.prevent="sendMessage()">
                 <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
                               type="text" flat solo rows="2" multi-line/>
-                  <v-btn type="submit" small primary absolute top right fab><v-icon>send</v-icon>
+                  <v-btn type="submit" small absolute top right fab color="primary"><v-icon>send</v-icon>
                   </v-btn>
               </form>
       </v-card-text>
