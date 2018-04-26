@@ -9,15 +9,18 @@ describe('MessageThread.vue', () => {
       {text: 'Hi!', createdAt: '2018-04-09T21:51:00', createdBy: {}}
     ]
     let thread = {
-      messages: messages,
       title: 'Thread title',
       parties: [{id: '22', fullName: 'Satu Haruto'}],
       ad: {payable: true}
     }
 
-    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: thread}))
+    spyOn(gateway, 'get').and.callFake((url, data) => {
+      if (url === '/message-threads/11') return Promise.resolve({data: thread})
+      if (url === '/message-threads/11/messages') return Promise.resolve({data: messages})
+      fail()
+    })
 
-    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}, mocks: {user: {}}})
+    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
     wrapper.vm.user = {}
 
     setTimeout(() => {
@@ -25,7 +28,6 @@ describe('MessageThread.vue', () => {
       expect(wrapper.text()).toContain('Satu Haruto')
       expect(wrapper.text()).toContain('Hello my friend')
       expect(wrapper.text()).toContain('Hi!')
-      expect(gateway.get).toHaveBeenCalledWith('/message-threads/11')
       expect(wrapper.text()).toContain('Pay')
       done()
     }, 0)
@@ -55,23 +57,25 @@ describe('MessageThread.vue', () => {
   })
 
   it('should poll messages from backend', (done) => {
-    let updatedThread = {
-      id: '11',
-      messages: [{id: '99', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: {}}],
-      users: [{id: '1'}],
-    }
-    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: updatedThread}))
+    let messages = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00', createdBy: {}}]
+    let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: {}}]
+
+    spyOn(gateway, 'get').and.returnValues(
+      Promise.resolve({data: {parties: [{}]}}),
+      Promise.resolve({data: messages}),
+      Promise.resolve({data: messages2})
+    )
+
     jasmine.clock().install()
 
-    let wrapper = mount(MessageThread)
+    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
     wrapper.vm.user = {}
-    wrapper.vm.threadId = '11'
 
     jasmine.clock().tick(5000)
     jasmine.clock().uninstall()
 
     setTimeout(() => {
-      expect(gateway.get).toHaveBeenCalledWith('/message-threads/11')
+      expect(wrapper.text()).toContain('New message')
       done()
     }, 0)
   })

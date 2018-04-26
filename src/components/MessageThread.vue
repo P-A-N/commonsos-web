@@ -37,7 +37,7 @@
       <v-card-text style="padding: 0">
               <form @submit.prevent="sendMessage()">
                 <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
-                              type="text" flat solo rows="2" multi-line/>
+                              type="text" flat solo rows="2" multi-line autofocus/>
                   <v-btn type="submit" small absolute top right fab color="primary"><v-icon>send</v-icon>
                   </v-btn>
               </form>
@@ -87,9 +87,11 @@
         return gateway.get(`/message-threads/${this.threadId}`).then(r => {
           this.thread = r.data
           this.counterParty = this.thread.parties[0]
-          this.messages = r.data.messages
           this.ad = r.data.ad
         })
+      },
+      loadMessages() {
+        return gateway.get(`/message-threads/${this.threadId}/messages`).then(r => this.messages = r.data)
       },
       sendMessage() {
         if (this.messageText === "") return
@@ -110,8 +112,9 @@
       },
     },
     created() {
-      this.loadThread().then(() => this.scrollToEnd())
-      this.threadRefresh = setInterval(() => this.loadThread(), 5000);
+      this.loadThread()
+      this.loadMessages().then(() => this.scrollToEnd())
+      this.threadRefresh = setInterval(() => this.loadMessages(), 5000);
     },
     destroyed() {
       clearInterval(this.threadRefresh)
