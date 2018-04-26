@@ -1,8 +1,9 @@
 import MessageThread from '@/components/MessageThread'
-import {mount} from '../test-utils'
+import {mount, rmount} from '../test-utils'
 import gateway from '@/gateway'
 
 describe('MessageThread.vue', () => {
+
   it('should display existing messages and metadata for existing thread', (done) => {
     let messages = [
       {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00', createdBy: '1'},
@@ -20,7 +21,8 @@ describe('MessageThread.vue', () => {
       fail()
     })
 
-    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
+    let wrapper = rmount(MessageThread, {propsData: {threadId: '11'}})
+
     wrapper.vm.user = {id: '1'}
 
     setTimeout(() => {
@@ -55,27 +57,41 @@ describe('MessageThread.vue', () => {
     }, 0)
   })
 
-  it('should poll messages from backend', (done) => {
-    let messages = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
-    let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
+  describe('polling', () => {
 
-    spyOn(gateway, 'get').and.returnValues(
-      Promise.resolve({data: {parties: [{}]}}),
-      Promise.resolve({data: messages}),
-      Promise.resolve({data: messages2})
-    )
+    it('should be started', function () {
+      spyOn(MessageThread.methods, 'pollMessages')
 
-    jasmine.clock().install()
+      let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
 
-    let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
-    wrapper.vm.user = {id: '1'}
+      expect(MessageThread.methods.pollMessages).toHaveBeenCalled()
+    })
 
-    jasmine.clock().tick(5000)
-    jasmine.clock().uninstall()
+    it('should retrieve new messages', done => {
+      let messages1 = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
+      let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
 
-    setTimeout(() => {
-      expect(wrapper.text()).toContain('New message')
-      done()
-    }, 0)
-  })
+      spyOn(gateway, 'get').and.returnValues(
+        Promise.resolve({data: messages1}),
+        Promise.resolve({data: messages2})
+      )
+
+      let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
+      wrapper.vm.user = {id: '1'}
+
+      jasmine.clock().install()
+
+      wrapper.vm.pollMessages()
+
+      jasmine.clock().tick(5000)
+      jasmine.clock().tick(5000)
+      jasmine.clock().uninstall()
+
+      setTimeout(() => {
+        expect(wrapper.text()).toContain('New message')
+        done()
+      }, 0)
+    })
+  });
+
 })

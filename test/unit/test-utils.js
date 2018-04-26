@@ -8,6 +8,16 @@ export function mount(component, options) {
   return vmount(component, Object.assign({router, i18n}, options))
 }
 
+export function rmount(component, options) {
+  let wrapper = vmount(component, Object.assign({router, i18n}, options))
+
+  if (component.beforeRouteEnter) {
+    let propsData = options && options.propsData || {}
+    component.beforeRouteEnter({params: propsData}, {}, (f) => {f(wrapper.vm)})
+  }
+  return wrapper
+}
+
 export function shallow(component) {
   return vshallow(component)
 }

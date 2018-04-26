@@ -67,6 +67,18 @@
     },
     mixins: [LoggedInUserConsumerMixin],
     props: ['threadId'],
+    beforeRouteEnter(to, from, next) {
+      Promise.all([
+        gateway.get(`/message-threads/${to.params.threadId}`),
+        gateway.get(`/message-threads/${to.params.threadId}/messages`)]
+      ).then(values => {
+          next(vm => {
+            vm.setThread(values[0].data)
+            vm.messages = values[1].data
+            vm.scrollToEnd()
+          })
+        })
+    },
     data() {
       return {
         ad: null,
@@ -83,12 +95,10 @@
       }
     },
     methods: {
-      loadThread() {
-        return gateway.get(`/message-threads/${this.threadId}`).then(r => {
-          this.thread = r.data
-          this.counterParty = this.thread.parties[0]
-          this.ad = r.data.ad
-        })
+      setThread(thread) {
+        this.thread = thread
+        this.counterParty = this.thread.parties[0]
+        this.ad = thread.ad
       },
       loadMessages() {
         return gateway.get(`/message-threads/${this.threadId}/messages`).then(r => this.messages = r.data)
@@ -97,8 +107,8 @@
         if (this.messageText === "") return
         let newMessage = {text: this.messageText, createdBy: this.user.id, createdAt: null}
         this.messages.push(newMessage)
-        gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
-          .then(r => Object.assign(newMessage, r.data))
+        let data = {threadId: this.threadId, text: this.messageText}
+        gateway.post(`/message-threads/${this.threadId}/messages`, data).then(r => Object.assign(newMessage, r.data))
         this.messageText = ""
         this.scrollToEnd()
       },
@@ -112,12 +122,13 @@
       },
       userById(userId) {
         return (userId === this.user.id) ? this.user : this.thread.parties.find(user => user.id === userId)
+      },
+      pollMessages() {
+        this.threadRefresh = setInterval(() => this.loadMessages(), 5000);
       }
     },
     created() {
-      this.loadThread()
-      this.loadMessages().then(() => this.scrollToEnd())
-      this.threadRefresh = setInterval(() => this.loadMessages(), 5000);
+      this.pollMessages()
     },
     destroyed() {
       clearInterval(this.threadRefresh)
