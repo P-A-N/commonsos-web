@@ -13,7 +13,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
-      <v-btn class="submit-btn" right type="submit">Make payment</v-btn>
+      <v-btn class="submit-btn" right type="submit" color="primary">Make payment</v-btn>
     </v-card-actions>
   </form>
 </template>
