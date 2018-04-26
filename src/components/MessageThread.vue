@@ -16,11 +16,11 @@
         <v-layout mb-2 class="message-wrapper"
                   v-bind:class="{
                   me: my(message), them: !my(message),
-                  'same-sender-as-previous': index > 0 && messages[index-1].createdBy.id === message.createdBy.id,
-                  'next-will-also-be-from-this-sender': index < messages.length - 1 && messages[index + 1].createdBy.id === message.createdBy.id
+                  'same-sender-as-previous': index > 0 && messages[index-1].createdBy === message.createdBy,
+                  'next-will-also-be-from-this-sender': index < messages.length - 1 && messages[index + 1].createdBy === message.createdBy
                  }">
           <v-flex class="avatar-wrapper">
-            <avatar v-if="message.createdBy" :user="message.createdBy" />
+            <avatar v-if="message.createdBy" :user="userById(message.createdBy)" />
           </v-flex>
           <v-flex class="message-content-wrapper">
             <div class="text-wrapper" v-html="message.text"></div>
@@ -95,7 +95,7 @@
       },
       sendMessage() {
         if (this.messageText === "") return
-        let newMessage = {text: this.messageText, createdBy: this.user, createdAt: null}
+        let newMessage = {text: this.messageText, createdBy: this.user.id, createdAt: null}
         this.messages.push(newMessage)
         gateway.post(`/message-threads/${this.threadId}/messages`, {threadId: this.threadId, text: this.messageText})
           .then(r => Object.assign(newMessage, r.data))
@@ -108,8 +108,11 @@
         })
       },
       my(message) {
-        return this.user.id === message.createdBy.id
+        return this.user.id === message.createdBy
       },
+      userById(userId) {
+        return (userId === this.user.id) ? this.user : this.thread.parties.find(user => user.id === userId)
+      }
     },
     created() {
       this.loadThread()

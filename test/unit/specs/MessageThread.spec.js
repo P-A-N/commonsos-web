@@ -5,8 +5,8 @@ import gateway from '@/gateway'
 describe('MessageThread.vue', () => {
   it('should display existing messages and metadata for existing thread', (done) => {
     let messages = [
-      {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00', createdBy: {}},
-      {text: 'Hi!', createdAt: '2018-04-09T21:51:00', createdBy: {}}
+      {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00', createdBy: '1'},
+      {text: 'Hi!', createdAt: '2018-04-09T21:51:00', createdBy: '1'}
     ]
     let thread = {
       title: 'Thread title',
@@ -21,7 +21,7 @@ describe('MessageThread.vue', () => {
     })
 
     let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
-    wrapper.vm.user = {}
+    wrapper.vm.user = {id: '1'}
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('Thread title')
@@ -35,10 +35,9 @@ describe('MessageThread.vue', () => {
 
   it('should post new message to backend', (done) => {
     jasmine.clock().mockDate(new Date('2018-04-07T20:51:01Z'));
-
     spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {createdAt: '2018-04-07T20:51:00Z'}}))
     let wrapper = mount(MessageThread)
-    wrapper.vm.user = {}
+    wrapper.vm.user = {id: '1'}
     wrapper.vm.threadId = '11'
     wrapper.vm.messageText = 'Hello'
 
@@ -57,8 +56,8 @@ describe('MessageThread.vue', () => {
   })
 
   it('should poll messages from backend', (done) => {
-    let messages = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00', createdBy: {}}]
-    let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: {}}]
+    let messages = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
+    let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
 
     spyOn(gateway, 'get').and.returnValues(
       Promise.resolve({data: {parties: [{}]}}),
@@ -69,7 +68,7 @@ describe('MessageThread.vue', () => {
     jasmine.clock().install()
 
     let wrapper = mount(MessageThread, {propsData: {threadId: '11'}})
-    wrapper.vm.user = {}
+    wrapper.vm.user = {id: '1'}
 
     jasmine.clock().tick(5000)
     jasmine.clock().uninstall()
