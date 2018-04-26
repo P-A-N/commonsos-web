@@ -4,12 +4,22 @@
       <v-btn slot="left" icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-btn v-if="payable" icon flat @click="makePayment = true">
-        {{$t('MessageThread.pay')}}
-      </v-btn>
-      <v-toolbar-title slot="extension">
+      <v-toolbar-title slot="extension" style="width: 100%;">
         {{thread.title}}
       </v-toolbar-title>
+      <div slot="extension">
+        <v-btn flat icon small color="grey">
+          <v-icon>info</v-icon>
+        </v-btn>
+
+      </div>
+      <div slot="extension" class="mr-2" v-if="payable">
+        <v-btn flat color="primary" @click="makePayment = true"
+               style="width: 66px; min-width: 66px;">
+          <v-icon class="pr-2">account_balance_wallet</v-icon>
+          {{$t('MessageThread.pay')}}
+        </v-btn>
+      </div>
     </app-toolbar>
     <div class="messages-list pt-3">
       <template v-for="(message, index) in messages">
