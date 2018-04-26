@@ -28,7 +28,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
-      <v-btn right type="submit">Add</v-btn>
+      <v-btn right color="primary" type="submit">Add</v-btn>
     </v-card-actions>
   </form>
 </template>
