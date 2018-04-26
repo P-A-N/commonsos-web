@@ -6,6 +6,7 @@
 
     <global-notification/>
 
+    <Loader></Loader>
   </v-app>
 </template>
 
@@ -14,13 +15,15 @@
   import GlobalNotification from '@/components/GlobalNotification'
   import AppToolbar from "./components/AppToolbar";
   import AppBottomNav from "./components/AppBottomNav";
+  import Loader from "./components/Loader";
 
   export default {
 
     components: {
       AppToolbar,
       AppBottomNav,
-      GlobalNotification
+      GlobalNotification,
+      Loader
     },
     created() {
       userService.loadUser()

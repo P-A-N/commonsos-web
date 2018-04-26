@@ -1,5 +1,6 @@
 import axios from 'axios';
 import notifications from '@/services/notifications'
+import eventbus from '@/eventbus'
 
 let axiosInstance = axios.create({
   baseURL: '/api',
@@ -20,6 +21,19 @@ export let handleError = error => {
   }
 }
 
-axiosInstance.interceptors.response.use(response => response, handleError);
+axiosInstance.interceptors.response.use(response => {
+    clearTimeout(response.config.loaderTimer)
+    eventbus.$emit('hide-loader')
+    return response
+  }, handleError);
+
+axiosInstance.interceptors.request.use(config => {
+    config.loaderTimer = setTimeout(() => {
+      eventbus.$emit('show-loader')
+    }, 500)
+    return config
+  }
+  , err => Promise.reject(err)
+);
 
 export default axiosInstance
