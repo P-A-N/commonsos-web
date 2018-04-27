@@ -1,9 +1,6 @@
 <template>
   <div>
     <app-toolbar title="Wallet">
-      <v-btn icon @click="showClaimReward = true" v-if="false">
-        <v-icon>photo_camera</v-icon>
-      </v-btn>
     </app-toolbar>
 
     <v-card flat>
@@ -51,10 +48,6 @@
     </div>
     <div v-else>Loading....</div>
 
-    <modal v-if="showClaimReward" @close="showClaimReward = false" title="Claim reward">
-      <claim-reward slot-scope="modal" :closeModal="modal.close"/>
-    </modal>
-
     <app-bottom-nav></app-bottom-nav>
 
   </div>
@@ -66,7 +59,6 @@
   import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
   import Modal from '@/components/Modal'
-  import ClaimReward from '@/components/ClaimReward'
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
@@ -75,13 +67,11 @@
       AppToolbar,
       Avatar,
       Modal,
-      ClaimReward,
       AppBottomNav
     },
     data() {
       return {
         transactions: null,
-        showClaimReward: false
       }
     },
     methods: {

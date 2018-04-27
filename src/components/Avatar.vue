@@ -5,18 +5,7 @@
 </template>
 
 <script>
-  import Modal from '@/components/Modal'
-  import ClaimReward from '@/components/ClaimReward'
-
   export default {
-    props: ['user'],
-    data() {
-      return {
-        showClaimReward: false
-      }
-    },
-    components: {
-      Modal, ClaimReward
-    }
+    props: ['user']
   }
 </script>
