@@ -111,7 +111,7 @@
         this.ad = thread.ad
       },
       loadMessages() {
-        return gateway.get(`/message-threads/${this.threadId}/messages`).then(r => this.messages = r.data)
+        return gateway.get(`/message-threads/${this.threadId}/messages`, {noLoader: true}).then(r => this.messages = r.data)
       },
       sendMessage() {
         if (this.messageText === "") return

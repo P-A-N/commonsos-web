@@ -21,19 +21,23 @@ export let handleError = error => {
   }
 }
 
-axiosInstance.interceptors.response.use(response => {
-    clearTimeout(response.config.loaderTimer)
-    eventbus.$emit('hide-loader')
-    return response
-  }, handleError);
-
-axiosInstance.interceptors.request.use(config => {
+axiosInstance.interceptors.request.use(
+  config => {
+    if (config.noLoader) return config
     config.loaderTimer = setTimeout(() => {
       eventbus.$emit('show-loader')
     }, 500)
     return config
-  }
-  , err => Promise.reject(err)
-);
+  },
+  err => Promise.reject(err)
+)
+
+axiosInstance.interceptors.response.use(
+  response => {
+    clearTimeout(response.config.loaderTimer)
+    eventbus.$emit('hide-loader')
+    return response
+  }, handleError
+)
 
 export default axiosInstance
