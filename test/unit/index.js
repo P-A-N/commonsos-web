@@ -2,10 +2,12 @@ import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 import Vuetify from 'vuetify'
 import VueMoment from 'vue-moment'
+import VueRouter from 'vue-router'
 
 Vue.use(VeeValidate)
 Vue.use(Vuetify)
 Vue.use(VueMoment)
+Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
