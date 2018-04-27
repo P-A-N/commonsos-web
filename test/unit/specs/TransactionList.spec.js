@@ -1,5 +1,5 @@
 import TransactionList from '@/components/TransactionList'
-import {mount} from '../test-utils'
+import {rmount as mount} from '../test-utils'
 import gateway from '@/gateway'
 import Vue from 'vue'
 import VueMoment from 'vue-moment'

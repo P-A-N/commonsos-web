@@ -69,6 +69,9 @@
       Modal,
       AppBottomNav
     },
+    beforeRouteEnter(to, from, next) {
+      gateway.get('transactions').then(r => {next(vm => vm.transactions = r.data)})
+    },
     data() {
       return {
         transactions: null,
@@ -84,9 +87,6 @@
       formattedAmount(transaction) {
         return (transaction.debit ? '-' : '+') + transaction.amount
       }
-    },
-    created() {
-      gateway.get('transactions').then(r => this.transactions = r.data)
     }
   }
 </script>
