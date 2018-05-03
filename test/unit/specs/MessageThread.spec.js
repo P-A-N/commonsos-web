@@ -6,14 +6,16 @@ describe('MessageThread.vue', () => {
 
   it('should display existing messages and metadata for existing thread', (done) => {
     let messages = [
-      {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00', createdBy: '1'},
-      {text: 'Hi!', createdAt: '2018-04-09T21:51:00', createdBy: '1'}
+      {text: 'Hello my friend', createdAt: '2018-04-07T20:51:00Z', createdBy: '1'},
+      {text: 'Hi!', createdAt: '2018-04-09T21:51:00Z', createdBy: '1'}
     ]
     let thread = {
       title: 'Thread title',
       parties: [{id: '22', fullName: 'Satu Haruto'}],
       ad: {payable: true}
     }
+
+    jasmine.clock().mockDate(new Date('2018-04-09T23:00:00+01:00'));
 
     spyOn(gateway, 'get').and.callFake((url, data) => {
       if (url === '/message-threads/11') return Promise.resolve({data: thread})
@@ -26,10 +28,12 @@ describe('MessageThread.vue', () => {
     wrapper.vm.user = {id: '1'}
 
     setTimeout(() => {
+      expect(wrapper.text()).toContain('Hi!')
+      expect(wrapper.text()).toContain('9 minutes ago')
+      expect(wrapper.text()).toContain('Hello my friend')
+      expect(wrapper.text()).toContain('2 days ago')
       expect(wrapper.text()).toContain('Thread title')
       expect(wrapper.text()).toContain('Satu Haruto')
-      expect(wrapper.text()).toContain('Hello my friend')
-      expect(wrapper.text()).toContain('Hi!')
       expect(wrapper.text()).toContain('Pay')
       done()
     }, 0)
@@ -68,8 +72,8 @@ describe('MessageThread.vue', () => {
     })
 
     it('should retrieve new messages', done => {
-      let messages1 = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
-      let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00', createdBy: '1'}]
+      let messages1 = [{id: '1', text: 'Old message', createdAt: '2018-04-07T20:51:00Z', createdBy: '1'}]
+      let messages2 = [{id: '2', text: 'New message', createdAt: '2018-04-07T20:51:00Z', createdBy: '1'}]
 
       spyOn(gateway, 'get').and.returnValues(
         Promise.resolve({data: messages1}),

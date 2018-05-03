@@ -10,14 +10,14 @@ describe('TransactionList.vue', () => {
   beforeEach(() => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({}))
     Vue.use(VueMoment)
-    jasmine.clock().mockDate(new Date('2018-03-19T11:58:00'));
+    jasmine.clock().mockDate(new Date('2018-03-19T11:58:00Z'));
   })
 
   it('should display user transactions', (done) => {
     gateway.get.and.returnValue(Promise.resolve({
       data: [
-        {createdAt: '2018-01-30T22:51:00', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11, debit:true, description: 'Payment description'},
-        {createdAt: '2018-02-24T11:22:33', remitter: {id: 'user2', fullName: 'name2'}, beneficiary: {id: 'user1', fullName: 'name1'}, amount: 2.22, debit:false, description:'Topup from community'}
+        {createdAt: '2018-01-30T22:51:00Z', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11, debit:true, description: 'Payment description'},
+        {createdAt: '2018-02-24T11:22:33Z', remitter: {id: 'user2', fullName: 'name2'}, beneficiary: {id: 'user1', fullName: 'name1'}, amount: 2.22, debit:false, description:'Topup from community'}
       ]
     }))
     spyOn(userService, 'user').and.returnValue({})

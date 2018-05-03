@@ -5,7 +5,7 @@
         <v-card-media :src="ad.photoUrl || '/static/temp/ad-placeholder.png'" height="250px">
           <v-layout column class="media card-image-gradient">
             <v-card-title>
-              <v-btn dark icon @click="$router.go(-1)">
+              <v-btn dark icon @click="$router.back()">
                 <v-icon>close</v-icon>
               </v-btn>
               <v-spacer></v-spacer>

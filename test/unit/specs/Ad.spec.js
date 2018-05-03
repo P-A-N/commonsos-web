@@ -6,7 +6,7 @@ describe('Ad.vue', () => {
 
   it('should display ad details', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {
-        createdAt: '2018-02-23T15:40',
+        createdAt: '2018-02-23T15:40Z',
         title: 'Mayor job',
         description: 'Nice details',
         points: 2.22,

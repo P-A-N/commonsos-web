@@ -1,5 +1,5 @@
 import AdList from '@/components/AdList'
-import {mount, router} from '../test-utils'
+import {mount} from '../test-utils'
 import gateway from '@/gateway'
 
 describe('AdList.vue', () => {
@@ -7,8 +7,8 @@ describe('AdList.vue', () => {
   it('should display ads list', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({
       data: [
-        {createdAt: '2018-02-13T12:30', title: 'title1', points: 1.11, location: 'location1', type: 'GIVE'},
-        {createdAt: '2018-02-23T15:40', title: 'title2', points: 2.22, location: 'location2', type: 'WANT'}
+        {createdAt: '2018-02-13T12:30Z', title: 'title1', points: 1.11, location: 'location1', type: 'GIVE'},
+        {createdAt: '2018-02-23T15:40Z', title: 'title2', points: 2.22, location: 'location2', type: 'WANT'}
       ]
     }))
 
