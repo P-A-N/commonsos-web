@@ -13,7 +13,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
-      <v-btn class="submit-btn" right type="submit" color="primary">Make payment</v-btn>
+      <v-btn class="submit-btn" right type="submit" color="primary" :disabled="sendingTransaction">Make payment</v-btn>
     </v-card-actions>
   </form>
 </template>
@@ -28,6 +28,7 @@
     name: 'MakePayment',
     data() {
       return {
+        sendingTransaction: false,
         transaction: {
           description: this.description,
           amount: this.amount,
@@ -41,8 +42,10 @@
           if (!valid) return
           if (!confirm(`Transfer ${this.transaction.amount} coins to ${this.beneficiary.fullName}?`)) return
           if (this.ad) this.transaction.adId = this.ad.id
+          this.sendingTransaction = true
           gateway.post('/transactions', this.transaction)
             .then(() => {
+              this.sendingTransaction = false
               userService.loadUser()
               notifications.i(`Transfered ${this.transaction.amount} coins to ${this.beneficiary.fullName}`)
               this.closeModal()
