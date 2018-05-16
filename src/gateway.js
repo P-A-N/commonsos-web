@@ -34,6 +34,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   response => {
+    if (response.config.noLoader) return response
     clearTimeout(response.config.loaderTimer)
     eventbus.$emit('hide-loader')
     return response
