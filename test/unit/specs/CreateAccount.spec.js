@@ -3,6 +3,7 @@ import CreateAccount from '@/components/CreateAccount'
 import userService from '@/services/UserService'
 import Vue from 'vue'
 import notifications from '@/services/notifications'
+import gateway from '@/gateway'
 
 describe('CreateAccount.vue', () => {
   let wrapper
@@ -10,19 +11,21 @@ describe('CreateAccount.vue', () => {
     username: 'username',
     password: 'password',
     firstName: 'first',
-    lastName: 'last'
+    lastName: 'last',
+    communityId: '23'
   }
 
   beforeEach(() => {
     Vue.component('vuetify-google-autocomplete', {template: '<div/>'})
-
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: [{id: 'community id'}]}))
     wrapper = mount(CreateAccount)
   })
 
   it('creates new account', (done) => {
     wrapper.setData({
       user: validUser,
-      password2: 'password'})
+      password2: 'password'
+    })
     spyOn(userService, 'createAndLogin').and.returnValue(Promise.resolve({}))
     spyOn(notifications, 'i')
 
@@ -55,6 +58,13 @@ describe('CreateAccount.vue', () => {
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('confirmation does not match')
+      done()
+    }, 0)
+  })
+
+  it('selects single community automatically', (done) => {
+    setTimeout(() => {
+      expect(wrapper.vm.user.communityId).toEqual('community id')
       done()
     }, 0)
   })

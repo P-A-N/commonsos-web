@@ -56,6 +56,18 @@
 
         <v-text-field v-model="user.description" label="Describe yourself" type="text"/>
 
+        <v-select
+          :items="communities"
+          v-model="user.communityId"
+          item-text="name"
+          item-value="id"
+          label="Community"
+          single-line
+          :error-messages="errors.collect('community')"
+          v-validate="'required'"
+          data-vv-name="community"
+        ></v-select>
+
         <vuetify-google-autocomplete
           id="map"
           append-icon="search"
@@ -81,18 +93,21 @@
 <script>
   import userService from '@/services/UserService'
   import notifications from '@/services/notifications'
+  import gateway from '@/gateway'
 
   export default {
     name: 'CreateAccount',
     data() {
       return {
+        communities: [],
         user:  {
           username: null,
           password: null,
           firstName: null,
           lastName: null,
           description: null,
-          location: null
+          location: null,
+          communityId: null
         },
         password2: null,
         hidePassword: true,
@@ -111,6 +126,12 @@
         this.username = username
         this.password = password
       }
+    },
+    created() {
+      gateway.get('/communities').then(r => {
+        this.communities = r.data
+        if (this.communities.length === 1) this.user.communityId = this.communities[0].id;
+      });
     }
   }
 </script>
