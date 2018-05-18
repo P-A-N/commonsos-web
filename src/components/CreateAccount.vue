@@ -82,7 +82,7 @@
     <v-card-actions>
       <v-btn
           block
-          color="primary" @click.prevent="createAccount()">
+          color="primary" @click.prevent="createAccount()" :disabled="loading">
         Create
       </v-btn>
     </v-card-actions>
@@ -99,6 +99,7 @@
     name: 'CreateAccount',
     data() {
       return {
+        loading: false,
         communities: [],
         user:  {
           username: null,
@@ -119,7 +120,10 @@
         this.error = ''
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
-          userService.createAndLogin(this.user).then(() => notifications.i('Welcome to Community OS'))
+          this.loading = true
+          userService.createAndLogin(this.user)
+            .then(() => notifications.i('Welcome to Community OS'))
+            .finally(() => this.loading = false)
         })
       },
       setUser(username, password) {

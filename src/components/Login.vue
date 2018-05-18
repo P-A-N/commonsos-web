@@ -19,8 +19,20 @@
                       v-validate="'required'"
                       data-vv-name="password"/>
       </v-form>
-      <small>Valid users:
-        <span v-for="(password, username) in predefinedUsers">
+      <small>Kaga community:
+        <span v-for="(password, username) in kagaUsers">
+          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+        </span>
+      </small>
+      <br>
+      <small>Shibuya community:
+        <span v-for="(password, username) in shibuyaUsers">
+          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+        </span>
+      </small>
+      <br>
+      <small>Commons Inc community:
+        <span v-for="(password, username) in commonsIncUsers">
           <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
         </span>
       </small>
@@ -45,11 +57,17 @@
         username: '',
         password: '',
         error: null,
-        predefinedUsers: {
+        kagaUsers: {
           worker: 'secret00',
           elderly1: 'secret00',
           elderly2: 'secret00',
-          admin: 'secret00'
+          admin: 'secret00',
+        },
+        shibuyaUsers: {
+          admin2: 'secret02',
+        },
+        commonsIncUsers: {
+          admin3: 'secret03',
         }
       }
     },

@@ -28,7 +28,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
-      <v-btn right color="primary" type="submit">Add</v-btn>
+      <v-btn right color="primary" type="submit" :disabled="loading">Add</v-btn>
     </v-card-actions>
   </form>
 </template>
@@ -42,15 +42,18 @@
       data() {
         return {
           ad: {type: null},
+          loading: false
         }
       },
       methods: {
         createAd() {
           this.$validator.validateAll().then((valid) => {
             if (!valid) return
+            this.loading = true
             gateway.post('/ads', this.ad)
               .then(() => this.closeModal())
               .catch(error => console.log(error))
+              .finally(() => this.loading = false)
           })
         }
       }
