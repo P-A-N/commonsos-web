@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Ad from '@/components/Ad'
-import TransactionList from '@/components/TransactionList'
+import Wallet from '@/components/Wallet'
 import Community from '@/components/Community'
 import Messages from '@/components/Messages'
 import MessageThread from '@/components/MessageThread'
@@ -16,7 +16,7 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {path: '/', redirect: '/community'},
-    {path: '/wallet', component: TransactionList},
+    {path: '/wallet', component: Wallet},
     {path: '/community', component: Community},
     {path: '/community/ad/:id', component: Ad, props: true},
     {path: '/community/ads/create', component: Community},
