@@ -11,7 +11,7 @@ import i18n from '@/i18n'
 
 Vue.use(VuetifyGoogleAutocomplete, {apiKey: 'AIzaSyAQG-BHBT4-GHFDK0V5k-pkYQ2UT5834pw'});
 Vue.use(Vuetify)
-Vue.use(VeeValidate)
+Vue.use(VeeValidate, {i18n: i18n})
 Vue.use(VueMoment)
 Vue.config.productionTip = false
 
