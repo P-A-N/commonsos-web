@@ -48,6 +48,16 @@ export default {
     makePaymentModalTitle: 'Pay for service'
   },
 
+  Profile: {
+    logout: 'Logout'
+  },
+
+  OtherUserProfile: {
+    makePayment: 'Top-up',
+    makePaymentModalTitle: 'Make payment',
+    makePaymentDefaultDescription: 'Funds from municipality',
+  },
+
   Payment: {
     title: 'Make payment',
     description: 'Ad: {title}'

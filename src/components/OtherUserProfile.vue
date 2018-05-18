@@ -22,7 +22,7 @@
       >
         <v-layout column>
           <div class="headline">{{otherUser.fullName}}</div>
-          <div>{{otherUser.description || 'Description not set'}}</div>
+          <div>{{otherUser.description}}</div>
         </v-layout>
       </v-card-title>
       <v-list>
@@ -45,19 +45,19 @@
             <v-list-tile-title>{{otherUser.balance}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-
       </v-list>
 
     </v-card>
 
     <v-container v-if="user && user.admin" fluid grid-list-lg>
       <v-btn class="top-up" block @click.prevent="makePayment=true">
-        Top-up
+        {{$t('OtherUserProfile.makePayment')}}
       </v-btn>
     </v-container>
 
-    <modal v-if="makePayment" title="Make payment" @close="paymentDone()">
-      <make-payment amount="2000" :beneficiary="otherUser" description="Funds from municipality" slot-scope="modal" :closeModal="modal.close"></make-payment>
+    <modal v-if="makePayment" :title="$t('OtherUserProfile.makePaymentModalTitle')" @close="paymentDone()">
+      <make-payment amount="2000" :beneficiary="otherUser" :description="$t('OtherUserProfile.paymentDefaultDescription')"
+                    slot-scope="modal" :closeModal="modal.close"/>
     </modal>
   </div>
 </template>

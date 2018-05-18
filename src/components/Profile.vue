@@ -30,7 +30,7 @@
       >
         <v-layout column>
           <div class="headline">{{user.fullName}}</div>
-          <div>{{user.description || 'Description not set'}}</div>
+          <div>{{user.description}}</div>
         </v-layout>
       </v-card-title>
       <v-list>
@@ -60,9 +60,9 @@
 
     </v-card>
 
-
     <v-container fluid grid-list-lg>
       <v-btn
+          v-show="false"
           block
           color="primary"
           @click.prevent="">
@@ -75,7 +75,7 @@
              color="grey"
              @click.prevent="logout()">
         <v-icon class="mr-2">power_settings_new</v-icon>
-        Logout
+        {{$t('Profile.logout')}}
       </v-btn>
     </v-container>
 
