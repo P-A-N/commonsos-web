@@ -4,7 +4,11 @@ export default {
     loadingData: 'Loading..'
   },
 
-  Ad : {
+  Login: {
+    toggleLanguage: '日本の'
+  },
+
+  Ad: {
     sendMessage: 'Send Message',
     pay: 'Pay for service'
   },

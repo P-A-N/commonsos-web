@@ -43,6 +43,11 @@
       <v-spacer></v-spacer>
       <v-btn color="primary" @click.prevent="login()">Login</v-btn>
     </v-card-actions>
+    <v-card-text>
+      <p class="text-xs-center ma-2">
+        <a href="#" @click="toggleLanguage()">{{$t('Login.toggleLanguage')}}</a>
+      </p>
+    </v-card-text>
   </v-card>
 
 </template>
@@ -81,7 +86,11 @@
       setUser(username, password) {
         this.username = username
         this.password = password
+      },
+      toggleLanguage() {
+        this.$i18n.locale = this.$i18n.locale === 'en' ? 'jp' : 'en'
       }
     }
+
   }
 </script>
