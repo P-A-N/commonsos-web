@@ -88,7 +88,10 @@
         this.password = password
       },
       toggleLanguage() {
-        this.$i18n.locale = this.$i18n.locale === 'en' ? 'jp' : 'en'
+        let newLocale = this.$i18n.locale === 'en' ? 'jp' : 'en'
+        this.$i18n.locale = newLocale
+        let momentLocale = {'jp':'ja', 'en':'en'}
+        this.$moment.locale(momentLocale[newLocale])
       }
     }
   }
