@@ -1,13 +1,13 @@
 <template>
   <div>
-    <app-toolbar title="Wallet">
+    <app-toolbar :title="$t('Wallet.title')">
     </app-toolbar>
 
     <v-card flat>
       <v-card-title primary-title>
         <v-layout align-center row>
           <v-flex>
-            <span class="headline">Balance</span>
+            <span class="headline">{{$t('Wallet.balance')}}</span>
           </v-flex>
           <v-flex class="text-xs-right">
             <span class="title"><v-icon style="vertical-align: bottom">account_balance_wallet</v-icon> {{user ? user.balance : ''}}</span>
@@ -44,7 +44,7 @@
           <v-divider v-if="index + 1 < transactions.length" inset></v-divider>
         </template>
       </v-list>
-      <v-alert v-else type="info" value="true">You don't have any coins yet. You may be eligible for free 2000 coins to use on different services. Contact local municipality to get more information.</v-alert>
+      <v-alert v-else type="info" value="true">{{$t('Wallet.empty')}}</v-alert>
     </div>
     <div v-else>Loading....</div>
 
