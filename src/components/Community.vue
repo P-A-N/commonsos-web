@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-toolbar title="Community">
+    <app-toolbar :title="$t('Community.title')">
       <v-btn slot="default" icon @click.prevent="openCreateAdDialog()" class="create-ad">
         <v-icon>add</v-icon>
       </v-btn>
@@ -10,7 +10,7 @@
 
     <app-bottom-nav></app-bottom-nav>
 
-    <modal v-if="createAd" title="New advertisement" @close="closeCreateAdDialog">
+    <modal v-if="createAd" :title="$t('Community.newAdvertisementModalTitle')" @close="closeCreateAdDialog">
       <ad-create slot-scope="modal" :closeModal="modal.close"></ad-create>
     </modal>
   </div>

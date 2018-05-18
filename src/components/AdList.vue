@@ -47,7 +47,7 @@
                         text-color="white"
                         style="position: absolute; right: 10px; top: 10px;"
                         class="ma-0">
-                      <v-icon small>label</v-icon>&nbsp;{{ad.type}}
+                      <v-icon small>label</v-icon>&nbsp;{{$t('AdList.adType.' +ad.type)}}
                     </v-chip>
 
                   </v-card-media>

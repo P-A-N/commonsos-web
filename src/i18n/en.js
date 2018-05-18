@@ -13,6 +13,18 @@ export default {
     toggleLanguage: '日本の',
   },
 
+  Community: {
+    title: 'Community',
+    newAdvertisementModalTitle: 'New advertisement',
+  },
+
+  AdList: {
+    adType: {
+      WANT: 'WANT',
+      GIVE: 'GIVE'
+    }
+  },
+
   Ad: {
     sendMessage: 'Send Message',
     pay: 'Pay for service'
