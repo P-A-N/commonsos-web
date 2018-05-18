@@ -5,7 +5,12 @@ export default {
   },
 
   Login: {
-    toggleLanguage: '日本の'
+    title: 'Please log in',
+    username: 'Username',
+    password: 'Password',
+    createAccount: 'Create account',
+    login: 'Login',
+    toggleLanguage: '日本の',
   },
 
   Ad: {

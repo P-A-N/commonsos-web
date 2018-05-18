@@ -2,7 +2,7 @@
   <v-card>
 
     <v-toolbar app dark color="primary">
-      <v-toolbar-title>Please log in</v-toolbar-title>
+      <v-toolbar-title>{{$t('Login.title')}}</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
 
@@ -10,11 +10,11 @@
 
     <v-card-text>
       <v-form>
-        <v-text-field prepend-icon="person" v-model="username" label="Username" type="text"
+        <v-text-field prepend-icon="person" v-model="username" :label="$t('Login.username')" type="text"
                       :error-messages="errors.collect('username')"
                       v-validate="'required'"
                       data-vv-name="username"/>
-        <v-text-field prepend-icon="lock" v-model="password" label="Password" type="password"
+        <v-text-field prepend-icon="lock" v-model="password" :label="$t('Login.password')" type="password"
                       :error-messages="errors.collect('password')"
                       v-validate="'required'"
                       data-vv-name="password"/>
@@ -39,9 +39,9 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn flat color="primary" to="/create-account">Create account</v-btn>
+      <v-btn flat color="primary" to="/create-account">{{$t('Login.createAccount')}}</v-btn>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click.prevent="login()">Login</v-btn>
+      <v-btn color="primary" @click.prevent="login()">{{$t('Login.login')}}</v-btn>
     </v-card-actions>
     <v-card-text>
       <p class="text-xs-center ma-2">
@@ -91,6 +91,5 @@
         this.$i18n.locale = this.$i18n.locale === 'en' ? 'jp' : 'en'
       }
     }
-
   }
 </script>
