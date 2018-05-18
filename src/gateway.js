@@ -6,6 +6,21 @@ let axiosInstance = axios.create({
   baseURL: '/api',
 })
 
+export default axiosInstance
+
+axiosInstance.interceptors.request.use(
+  config => showLoaderIfNeeded(config),
+  err => Promise.reject(err))
+
+axiosInstance.interceptors.response.use(
+  response => {
+    hideLoaderIfNeeded(response.config)
+    return response
+  }, (error) => {
+    hideLoaderIfNeeded(error.config)
+    return handleError(error)
+  });
+
 export let handleError = error => {
   if (401 === error.response.status) {
     window.$router.push('/login')
@@ -21,24 +36,16 @@ export let handleError = error => {
   }
 }
 
-axiosInstance.interceptors.request.use(
-  config => {
-    if (config.noLoader) return config
-    config.loaderTimer = setTimeout(() => {
-      eventbus.$emit('show-loader')
-    }, 500)
-    return config
-  },
-  err => Promise.reject(err)
-)
+function showLoaderIfNeeded(config) {
+  if (config.noLoader) return config
+  config.loaderTimer = setTimeout(() => {
+    eventbus.$emit('show-loader')
+  }, 500)
+  return config
+}
 
-axiosInstance.interceptors.response.use(
-  response => {
-    if (response.config.noLoader) return response
-    clearTimeout(response.config.loaderTimer)
-    eventbus.$emit('hide-loader')
-    return response
-  }, handleError
-)
-
-export default axiosInstance
+function hideLoaderIfNeeded(config) {
+  if (config.noLoader) return
+  clearTimeout(config.loaderTimer)
+  eventbus.$emit('hide-loader')
+}
