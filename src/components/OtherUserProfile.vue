@@ -94,7 +94,7 @@
       },
       paymentDone() {
         this.makePayment = false
-        this.loadOtherUser();
+        this.loadOtherUser()
       }
     }
   }
