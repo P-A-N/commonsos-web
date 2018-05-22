@@ -10,7 +10,7 @@ export default {
     password: 'Password',
     createAccount: 'Create account',
     login: 'Login',
-    toggleLanguage: '日本の',
+    toggleLanguage: '日本語',
   },
 
   Community: {
