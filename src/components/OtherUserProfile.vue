@@ -56,7 +56,7 @@
     </v-container>
 
     <modal v-if="makePayment" :title="$t('OtherUserProfile.makePaymentModalTitle')" @close="paymentDone()">
-      <make-payment amount="2000" :beneficiary="otherUser" :description="$t('OtherUserProfile.paymentDefaultDescription')"
+      <make-payment amount="2000" :beneficiary="otherUser" :description="$t('OtherUserProfile.makePaymentDefaultDescription')"
                     slot-scope="modal" :closeModal="modal.close"/>
     </modal>
   </div>
@@ -94,7 +94,7 @@
       },
       paymentDone() {
         this.makePayment = false
-        this.loadOtherUser();
+        this.loadOtherUser()
       }
     }
   }

@@ -1,5 +1,5 @@
 import OtherUserProfile from '@/components/OtherUserProfile'
-import {mount, shallow} from '../test-utils'
+import {mount} from '../test-utils'
 import userService from '@/services/UserService'
 import gateway from '@/gateway'
 
@@ -40,7 +40,7 @@ describe('OtherUserProfile.vue', () => {
         Promise.resolve({data: {balance: 10, fullName: 'other user full name'}}),
         Promise.resolve({data: {balance: 20, fullName: 'other user full name'}})
       )
-    let wrapper = shallow(OtherUserProfile)
+    let wrapper = mount(OtherUserProfile)
 
     setTimeout(() => {
       expect(wrapper.vm.otherUser.balance).toBe(10)

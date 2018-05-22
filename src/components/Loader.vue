@@ -1,5 +1,5 @@
 <template>
-    <v-progress-linear :indeterminate="true" v-show="visible" height="4" style="position: absolute; top: 0px; margin-top:0; z-index: 2000"></v-progress-linear>
+    <v-progress-linear :indeterminate="true" v-show="visible" height="4" style="position: absolute; top: 0px; margin-top:0; z-index: 2000;background-color: white"></v-progress-linear>
 </template>
 
 <script>
