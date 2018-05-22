@@ -2,13 +2,12 @@
   <v-card>
 
     <v-toolbar app dark color="primary">
-      <v-btn icon to="/login">
+      <v-btn icon to="/login" :disabled="loading">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title>Create account</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon
-             @click.prevent="createAccount()">
+      <v-btn icon @click.prevent="createAccount()" :disabled="loading">
         <v-icon>check</v-icon>
       </v-btn>
     </v-toolbar>
