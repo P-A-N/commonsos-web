@@ -1,12 +1,14 @@
 import userService from '@/services/UserService'
 import eventbus from '@/eventbus'
 import gateway from '@/gateway'
+import messagePoller from '@/services/MessagePoller'
 
 describe('UserService.spec', () => {
 
   describe('login', () => {
 
     it('succeeds', (done) => {
+      spyOn(messagePoller, 'start')
       spyOn(eventbus, '$emit')
       spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {username: 'user'}}))
 
@@ -14,6 +16,7 @@ describe('UserService.spec', () => {
         expect(eventbus.$emit).toHaveBeenCalledWith('userChanged', {username: 'user'})
         expect(gateway.post).toHaveBeenCalledWith('/login', {username: 'user', password: 'secret'})
         expect(window.$router.push).toHaveBeenCalledWith('/')
+        expect(messagePoller.start).toHaveBeenCalled()
         done()
       })
     })
@@ -28,6 +31,7 @@ describe('UserService.spec', () => {
   it('logs out user', (done) => {
     userService._user = {username: 'username'}
 
+    spyOn(messagePoller, 'stop')
     spyOn(eventbus, '$emit')
     spyOn(gateway, 'post').and.returnValue(Promise.resolve())
 
@@ -36,6 +40,7 @@ describe('UserService.spec', () => {
       expect(eventbus.$emit).toHaveBeenCalledWith('userChanged', null)
       expect(gateway.post).toHaveBeenCalledWith('/logout')
       expect(window.$router.push).toHaveBeenCalledWith('/login')
+      expect(messagePoller.stop).toHaveBeenCalled()
       done()
     })
   })
@@ -59,12 +64,14 @@ describe('UserService.spec', () => {
     it('succeeds', (done) => {
       let user = {username: 'user name'}
       spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: user}))
+      spyOn(messagePoller, 'start')
 
       userService.createAndLogin(requestedUser)
 
       setTimeout(() => {
         expect(gateway.post).toHaveBeenCalledWith('/create-account', requestedUser)
         expect(window.$router.push).toHaveBeenCalledWith('/')
+        expect(messagePoller.start).toHaveBeenCalled()
         done()
       }, 0);
     })

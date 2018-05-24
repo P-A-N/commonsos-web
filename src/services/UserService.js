@@ -1,5 +1,6 @@
 import eventbus from '@/eventbus'
 import gateway from '@/gateway'
+import messagePoller from '@/services/MessagePoller'
 
 let instance = {
 
@@ -12,6 +13,7 @@ let instance = {
   login(username, password) {
     return gateway.post('/login', {username, password}).then(r => {
       this.setUser(r.data)
+      messagePoller.start()
       window.$router.push('/')
     })
   },
@@ -19,6 +21,7 @@ let instance = {
   createAndLogin(newUser) {
     return gateway.post('/create-account', newUser).then(r => {
       this.setUser(r.data)
+      messagePoller.start()
       window.$router.push('/')
     })
   },
@@ -26,6 +29,7 @@ let instance = {
   logout() {
     return gateway.post('/logout').then(() => {
       this.setUser(null)
+      messagePoller.stop()
       window.$router.push('/login')
     })
   },
@@ -36,7 +40,10 @@ let instance = {
   },
 
   loadUser() {
-    gateway.get('user').then(r => this.setUser(r.data)).catch(() => {})
+    gateway.get('user').then(r => {
+      this.setUser(r.data)
+      messagePoller.start()
+    }).catch(() => {})
   },
 
   isLoggedIn() {

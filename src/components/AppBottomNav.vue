@@ -9,7 +9,10 @@
       <v-icon>people</v-icon>
     </v-btn>
     <v-btn to="/messages">
-      <span>Messages</span>
+      <v-badge right v-model="messageCountVisible">
+        <span slot="badge">{{messageCount}}</span>
+        <span>Messages</span>
+      </v-badge>
       <v-icon>message</v-icon>
     </v-btn>
     <v-btn to="/profile">
@@ -25,10 +28,28 @@
 
 <script>
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
+  import eventbus from '@/eventbus'
+  import MessagePoller from '@/services/MessagePoller'
 
   export default {
     mixins: [LoggedInUserConsumerMixin],
-    props: ['title']
+    props: ['title'],
+    data() {
+      return {
+        messageCount: 0,
+        messageCountVisible: false
+      }
+    },
+    methods: {
+      setCount(value) {
+        this.messageCount = value
+        this.messageCountVisible = value > 0
+      }
+    },
+    created() {
+      this.setCount(MessagePoller.count)
+      eventbus.$on('unread-messages-count', this.setCount)
+    }
   }
 </script>
 
