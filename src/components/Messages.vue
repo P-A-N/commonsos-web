@@ -30,6 +30,7 @@
   import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
   import gateway from '@/gateway'
+  import messagePoller from '@/services/MessagePoller'
 
   export default {
     components: {
@@ -45,6 +46,7 @@
       }
     },
     created() {
+      messagePoller.checkForUnreadThreads()
       gateway.get('/message-threads').then(r => this.messageThreads = r.data)
     }
   }
