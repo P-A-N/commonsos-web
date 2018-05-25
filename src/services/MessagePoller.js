@@ -8,7 +8,7 @@ export default {
   count: 0,
 
   checkForUnreadThreads() {
-    gateway.get('/message-threads/unread-count').then(r => {
+    gateway.get('/message-threads/unread-count', {noLoader: true}).then(r => {
       this.count = r.data.count;
       eventbus.$emit('unread-messages-count', this.count)
     })

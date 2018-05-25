@@ -25,7 +25,7 @@ describe('MessagePoller', () => {
 
     messagePoller.checkForUnreadThreads()
 
-    expect(gateway.get).toHaveBeenCalledWith('/message-threads/unread-count')
+    expect(gateway.get).toHaveBeenCalledWith('/message-threads/unread-count', {noLoader: true})
     setTimeout(() => {
       expect(eventbus.$emit).toHaveBeenCalledWith('unread-messages-count', 77)
       done()
