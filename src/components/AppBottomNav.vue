@@ -1,27 +1,27 @@
 <template>
   <v-bottom-nav fixed :value="true" app>
     <v-btn to="/wallet">
-      <span>Wallet</span>
       <v-icon>account_balance_wallet</v-icon>
+      <span>Wallet</span>
     </v-btn>
     <v-btn to="/community">
-      <span>Community</span>
       <v-icon>people</v-icon>
+      <span>Community</span>
     </v-btn>
     <v-btn to="/messages">
+      <span>Messages</span>
       <v-badge right v-model="messageCountVisible">
         <span slot="badge">{{messageCount}}</span>
-        <span>Messages</span>
+        <v-icon>message</v-icon>
       </v-badge>
-      <v-icon>message</v-icon>
     </v-btn>
     <v-btn to="/profile">
-      <span>Profile</span>
       <v-icon>person</v-icon>
+      <span>Profile</span>
     </v-btn>
     <v-btn to="/admin" v-if="user && user.admin">
-      <span>Admin</span>
       <v-icon>build</v-icon>
+      <span>Admin</span>
     </v-btn>
   </v-bottom-nav>
 </template>
