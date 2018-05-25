@@ -1,6 +1,7 @@
 import axios from 'axios';
 import notifications from '@/services/notifications'
 import eventbus from '@/eventbus'
+import i18n from '@/i18n'
 
 let axiosInstance = axios.create({
   baseURL: '/api',
@@ -27,7 +28,7 @@ export let handleError = error => {
     return Promise.reject(error)
   }
   else if (468 === error.response.status) {
-    notifications.e(error.response.data.key)
+    notifications.e(i18n.t(error.response.data.key))
     return Promise.reject(error.response.data)
   }
   else {

@@ -73,4 +73,8 @@ export default {
       max_value: '値が大きすぎます',
     }
   },
+
+  error: {
+    outOfEther: 'To continue your community needs more ether'
+  }
 }

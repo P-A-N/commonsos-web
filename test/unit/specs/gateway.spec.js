@@ -1,5 +1,6 @@
 import {handleError} from '@/gateway'
 import notifications from '@/services/notifications'
+import i18n from '@/i18n'
 
 describe('gateway', () => {
 
@@ -16,10 +17,11 @@ describe('gateway', () => {
   it('does not show notification in case of displayable error', () => {
     spyOn(notifications, 'e')
     let error = {response: {status: 468, data: {key: 'messageKey'}}}
+    spyOn(i18n, 't').and.returnValue('translated message')
 
     let result = handleError(error)
 
-    expect(notifications.e).toHaveBeenCalledWith('messageKey')
+    expect(notifications.e).toHaveBeenCalledWith('translated message')
     expect(result).toEqual(Promise.reject({key: 'messageKey'}))
   })
 
