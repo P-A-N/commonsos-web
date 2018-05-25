@@ -9,7 +9,9 @@
             <avatar :user="thread.parties[0]"/>
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <v-list-tile-title v-html="thread.title"></v-list-tile-title>
+            <v-list-tile-title>
+              <span :class="{'unread': thread.unread}">{{thread.title}}</span>
+            </v-list-tile-title>
             <v-list-tile-sub-title v-if="thread.lastMessage" style="line-height: 1.3;"><span class="text--primary">{{thread.parties[0].fullName}}</span> &ndash; {{thread.lastMessage.text}}</v-list-tile-sub-title>
             <div class="caption grey--text" v-if="thread.lastMessage">{{thread.lastMessage.createdAt | moment('from') }}</div>
           </v-list-tile-content>
@@ -51,3 +53,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .unread {
+    font-weight: bold;
+  }
+</style>
