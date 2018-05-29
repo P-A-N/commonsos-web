@@ -1,12 +1,12 @@
 <template>
   <v-bottom-nav fixed :value="true" app>
     <v-btn to="/wallet">
-      <v-icon>account_balance_wallet</v-icon>
       <span>Wallet</span>
+      <v-icon>account_balance_wallet</v-icon>
     </v-btn>
     <v-btn to="/community">
-      <v-icon>people</v-icon>
       <span>Community</span>
+      <v-icon>people</v-icon>
     </v-btn>
     <v-btn to="/messages">
       <span>Messages</span>
@@ -16,12 +16,12 @@
       </v-badge>
     </v-btn>
     <v-btn to="/profile">
-      <v-icon>person</v-icon>
       <span>Profile</span>
+      <v-icon>person</v-icon>
     </v-btn>
     <v-btn to="/admin" v-if="user && user.admin">
-      <v-icon>build</v-icon>
       <span>Admin</span>
+      <v-icon>build</v-icon>
     </v-btn>
   </v-bottom-nav>
 </template>
