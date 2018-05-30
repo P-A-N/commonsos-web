@@ -28,7 +28,8 @@ export default {
   Wallet: {
     title: 'ウォレット',
     balance: '残ポイント',
-    empty: 'ポイントが不足しています'
+    empty: 'ポイントが不足しています',
+    pendingTransaction: 'Pending'
   },
 
   Ad: {

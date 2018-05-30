@@ -31,12 +31,22 @@
                   <div class="body-3">
                     {{transaction.debit ? transaction.beneficiary.fullName : transaction.remitter.fullName }}
                   </div>
-                  <div class="body-3 text-xs-right" :class="{'debit': transaction.debit, 'credit': !transaction.debit}">
+                  <div class="body-3 text-xs-right" :class="{
+                  'debit': transaction.debit,
+                  'credit': !transaction.debit,
+                  'text-opaque': !transaction.completed }">
                     {{formattedAmount(transaction)}}
                   </div>
                 </v-layout>
-                <v-list-tile-sub-title v-html="transaction.description"></v-list-tile-sub-title>
-                <div class="caption grey--text">{{transaction.createdAt | moment('from') }}</div>
+                <v-layout row justify-space-between>
+                  <div>
+                    <v-list-tile-sub-title v-html="transaction.description"></v-list-tile-sub-title>
+                    <div class="caption grey--text">{{transaction.createdAt | moment('from') }}</div>
+                  </div>
+                  <v-chip disabled small outline color="orange" v-if="!transaction.completed">
+                    {{$t('Wallet.pendingTransaction')}}
+                  </v-chip>
+                </v-layout>
               </div>
             </v-list-tile-content>
 

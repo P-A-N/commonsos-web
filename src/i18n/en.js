@@ -28,7 +28,8 @@ export default {
   Wallet: {
     title: 'Wallet',
     balance: 'Balance',
-    empty: 'You don\'t have any coins yet. You may be eligible for free 2000 coins to use on different services. Contact local municipality to get more information.'
+    empty: 'You don\'t have any coins yet. You may be eligible for free 2000 coins to use on different services. Contact local municipality to get more information.',
+    pendingTransaction: 'Pending'
   },
 
   Ad: {
