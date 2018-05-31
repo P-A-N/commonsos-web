@@ -80,6 +80,14 @@ export default {
     createButton: 'Create'
   },
 
+  AppBottomNav: {
+    wallet: 'Wallet',
+    community: 'Community',
+    messages: 'Messages',
+    profile: 'Profile',
+    admin: 'Admin'
+  },
+
   validation: {
     messages: {
       required: '必須項目',

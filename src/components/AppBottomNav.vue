@@ -1,26 +1,26 @@
 <template>
   <v-bottom-nav fixed :value="true" app>
     <v-btn to="/wallet">
-      <span>Wallet</span>
+      <span>{{$t('AppBottomNav.wallet')}}</span>
       <v-icon>account_balance_wallet</v-icon>
     </v-btn>
     <v-btn to="/community">
-      <span>Community</span>
+      <span>{{$t('AppBottomNav.community')}}</span>
       <v-icon>people</v-icon>
     </v-btn>
     <v-btn to="/messages">
-      <span>Messages</span>
+      <span>{{$t('AppBottomNav.messages')}}</span>
       <v-badge right v-model="messageCountVisible">
         <span slot="badge">{{messageCount}}</span>
         <v-icon>message</v-icon>
       </v-badge>
     </v-btn>
     <v-btn to="/profile">
-      <span>Profile</span>
+      <span>{{$t('AppBottomNav.profile')}}</span>
       <v-icon>person</v-icon>
     </v-btn>
     <v-btn to="/admin" v-if="user && user.admin">
-      <span>Admin</span>
+      <span>{{$t('AppBottomNav.admin')}}</span>
       <v-icon>build</v-icon>
     </v-btn>
   </v-bottom-nav>
