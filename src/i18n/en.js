@@ -102,6 +102,8 @@ export default {
   },
 
   error: {
-    outOfEther: 'To continue your community needs more ether'
+    outOfEther: 'To continue your community needs more ether',
+    usernameTaken: 'Username is already taken',
+    notEnoughFunds: 'Not enough funds'
   }
 }
