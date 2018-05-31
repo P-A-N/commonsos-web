@@ -14,6 +14,7 @@ describe('Wallet.vue', () => {
   })
 
   it('should display user transactions', (done) => {
+    spyOn(userService, 'loadUser')
     gateway.get.and.returnValue(Promise.resolve({
       data: [
         {createdAt: '2018-01-30T22:51:00Z', remitter: {id: 'user1', fullName: 'name1'}, beneficiary: {id: 'user2', fullName: 'name2'}, amount: 1.11, debit:true, description: 'Payment description'},
@@ -23,6 +24,8 @@ describe('Wallet.vue', () => {
     spyOn(userService, 'user').and.returnValue({})
 
     let wrapper = mount(Wallet)
+
+    expect(userService.loadUser).toHaveBeenCalled()
 
     setTimeout(() => {
       let transactions = wrapper.findAll('.transaction')

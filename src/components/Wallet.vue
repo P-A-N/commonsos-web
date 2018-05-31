@@ -65,6 +65,7 @@
 
 <script>
   import gateway from '@/gateway'
+  import userService from '@/services/UserService'
   import AppToolbar from '@/components/AppToolbar'
   import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
@@ -97,6 +98,9 @@
       formattedAmount(transaction) {
         return (transaction.debit ? '-' : '+') + transaction.amount
       }
+    },
+    created() {
+      userService.loadUser()
     }
   }
 </script>
