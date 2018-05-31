@@ -1,6 +1,7 @@
 import {handleError} from '@/gateway'
 import notifications from '@/services/notifications'
 import i18n from '@/i18n'
+import userService from '@/services/UserService'
 
 describe('gateway', () => {
 
@@ -26,11 +27,12 @@ describe('gateway', () => {
   })
 
   it('redirects to login in case user is not authenticated', () => {
+    spyOn(userService, 'logout')
     let error = {response: {status: 401}}
 
     let result = handleError(error)
 
-    expect(window.$router.push).toHaveBeenCalledWith('/login')
+    expect(userService.logout).toHaveBeenCalled()
     expect(result).toEqual(Promise.reject(error))
   })
 })

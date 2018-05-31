@@ -2,6 +2,7 @@ import axios from 'axios';
 import notifications from '@/services/notifications'
 import eventbus from '@/eventbus'
 import i18n from '@/i18n'
+import userService from '@/services/UserService'
 
 let axiosInstance = axios.create({
   baseURL: '/api',
@@ -24,7 +25,7 @@ axiosInstance.interceptors.response.use(
 
 export let handleError = error => {
   if (401 === error.response.status) {
-    window.$router.push('/login')
+    userService.logout()
     return Promise.reject(error)
   }
   else if (468 === error.response.status) {
