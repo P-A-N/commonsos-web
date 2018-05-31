@@ -64,14 +64,32 @@ export default {
     description: 'Ad: {title}'
   },
 
+  CreateAccount: {
+    title: 'Create account',
+    username: 'Username',
+    usernameHint: 'At least 4 characters',
+    password: 'Password',
+    passwordHint: 'At least 8 characters',
+    password2: 'Repeat password',
+    password2Hint: 'At least 8 characters',
+    firstName: 'First name',
+    lastName: 'First name',
+    description: 'Describe yourself',
+    community: 'Community',
+    location: 'Enter your region',
+    createButton: 'Create'
+  },
+
   validation: {
     messages: {
       required: 'Required field',
       numeric: 'Value must be numeric',
+      decimal: 'Value must be decimal',
       min: 'Too short',
       email: 'Email is not correct',
       min_value: 'Value too small',
       max_value: 'Value too big',
+      _default: 'Value is not correct'
     }
   },
 

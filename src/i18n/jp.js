@@ -64,14 +64,32 @@ export default {
     description: '支払いを行います'
   },
 
+  CreateAccount: {
+    title: 'Create account',
+    username: 'Username',
+    usernameHint: 'At least 4 characters',
+    password: 'Password',
+    passwordHint: 'At least 8 characters',
+    password2: 'Repeat password',
+    password2Hint: 'At least 8 characters',
+    firstName: 'First name',
+    lastName: 'First name',
+    description: 'Describe yourself',
+    community: 'Community',
+    location: 'Enter your region',
+    createButton: 'Create'
+  },
+
   validation: {
     messages: {
       required: '必須項目',
       numeric: '半角数字のみ',
+      decimal: 'Value must be decimal',
       min: '短すぎます',
       email: 'Emailアドレスが間違っています',
       min_value: '値が小さすぎます',
       max_value: '値が大きすぎます',
+      _default: 'Value is not correct'
     }
   },
 
