@@ -16,6 +16,7 @@
   import AppToolbar from "./components/AppToolbar";
   import AppBottomNav from "./components/AppBottomNav";
   import Loader from "./components/Loader";
+  import messagePoller from '@/services/MessagePoller'
 
   export default {
 
@@ -26,7 +27,7 @@
       Loader
     },
     created() {
-      userService.loadUser()
+      userService.loadUser().then(() => messagePoller.start())
     }
   }
 </script>

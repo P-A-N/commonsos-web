@@ -40,9 +40,8 @@ let instance = {
   },
 
   loadUser() {
-    gateway.get('user').then(r => {
+    return gateway.get('user').then(r => {
       this.setUser(r.data)
-      messagePoller.start()
     }).catch(() => {})
   },
 
