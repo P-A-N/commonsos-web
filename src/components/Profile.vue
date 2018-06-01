@@ -1,7 +1,5 @@
 <template>
   <div v-if="user">
-    <!--<app-toolbar title="Profile"/>-->
-
     <v-card>
       <v-card-media :src="user.avatarUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPlkwhBse_JCK37_0WA3m_PHUpFncOVLM0s0c4cCqpV27UteuJ'"
                     height="250px">
@@ -9,15 +7,13 @@
                   class="media card-image-gradient">
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-btn dark icon class="mr-2">
-              <v-icon>collections_bookmark</v-icon>
-            </v-btn>
-            <v-btn dark icon class="mr-2">
-              <v-icon>edit</v-icon>
-            </v-btn>
-            <!--<v-btn dark icon>-->
-            <!--<v-icon>more_vert</v-icon>-->
-            <!--</v-btn>-->
+
+            <upload-photo>
+              <v-btn slot="activator" dark icon class="mr-2">
+                <v-icon>add_a_photo</v-icon>
+              </v-btn>
+            </upload-photo>
+
           </v-card-title>
           <v-spacer></v-spacer>
         </v-layout>
@@ -29,7 +25,9 @@
           style="position: relative"
       >
         <v-layout column>
-          <div class="headline">{{user.fullName}}</div>
+          <div class="headline">
+            {{user.fullName}}
+          </div>
           <div>{{user.description}}</div>
         </v-layout>
       </v-card-title>
@@ -85,6 +83,7 @@
 </template>
 
 <script>
+  import UploadPhoto from '@/components/UploadPhoto'
   import AppToolbar from '@/components/AppToolbar'
   import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
@@ -96,12 +95,12 @@
     components: {
       AppToolbar,
       AppBottomNav,
-      Avatar
+      Avatar,
+      UploadPhoto
     },
     methods: {
       logout: () => userService.logout(),
     }
-
 
   }
 </script>
