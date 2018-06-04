@@ -11,6 +11,7 @@
   import gateway from '@/gateway'
   import LoggedInUserConsumerMixin from '../LoggedInUserConsumerMixin'
   import userService from '@/services/UserService'
+  import imageService from '@/services/ImageService'
 
   export default {
     mixins: [LoggedInUserConsumerMixin],
@@ -18,13 +19,16 @@
       photoSelected: function (event) {
         let reader = new FileReader();
         reader.onload = () => {
-          gateway.post(`/users/${this.user.id}/avatar`, reader.result).then(() => {
-            userService.loadUser()
-          })
+          imageService.resizeImage(reader.result).then((resized) => {
+              gateway.post(`/users/${this.user.id}/photo`, resized).then(() => {
+                userService.loadUser()
+              })
+            }
+          )
         }
         reader.readAsDataURL(event.target.files[0]);
       },
-      selectPhoto: function() {
+      selectPhoto: function () {
         this.$refs.fileinput.dispatchEvent(new MouseEvent('click'))
       }
     }
