@@ -20,7 +20,7 @@
         let reader = new FileReader();
         reader.onload = () => {
           imageService.resizeImage(reader.result).then((resized) => {
-              gateway.post(`/users/${this.user.id}/photo`, resized).then(() => {
+              gateway.post(`/users/${this.user.id}/avatar`, resized).then(() => {
                 userService.loadUser()
               })
             }
