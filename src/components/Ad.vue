@@ -9,9 +9,11 @@
                 <v-icon>close</v-icon>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn dark icon class="mr-3 edit-button" v-if="ad.own">
-                <v-icon>edit</v-icon>
-              </v-btn>
+              <upload-photo v-if="ad.own" :url="`/ads/${ad.id}/photo`" :onUpload="photoUploaded">
+                <v-btn slot="activator" dark icon class="mr-2">
+                  <v-icon>add_a_photo</v-icon>
+                </v-btn>
+              </upload-photo>
             </v-card-title>
             <v-spacer></v-spacer>
           </v-layout>
@@ -118,10 +120,11 @@
   import AppToolbar from '@/components/AppToolbar'
   import MessageThread from '@/components/MessageThread'
   import Avatar from '@/components/Avatar'
+  import UploadPhoto from '@/components/UploadPhoto'
 
   export default {
     name: 'Ad',
-    components: {AppToolbar, Avatar, MessageThread},
+    components: {AppToolbar, Avatar, MessageThread, UploadPhoto},
     created() {
       gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
     },
@@ -132,6 +135,9 @@
       }
     },
     methods: {
+      photoUploaded(url) {
+        this.ad.photoUrl = url
+      },
       messageForAd(ad) {
         gateway.post(`/message-threads/for-ad/${this.id}`)
           .then(r => $router.push('/messages/'+r.data.id))

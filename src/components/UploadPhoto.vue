@@ -9,22 +9,17 @@
 
 <script>
   import gateway from '@/gateway'
-  import LoggedInUserConsumerMixin from '../LoggedInUserConsumerMixin'
-  import userService from '@/services/UserService'
   import imageService from '@/services/ImageService'
 
   export default {
-    mixins: [LoggedInUserConsumerMixin],
+    props: ['url', 'onUpload'],
     methods: {
       photoSelected: function (event) {
         let reader = new FileReader();
         reader.onload = () => {
-          imageService.resizeImage(reader.result).then((resized) => {
-              gateway.post(`/users/${this.user.id}/avatar`, resized).then(() => {
-                userService.loadUser()
-              })
-            }
-          )
+          imageService.resizeImage(reader.result)
+            .then((resized) => gateway.post(this.url, resized)
+            .then((r) => this.onUpload(r.data)))
         }
         reader.readAsDataURL(event.target.files[0]);
       },

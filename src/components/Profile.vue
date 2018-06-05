@@ -8,7 +8,7 @@
           <v-card-title>
             <v-spacer></v-spacer>
 
-            <upload-photo>
+            <upload-photo :url="`/users/${user.id}/avatar`" :onUpload="reloadUser">
               <v-btn slot="activator" dark icon class="mr-2">
                 <v-icon>add_a_photo</v-icon>
               </v-btn>
@@ -99,6 +99,7 @@
       UploadPhoto
     },
     methods: {
+      reloadUser: () => userService.loadUser(),
       logout: () => userService.logout(),
     }
 
