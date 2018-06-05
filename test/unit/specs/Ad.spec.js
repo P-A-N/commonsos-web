@@ -43,7 +43,7 @@ describe('Ad.vue', () => {
     }, 0)
   })
 
-  it('shows edit button for own ad', (done) => {
+  it('shows upload photo button for own ad', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {
         payable: false,
         own: true,
@@ -53,7 +53,7 @@ describe('Ad.vue', () => {
     let wrapper = mount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
-      expect(wrapper.findAll('.edit-button').length).toBe(1)
+      expect(wrapper.findAll('.upload-photo-button').length).toBe(1)
       done()
     }, 0)
   })

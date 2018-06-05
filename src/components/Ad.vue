@@ -10,7 +10,7 @@
               </v-btn>
               <v-spacer></v-spacer>
               <upload-photo v-if="ad.own" :url="`/ads/${ad.id}/photo`" :onUpload="photoUploaded">
-                <v-btn slot="activator" dark icon class="mr-2">
+                <v-btn slot="activator" dark icon class="mr-3 upload-photo-button">
                   <v-icon>add_a_photo</v-icon>
                 </v-btn>
               </upload-photo>
