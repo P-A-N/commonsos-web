@@ -12,9 +12,6 @@
               <v-btn dark icon class="mr-3 edit-button" v-if="ad.own">
                 <v-icon>edit</v-icon>
               </v-btn>
-              <!--<v-btn dark icon>-->
-              <!--<v-icon>more_vert</v-icon>-->
-              <!--</v-btn>-->
             </v-card-title>
             <v-spacer></v-spacer>
           </v-layout>
