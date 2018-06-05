@@ -51,7 +51,10 @@
             if (!valid) return
             this.loading = true
             gateway.post('/ads', this.ad)
-              .then(() => this.closeModal())
+              .then((r) => {
+                this.closeModal()
+                this.$router.push(`/community/ad/${r.data.id}`)
+              })
               .catch(error => console.log(error))
               .finally(() => this.loading = false)
           })

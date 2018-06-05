@@ -1,4 +1,4 @@
-import {mount} from '../test-utils'
+import {mount, router} from '../test-utils'
 
 import AdCreate from '@/components/AdCreate'
 import gateway from '@/gateway'
@@ -20,7 +20,8 @@ describe('AdCreate.vue', () => {
   })
 
   it('should submit ad to backend', (done) => {
-    spyOn(gateway, 'post').and.returnValue(Promise.resolve({}))
+    spyOn(router, 'push')
+    spyOn(gateway, 'post').and.returnValue(Promise.resolve({data: {id: '123'}}))
     let props = jasmine.createSpyObj('props', ['closeModal'])
     const wrapper = mount(AdCreate, {propsData: props})
     let ad = {title: 'title', description: 'description', amount: 1.11, location: 'location', type: 'WANT'}
@@ -31,6 +32,7 @@ describe('AdCreate.vue', () => {
     setTimeout(() => {
       expect(gateway.post).toHaveBeenCalledWith('/ads', ad)
       expect(props.closeModal).toHaveBeenCalled()
+      expect(router.push).toHaveBeenCalledWith('/community/ad/123')
       done();
     }, 0);
   })
