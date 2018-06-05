@@ -12,7 +12,7 @@ describe('MessageThread.vue', () => {
     let thread = {
       title: 'Thread title',
       parties: [{id: '22', fullName: 'Satu Haruto'}],
-      ad: {payable: true}
+      ad: {id: '1', payable: true}
     }
 
     jasmine.clock().mockDate(new Date('2018-04-09T23:00:00+01:00'));

@@ -8,10 +8,9 @@
         {{thread.title}}
       </v-toolbar-title>
       <div slot="extension">
-        <v-btn flat icon small color="grey">
+        <v-btn flat icon small color="grey" :to="`/community/ad/${ad.id}`">
           <v-icon>info</v-icon>
         </v-btn>
-
       </div>
       <div slot="extension" class="mr-2" v-if="payable">
         <v-btn flat color="primary" @click="makePayment = true"
@@ -91,7 +90,7 @@
     },
     data() {
       return {
-        ad: null,
+        ad: {},
         makePayment: false,
         thread: {},
         counterParty: {},
