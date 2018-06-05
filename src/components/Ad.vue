@@ -9,7 +9,7 @@
                 <v-icon>close</v-icon>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn dark icon class="mr-3">
+              <v-btn dark icon class="mr-3 edit-button" v-if="ad.own">
                 <v-icon>edit</v-icon>
               </v-btn>
               <!--<v-btn dark icon>-->

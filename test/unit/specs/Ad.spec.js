@@ -43,6 +43,21 @@ describe('Ad.vue', () => {
     }, 0)
   })
 
+  it('shows edit button for own ad', (done) => {
+    spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {
+        payable: false,
+        own: true,
+        createdBy: {id: 22, avatarUrl: ''}
+      }}))
+
+    let wrapper = mount(Ad, {propsData: {id: '1'}})
+
+    setTimeout(() => {
+      expect(wrapper.findAll('.edit-button').length).toBe(1)
+      done()
+    }, 0)
+  })
+
   it('hides message button for own ad', (done) => {
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: {
         payable: false,
