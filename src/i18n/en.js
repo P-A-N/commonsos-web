@@ -73,7 +73,7 @@ export default {
     password2: 'Repeat password',
     password2Hint: 'At least 8 characters',
     firstName: 'First name',
-    lastName: 'First name',
+    lastName: 'Last name',
     description: 'Describe yourself',
     community: 'Community',
     location: 'Enter your region',
