@@ -70,7 +70,7 @@ describe('UserService.spec', () => {
 
       setTimeout(() => {
         expect(gateway.post).toHaveBeenCalledWith('/create-account', requestedUser)
-        expect(window.$router.push).toHaveBeenCalledWith('/')
+        expect(window.$router.push).toHaveBeenCalledWith('/profile')
         expect(messagePoller.start).toHaveBeenCalled()
         done()
       }, 0);

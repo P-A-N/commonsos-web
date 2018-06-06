@@ -22,7 +22,7 @@ let instance = {
     return gateway.post('/create-account', newUser).then(r => {
       this.setUser(r.data)
       messagePoller.start()
-      window.$router.push('/')
+      window.$router.push('/profile')
     })
   },
 
