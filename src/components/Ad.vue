@@ -126,7 +126,7 @@
     name: 'Ad',
     components: {AppToolbar, Avatar, MessageThread, UploadPhoto},
     created() {
-      gateway.get(`/ads/${this.id}`).then(r => this.ad = r.data)
+      gateway.get(`/ads/${this.id}`).then(r => this.ad = Object.assign({photoUrl:''}, r.data))
     },
     props: ['id', 'closeModal'],
     data() {
