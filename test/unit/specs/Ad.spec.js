@@ -23,6 +23,7 @@ describe('Ad.vue', () => {
       expect(wrapper.text()).toContain('Nice details')
       expect(wrapper.text()).toContain('Mayor job')
       expect(wrapper.findAll('.message-button').length).toBe(1)
+      expect(wrapper.vm.ad.photoUrl).toBeDefined()
       expect(gateway.get).toHaveBeenCalledWith('/ads/1')
       done()
     }, 0)
