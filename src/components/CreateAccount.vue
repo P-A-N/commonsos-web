@@ -13,7 +13,7 @@
     </v-toolbar>
 
     <v-card-text>
-      <v-form>
+    <v-form>
         <v-text-field prepend-icon="person" v-model="user.username" :label="$t('CreateAccount.username')" type="text"
                       :error-messages="errors.collect('username')"
                       v-validate="'required|min:4'"
@@ -76,15 +76,15 @@
           v-model="user.location"/>
       </v-form>
 
-    </v-card-text>
+      </v-card-text>
 
-    <v-card-actions>
-      <v-btn
-          block
-          color="primary" @click.prevent="createAccount()" :disabled="loading">
-        {{$t('CreateAccount.createButton')}}
-      </v-btn>
-    </v-card-actions>
+      <v-card-actions>
+        <small style="text-align: right; color: #555; padding-right: 20px;">{{$t('CreateAccount.createHint')}}</small>
+        <v-spacer/>
+        <v-btn color="primary" @click.prevent="createAccount()" :disabled="loading">
+            {{$t('CreateAccount.createButton')}}
+        </v-btn>
+      </v-card-actions>
 
   </v-card>
 </template>
@@ -100,7 +100,7 @@
       return {
         loading: false,
         communities: [],
-        user:  {
+        user: {
           username: null,
           password: null,
           firstName: null,

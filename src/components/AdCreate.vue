@@ -6,7 +6,7 @@
                      v-validate="'required'"
                      :error-messages="errors.collect('type')"
                      data-vv-name="type">
-        <v-radio v-for="type in ['WANT', 'GIVE']" :label="$t('AdCreate.adType.' +type)" :value="type"/>
+        <v-radio v-for="type in ['WANT', 'GIVE']" :key="type" :label="$t('AdCreate.adType.' +type)" :value="type"/>
       </v-radio-group>
       <v-text-field v-model="ad.title" :label="$t('AdCreate.title')" type="text"
                     :error-messages="errors.collect('title')"

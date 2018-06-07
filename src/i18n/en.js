@@ -87,7 +87,8 @@ export default {
     description: 'Describe yourself',
     community: 'Community',
     location: 'Enter your region',
-    createButton: 'Create'
+    createButton: 'Create',
+    createHint: 'You can add you avatar photo on the next screen'
   },
 
   AppBottomNav: {
@@ -127,7 +128,7 @@ export default {
     description: 'Description',
     amount: 'Coins',
     location: 'Location',
-    createHint: 'Your ad will be published. You can add photos in the following step.',
+    createHint: 'Your ad will be published. You can add photo on the next screen.',
     createButton: 'Add'
   }
 }
