@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card style="height: auto">
 
     <v-toolbar app dark color="primary">
       <v-btn icon to="/login" :disabled="loading">
@@ -78,8 +78,8 @@
 
       </v-card-text>
 
-      <v-card-actions>
-        <small style="text-align: right; color: #555; padding-right: 20px;">{{$t('CreateAccount.createHint')}}</small>
+      <v-card-actions class="pb-5 pr-3">
+        <small style="text-align: right; color: #555">{{$t('CreateAccount.createHint')}}</small>
         <v-spacer/>
         <v-btn color="primary" @click.prevent="createAccount()" :disabled="loading">
             {{$t('CreateAccount.createButton')}}
