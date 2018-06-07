@@ -14,6 +14,10 @@
               </v-btn>
             </upload-photo>
 
+            <v-btn dark icon class="mr-0" to="/profile/edit">
+              <v-icon>edit</v-icon>
+            </v-btn>
+
           </v-card-title>
           <v-spacer></v-spacer>
         </v-layout>

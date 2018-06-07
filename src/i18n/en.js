@@ -53,6 +53,14 @@ export default {
     logout: 'Logout'
   },
 
+  EditProfile: {
+    title: 'Edit profile',
+    firstName: 'First name',
+    lastName: 'Last name',
+    description: 'Describe yourself',
+    location: 'Enter your region',
+  },
+
   OtherUserProfile: {
     makePayment: 'Top-up',
     makePaymentModalTitle: 'Make payment',

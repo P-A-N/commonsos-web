@@ -15,5 +15,5 @@ const testsContext = require.context('./specs', true, /\.spec$/)
 testsContext.keys().forEach(testsContext)
 
 beforeEach(() => {
-  window.$router = jasmine.createSpyObj('router', ['push', 'resolve'])
+  window.$router = jasmine.createSpyObj('router', ['push', 'resolve', 'back'])
 })

@@ -10,6 +10,7 @@ import Profile from '@/components/Profile'
 import OtherUserProfile from '@/components/OtherUserProfile'
 import SearchUser from '@/components/SearchUser'
 import CreateAccount from '@/components/CreateAccount'
+import EditProfile from '@/components/EditProfile'
 
 Vue.use(Router)
 
@@ -24,6 +25,7 @@ let router = new Router({
     {path: '/messages', component: Messages},
     {path: '/messages/:threadId', component: MessageThread, props: true},
     {path: '/profile', component: Profile},
+    {path: '/profile/edit', component: EditProfile},
     {path: '/profile/:userId', component: OtherUserProfile, props: true},
     {path: '/admin', component: SearchUser},
     {path: '/login', component: Login},
