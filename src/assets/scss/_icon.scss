@@ -1,0 +1,11 @@
+.icon--left {
+  .btn & {
+    margin-right: $spacer;
+  }
+}
+
+.icon--right {
+  .btn & {
+    margin-left: $spacer;
+  }
+}

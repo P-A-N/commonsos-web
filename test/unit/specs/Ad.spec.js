@@ -73,4 +73,62 @@ describe('Ad.vue', () => {
       done()
     }, 0)
   })
+
+  describe('photo', function () {
+
+    function adWithPropertiesOwnAndPhoto(own, photoUrl) {
+      spyOn(gateway, 'get').and.returnValue(Promise.resolve({
+        data: {
+          own: own,
+          photoUrl: photoUrl,
+          createdBy: {id: 22, avatarUrl: ''}
+        }
+      }))
+    }
+
+    it('is present in own ad', function (done) {
+      adWithPropertiesOwnAndPhoto(true, '/photo')
+
+      let wrapper = mount(Ad, {propsData: {id: '1'}})
+
+      setTimeout(() => {
+        expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('/photo')
+        done()
+      }, 0)
+    })
+
+    it('is present in other user ad ad', function (done) {
+      adWithPropertiesOwnAndPhoto(false, '/photo')
+
+      let wrapper = mount(Ad, {propsData: {id: '1'}})
+
+      setTimeout(() => {
+        expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('/photo')
+        done()
+      }, 0)
+    })
+
+    it('is missing in own ad', function (done) {
+      adWithPropertiesOwnAndPhoto(true, '')
+
+      let wrapper = mount(Ad, {propsData: {id: '1'}})
+
+      setTimeout(() => {
+        expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('')
+        done()
+      }, 0)
+    })
+
+    it('is missing in other user ad', function (done) {
+      adWithPropertiesOwnAndPhoto(false, '')
+
+      let wrapper = mount(Ad, {propsData: {id: '1'}})
+
+      setTimeout(() => {
+        expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('/static/temp/ad-placeholder.png')
+        done()
+      }, 0)
+    })
+  })
+
 })

@@ -33,6 +33,7 @@ export default {
   },
 
   Ad: {
+    addPhoto: 'Add photo',
     sendMessage: 'メッセージ送信',
     pay: '支払いをする'
   },
@@ -50,6 +51,7 @@ export default {
   },
 
   Profile: {
+    addPhoto: 'Add photo',
     logout: 'ログアウト'
   },
 

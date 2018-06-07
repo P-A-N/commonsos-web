@@ -1,16 +1,23 @@
 <template>
   <div v-if="user">
     <v-card>
-      <v-card-media :src="user.avatarUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPlkwhBse_JCK37_0WA3m_PHUpFncOVLM0s0c4cCqpV27UteuJ'"
-                    height="250px">
-        <v-layout column
-                  class="media card-image-gradient">
+      <v-card-media :src="user.avatarUrl" height="250px" style="background-color: #aaa;">
+        <div class="center-horizontally-and-vertically" v-if="!user.avatarUrl">
+          <upload-photo :url="`/users/${user.id}/avatar`" :onUpload="reloadUser">
+            <v-btn slot="activator" dark outline round>
+              <v-icon left dark>photo_camera</v-icon>
+              {{$t('Profile.addPhoto')}}
+            </v-btn>
+          </upload-photo>
+        </div>
+
+        <v-layout column :class="{'media card-image-gradient': user.avatarUrl}">
           <v-card-title>
             <v-spacer></v-spacer>
 
-            <upload-photo :url="`/users/${user.id}/avatar`" :onUpload="reloadUser">
+            <upload-photo :url="`/users/${user.id}/avatar`" :onUpload="reloadUser" v-if="user.avatarUrl">
               <v-btn slot="activator" dark icon class="mr-2">
-                <v-icon>add_a_photo</v-icon>
+                <v-icon>photo_camera</v-icon>
               </v-btn>
             </upload-photo>
 
@@ -23,6 +30,7 @@
         </v-layout>
 
       </v-card-media>
+
       <v-card-title
           primary-title
           class="pb-0"

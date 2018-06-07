@@ -2,14 +2,22 @@
   <v-layout v-if="ad" row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media :src="ad.photoUrl || '/static/temp/ad-placeholder.png'" height="250px">
-          <v-layout column class="media card-image-gradient">
+        <v-card-media :src="adPhotoOrPlaceHolder()" height="250px" style="background-color: #aaa;">
+          <v-layout column :class="{'card-image-gradient': ad.photoUrl, 'media ': true}">
             <v-card-title>
               <v-btn dark icon @click="$router.back()">
                 <v-icon>close</v-icon>
               </v-btn>
               <v-spacer></v-spacer>
-              <upload-photo v-if="ad.own" :url="`/ads/${ad.id}/photo`" :onUpload="photoUploaded">
+              <div class="center-horizontally-and-vertically" v-if="ad.own && !ad.photoUrl">
+                <upload-photo :url="`/ads/${ad.id}/photo`" :onUpload="photoUploaded">
+                  <v-btn slot="activator" dark outline round class="upload-photo-button">
+                    <v-icon left dark>photo_camera</v-icon>
+                    {{$t('Ad.addPhoto')}}
+                  </v-btn>
+                </upload-photo>
+              </div>
+              <upload-photo v-if="ad.own && ad.photoUrl" :url="`/ads/${ad.id}/photo`" :onUpload="photoUploaded">
                 <v-btn slot="activator" dark icon class="mr-3 upload-photo-button">
                   <v-icon>add_a_photo</v-icon>
                 </v-btn>
@@ -135,6 +143,12 @@
       }
     },
     methods: {
+      adPhotoOrPlaceHolder() {
+        if (!this.ad) return ''
+        if (this.ad.photoUrl) return this.ad.photoUrl
+        if (!this.ad.own) return '/static/temp/ad-placeholder.png'
+        return ''
+      },
       photoUploaded(url) {
         this.ad.photoUrl = url
       },
