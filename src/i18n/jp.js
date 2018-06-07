@@ -115,5 +115,19 @@ export default {
     outOfEther: 'To continue your community needs more ether',
     usernameTaken: 'Username is already taken',
     notEnoughFunds: 'Not enough funds'
+  },
+
+  AdCreate: {
+    type: 'Type',
+    adType: {
+      WANT: 'Want',
+      GIVE: 'Give'
+    },
+    title: 'Title',
+    description: 'Description',
+    amount: 'Coins',
+    location: 'Location',
+    createHint: 'Your ad will be published. You can add photos in the following step.',
+    createButton: 'Add'
   }
 }
