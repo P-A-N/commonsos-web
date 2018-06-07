@@ -88,7 +88,7 @@ export default {
     community: 'Community',
     location: 'Enter your region',
     createButton: 'Create',
-    createHint: 'You can add you avatar photo on the next screen'
+    createHint: 'You can add your avatar photo on the next screen'
   },
 
   AppBottomNav: {
