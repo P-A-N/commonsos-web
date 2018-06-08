@@ -1,14 +1,14 @@
 <template>
   <div>
     <app-toolbar :title="$t('Community.title')">
-      <v-btn slot="default" icon @click.prevent="toggleSearchDialog()">
+      <v-btn slot="default" icon @click="toggleSearchDialog()">
         <v-icon>search</v-icon>
       </v-btn>
-      <v-btn slot="default" icon @click.prevent="openCreateAdDialog()" class="create-ad">
+      <v-btn slot="default" icon @click.prevent="openCreateAdDialog()" class="create-ad" :disabled="searchVisible">
         <v-icon>add</v-icon>
       </v-btn>
 
-      <v-text-field slot="extension" v-model="searchPattern" v-if="searchVisible" @keyup="searchUpdated" @change="searchUpdated"
+      <v-text-field slot="extension" v-model="searchPattern" v-if="searchVisible"
                     class="px-2" clearable placeholder="Type text here" type="text"/>
     </app-toolbar>
 
@@ -43,6 +43,11 @@
         searchPattern: '',
         createAd: false,
         timer: null
+      }
+    },
+    watch: {
+      'searchPattern': function() {
+        this.searchUpdated()
       }
     },
     methods: {
