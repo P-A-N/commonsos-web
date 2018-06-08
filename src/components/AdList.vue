@@ -85,6 +85,9 @@
     methods: {
       loadAds() {
         gateway.get('/ads').then(r => this.ads = r.data)
+      },
+      filter(pattern) {
+        gateway.get('/ads', {params: {filter: pattern}}).then(r => this.ads = r.data)
       }
     }
   }
