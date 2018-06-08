@@ -9,7 +9,7 @@
       </v-btn>
 
       <v-text-field slot="extension" v-model="searchPattern" v-if="searchVisible"
-                    class="px-2" clearable placeholder="Type text here" type="text"/>
+                    class="px-2" clearable :placeholder="$t('Community.searchHint')" type="text"/>
     </app-toolbar>
 
     <ad-list ref="list"/>

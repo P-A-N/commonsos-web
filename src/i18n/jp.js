@@ -16,13 +16,15 @@ export default {
   Community: {
     title: 'コミュニティ',
     newAdvertisementModalTitle: '新しく告知をする',
+    searchHint: 'Type text here'
   },
 
   AdList: {
     adType: {
       WANT: 'WANT',
       GIVE: 'GIVE'
-    }
+    },
+    noAds: 'No advertisements found'
   },
 
   Wallet: {

@@ -63,7 +63,7 @@
 
     </v-container>
     <v-container v-else>
-      <small>No ads found</small>
+      <small>{{$t('AdList.noAds')}}</small>
     </v-container>
   </div>
 

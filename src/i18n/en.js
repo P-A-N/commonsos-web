@@ -16,13 +16,15 @@ export default {
   Community: {
     title: 'Community',
     newAdvertisementModalTitle: 'New advertisement',
+    searchHint: 'Type text here'
   },
 
   AdList: {
     adType: {
       WANT: 'WANT',
       GIVE: 'GIVE'
-    }
+    },
+    noAds: 'No advertisements found'
   },
 
   Wallet: {
