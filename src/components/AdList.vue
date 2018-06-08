@@ -62,6 +62,9 @@
       </v-layout>
 
     </v-container>
+    <v-container v-else>
+      <small>No ads found</small>
+    </v-container>
   </div>
 
 </template>
