@@ -41,7 +41,17 @@ export default {
   },
 
   Messages: {
-    title: 'Messages'
+    title: 'Messages',
+    createGroupModalTitle: 'Create group chat'
+  },
+
+  CreateGroup: {
+    selectMembers: 'Type names of members',
+    noMembersSelected: 'Please select at least one member',
+    searchResultEmpty: 'Specified name not found',
+    title: 'Group title (optional)',
+    create: 'Create',
+    createHint: 'You can add more members later.'
   },
 
   MessageThread: {

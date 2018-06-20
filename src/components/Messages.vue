@@ -1,6 +1,10 @@
 <template>
   <div>
-    <app-toolbar :title="$t('Messages.title')"/>
+    <app-toolbar :title="$t('Messages.title')">
+      <v-btn slot="default" icon @click="startCreatingGroupChat()">
+        <v-icon>add</v-icon>
+      </v-btn>
+    </app-toolbar>
 
     <v-list three-line>
       <template v-for="(thread, index) in messageThreads">
@@ -21,7 +25,12 @@
 
     </v-list>
 
-    <app-bottom-nav></app-bottom-nav>
+    <app-bottom-nav/>
+
+    <modal v-if="createGroupChatOptions" :title="$t('Messages.createGroupModalTitle')" @close="groupCreated()">
+      <create-group slot-scope="modal" :closeModal="modal.close"/>
+    </modal>
+
   </div>
 </template>
 
@@ -31,6 +40,7 @@
   import Avatar from '@/components/Avatar'
   import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
+  import CreateGroup from '@/components/CreateGroup'
   import gateway from '@/gateway'
   import messagePoller from '@/services/MessagePoller'
 
@@ -40,11 +50,23 @@
       AppBottomNav,
       Avatar,
       Modal,
-      MessageThread
+      MessageThread,
+      CreateGroup
     },
     data() {
       return {
-        messageThreads: []
+        messageThreads: [],
+        createGroupChatOptions: false
+      }
+    },
+    methods: {
+      startCreatingGroupChat() {
+        console.log("startCreatingGroupChat")
+        this.createGroupChatOptions = true
+      },
+      groupCreated() {
+        console.log("groupCreated")
+        this.createGroupChatOptions = false
       }
     },
     created() {

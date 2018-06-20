@@ -7,7 +7,7 @@
       <v-toolbar-title slot="extension" style="width: 100%;">
         {{thread.title}}
       </v-toolbar-title>
-      <div slot="extension">
+      <div slot="extension" v-if="ad">
         <v-btn flat icon small color="grey" :to="`/community/ad/${ad.id}`">
           <v-icon>info</v-icon>
         </v-btn>
