@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-toolbar :title="$t('Messages.title')">
-      <v-btn slot="default" icon @click="startCreatingGroupChat()">
+      <v-btn slot="default" icon @click="createGroupChatOptions = true">
         <v-icon>add</v-icon>
       </v-btn>
     </app-toolbar>
@@ -27,7 +27,7 @@
 
     <app-bottom-nav/>
 
-    <modal v-if="createGroupChatOptions" :title="$t('Messages.createGroupModalTitle')" @close="groupCreated()">
+    <modal v-if="createGroupChatOptions" :title="$t('Messages.createGroupModalTitle')" @close="createGroupChatOptions = false">
       <create-group slot-scope="modal" :closeModal="modal.close"/>
     </modal>
 
@@ -57,16 +57,6 @@
       return {
         messageThreads: [],
         createGroupChatOptions: false
-      }
-    },
-    methods: {
-      startCreatingGroupChat() {
-        console.log("startCreatingGroupChat")
-        this.createGroupChatOptions = true
-      },
-      groupCreated() {
-        console.log("groupCreated")
-        this.createGroupChatOptions = false
       }
     },
     created() {
