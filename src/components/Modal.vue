@@ -27,9 +27,9 @@
       }
     },
     methods: {
-      close() {
+      close(params) {
         this.show = false
-        this.$emit('close')
+        this.$emit('close', params)
       }
     },
     mounted: function () {

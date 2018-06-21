@@ -57,12 +57,20 @@ export default {
     searchResultEmpty: 'Specified name not found',
   },
 
+  EditGroup: {
+    owner: '(group owner)',
+    title: 'Title',
+    saveHint: 'You can discard changes by clicking on the cross of upper toolbar',
+    save: 'Save'
+  },
+
   MessageThread: {
     title: 'Message thread',
     message: 'Message',
     send: 'Send',
     pay: 'Pay',
-    makePaymentModalTitle: 'Pay for service'
+    makePaymentModalTitle: 'Pay for service',
+    editGroupModalTitle: 'Edit group'
   },
 
   Profile: {

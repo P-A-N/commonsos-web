@@ -7,6 +7,11 @@
       <v-toolbar-title slot="extension" style="width: 100%;">
         {{thread.title}}
       </v-toolbar-title>
+      <div slot="extension" v-if="isGroup">
+        <v-btn flat icon small color="grey" @click="editingGroup=true">
+          <v-icon>info</v-icon>
+        </v-btn>
+      </div>
       <div slot="extension" v-if="ad">
         <v-btn flat icon small color="grey" :to="`/community/ad/${ad.id}`">
           <v-icon>info</v-icon>
@@ -20,6 +25,7 @@
         </v-btn>
       </div>
     </app-toolbar>
+
     <div class="messages-list pt-3">
       <template v-for="(message, index) in messages">
         <v-layout mb-2 class="message-wrapper"
@@ -29,7 +35,7 @@
                   'next-will-also-be-from-this-sender': index < messages.length - 1 && messages[index + 1].createdBy === message.createdBy
                  }">
           <v-flex class="avatar-wrapper">
-            <avatar v-if="message.createdBy" :user="userById(message.createdBy)" />
+            <avatar v-if="message.createdBy" :user="userById(message.createdBy)"/>
           </v-flex>
           <v-flex class="message-content-wrapper">
             <div class="text-wrapper" v-html="message.text"></div>
@@ -44,20 +50,27 @@
 
     <v-card color="grey" class="chat-text-input" flat>
       <v-card-text style="padding: 0">
-              <form @submit.prevent="sendMessage()">
-                <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
-                              type="text" flat solo rows="2" multi-line autofocus/>
-                  <v-btn type="submit" small absolute top right fab color="primary"><v-icon>send</v-icon>
-                  </v-btn>
-              </form>
+        <form @submit.prevent="sendMessage()">
+          <v-text-field v-model="messageText" :label="$t('MessageThread.message')"
+                        type="text" flat solo rows="2" multi-line autofocus/>
+          <v-btn type="submit" small absolute top right fab color="primary">
+            <v-icon>send</v-icon>
+          </v-btn>
+        </form>
       </v-card-text>
     </v-card>
     <div ref="messageInput"></div>
 
     <modal v-if="makePayment" :title="$t('MessageThread.makePaymentModalTitle')" @close="makePayment = false">
-      <make-payment :amount="ad.points" :beneficiary="counterParty" :ad="ad" :description="$t('Payment.description',{title: ad.title})"
+      <make-payment :amount="ad.points" :beneficiary="counterParty" :ad="ad"
+                    :description="$t('Payment.description',{title: ad.title})"
                     slot-scope="modal" :closeModal="modal.close"/>
     </modal>
+
+    <modal v-if="editingGroup" :title="$t('MessageThread.editGroupModalTitle')" @close="editGroupFinished">
+      <edit-group :thread="thread" slot-scope="modal" :closeModal="modal.close"/>
+    </modal>
+
   </div>
 </template>
 
@@ -67,12 +80,13 @@
   import gateway from '@/gateway'
   import Modal from '@/components/Modal'
   import MakePayment from '@/components/MakePayment'
+  import EditGroup from '@/components/EditGroup'
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
     name: 'MessageThread',
     components: {
-      AppToolbar, Avatar, Modal, MakePayment
+      AppToolbar, Avatar, Modal, MakePayment, EditGroup
     },
     mixins: [LoggedInUserConsumerMixin],
     props: ['threadId'],
@@ -81,12 +95,12 @@
         gateway.get(`/message-threads/${to.params.threadId}`),
         gateway.get(`/message-threads/${to.params.threadId}/messages`)]
       ).then(values => {
-          next(vm => {
-            vm.setThread(values[0].data)
-            vm.messages = values[1].data
-            vm.scrollToEnd()
-          })
+        next(vm => {
+          vm.setThread(values[0].data)
+          vm.messages = values[1].data
+          vm.scrollToEnd()
         })
+      })
     },
     data() {
       return {
@@ -95,12 +109,16 @@
         thread: {},
         counterParty: {},
         messages: [],
-        messageText: ''
+        messageText: '',
+        editingGroup: false
       }
     },
     computed: {
       payable() {
         return this.ad && this.ad.payable;
+      },
+      isGroup() {
+        return this.thread && this.thread.group
       },
       participants() {
         if (!this.thread) return ''
@@ -139,6 +157,10 @@
       },
       pollMessages() {
         this.threadRefresh = setInterval(() => this.loadMessages(), 5000);
+      },
+      editGroupFinished(updatedThread) {
+        if (updatedThread) this.setThread(updatedThread)
+        this.editingGroup = false
       }
     },
     created() {
