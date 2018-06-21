@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-toolbar :title="counterParty.fullName">
+    <app-toolbar :title="participants">
       <v-btn slot="left" icon @click="$router.back()">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -101,6 +101,11 @@
     computed: {
       payable() {
         return this.ad && this.ad.payable;
+      },
+      participants() {
+        if (!this.thread) return ''
+        if (!this.thread.parties) return ''
+        return this.thread.parties.map(p => p.fullName).join(', ')
       }
     },
     methods: {
