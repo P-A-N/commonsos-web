@@ -1,6 +1,15 @@
 <template>
   <form>
     <v-card-text>
+      <div class="mb-2">
+        <v-chip v-if="user">
+          <v-avatar>
+            <img :src="user.avatarUrl">
+          </v-avatar>
+          {{ user.fullName }}
+        </v-chip>
+        <small>Group creator</small>
+      </div>
       <select-group-members :existing-members="[]" :member-selected="memberSelected"/>
       <v-text-field v-model="title" :label="$t('CreateGroup.title')" type="text"/>
     </v-card-text>
@@ -20,9 +29,11 @@
 <script>
   import gateway from '@/gateway'
   import SelectGroupMembers from '@/components/SelectGroupMembers'
+  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
     name: "CreateGroup",
+    mixins: [LoggedInUserConsumerMixin],
     props: ['closeModal'],
     components: {SelectGroupMembers},
     data() {
