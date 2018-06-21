@@ -12,6 +12,7 @@ describe('MessageThread.vue', () => {
     let thread = {
       title: 'Thread title',
       parties: [{id: '22', fullName: 'Satu Haruto'}],
+      creator: [{id: '33', fullName: 'Tamagoshi'}],
       ad: {id: '1', payable: true}
     }
 

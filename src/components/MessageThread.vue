@@ -123,6 +123,7 @@
       participants() {
         if (!this.thread) return ''
         if (!this.thread.parties) return ''
+        if (!this.thread.group) return this.thread.parties[0].fullName
         return this.thread.parties.map(p => p.fullName).join(', ')
       }
     },

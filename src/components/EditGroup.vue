@@ -51,7 +51,7 @@
     },
     created() {
       this.localThread = Object.assign({}, this.thread)
-      this.owner = this.thread.parties[0]
+      this.owner = this.thread.creator
     }
   }
 </script>
