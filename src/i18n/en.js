@@ -46,12 +46,15 @@ export default {
   },
 
   CreateGroup: {
-    selectMembers: 'Type names of members',
-    noMembersSelected: 'Please select at least one member',
-    searchResultEmpty: 'Specified name not found',
     title: 'Group title (optional)',
     create: 'Create',
     createHint: 'You can add more members later.'
+  },
+
+  SelectGroupMembers: {
+    selectMembers: 'Type names of members',
+    noMembersSelected: 'Please select at least one member',
+    searchResultEmpty: 'Specified name not found',
   },
 
   MessageThread: {
