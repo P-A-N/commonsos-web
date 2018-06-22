@@ -154,7 +154,8 @@
         return this.user.id === message.createdBy
       },
       userById(userId) {
-        return (userId === this.user.id) ? this.user : this.thread.parties.find(user => user.id === userId)
+        if (!this.thread || !this.thread.creator) return {}
+        return (userId === this.thread.creator.id) ? this.thread.creator : this.thread.parties.find(user => user.id === userId)
       },
       pollMessages() {
         this.threadRefresh = setInterval(() => this.loadMessages(), 5000);

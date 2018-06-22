@@ -11,7 +11,7 @@
         <v-list-tile class="thread" avatar :to="`/messages/${thread.id}`">
           <v-list-tile-avatar>
             <avatar :user="thread.parties[0]" v-if="!thread.group"/>
-            <avatar :users="thread.parties" v-if="thread.group"/>
+            <avatar :users="thread.parties.concat([thread.creator])" v-if="thread.group"/>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>
