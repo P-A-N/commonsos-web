@@ -10,7 +10,7 @@
       <template v-for="(thread, index) in messageThreads">
         <v-list-tile class="thread" avatar :to="`/messages/${thread.id}`">
           <v-list-tile-avatar>
-            <avatar :user="thread.parties[0]" v-if="!thread.group"/>
+            <avatar :user="thread.counterParty" v-if="!thread.group"/>
             <avatar :users="thread.parties.concat([thread.creator])" v-if="thread.group"/>
           </v-list-tile-avatar>
           <v-list-tile-content>

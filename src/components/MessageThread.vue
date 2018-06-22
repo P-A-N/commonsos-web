@@ -62,7 +62,7 @@
     <div ref="messageInput"></div>
 
     <modal v-if="makePayment" :title="$t('MessageThread.makePaymentModalTitle')" @close="makePayment = false">
-      <make-payment :amount="ad.points" :beneficiary="counterParty" :ad="ad"
+      <make-payment :amount="ad.points" :beneficiary="thread.counterParty" :ad="ad"
                     :description="$t('Payment.description',{title: ad.title})"
                     slot-scope="modal" :closeModal="modal.close"/>
     </modal>
@@ -107,7 +107,6 @@
         ad: {},
         makePayment: false,
         thread: {},
-        counterParty: {},
         messages: [],
         messageText: '',
         editingGroup: false
@@ -121,16 +120,17 @@
         return this.thread && this.thread.group
       },
       participants() {
-        if (!this.thread) return ''
-        if (!this.thread.parties) return ''
-        if (!this.thread.group) return this.thread.parties[0].fullName
+        if (!this.hasData()) return ''
+        if (!this.thread.group) return this.thread.counterParty.fullName
         return this.thread.parties.map(p => p.fullName).join(', ')
       }
     },
     methods: {
+      hasData() {
+        return this.thread && this.thread.parties
+      },
       setThread(thread) {
         this.thread = thread
-        this.counterParty = this.thread.parties[0]
         this.ad = thread.ad
       },
       loadMessages() {

@@ -13,6 +13,7 @@ describe('MessageThread.vue', () => {
       title: 'Thread title',
       parties: [{id: '22', fullName: 'Satu Haruto'}],
       creator: [{id: '33', fullName: 'Tamagoshi'}],
+      counterParty: {id: '22', fullName: 'Counter party'},
       ad: {id: '1', payable: true}
     }
 
@@ -34,7 +35,7 @@ describe('MessageThread.vue', () => {
       expect(wrapper.text()).toContain('Hello my friend')
       expect(wrapper.text()).toContain('2 days ago')
       expect(wrapper.text()).toContain('Thread title')
-      expect(wrapper.text()).toContain('Satu Haruto')
+      expect(wrapper.text()).toContain('Counter party')
       expect(wrapper.text()).toContain('Pay')
       done()
     }, 0)
