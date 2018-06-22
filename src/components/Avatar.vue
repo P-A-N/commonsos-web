@@ -1,11 +1,63 @@
 <template>
   <v-avatar>
-    <img :src="user.avatarUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPlkwhBse_JCK37_0WA3m_PHUpFncOVLM0s0c4cCqpV27UteuJ'">
+    <img :src="user.avatarUrl" v-if="user"/>
+
+    <template v-if="users">
+      <template v-if="users.length == 1">
+        <img :src="users[0].avatarUrl">
+      </template>
+
+      <template v-else>
+        <img :src="users[0].avatarUrl" class="left-half">
+        <img :src="users[1].avatarUrl" class="right-half">
+      </template>
+    </template>
+
   </v-avatar>
 </template>
 
 <script>
   export default {
-    props: ['user']
+    props: ['user', 'users'],
   }
 </script>
+
+<style scoped>
+
+  .upper-half {
+    clip-path: inset(0 0 50% 0);
+  }
+  .lower-half {
+    clip-path: inset(50% 0 0 0);
+  }
+
+  .left-half {
+    clip-path: inset(0 50% 0 0);
+    transform: translateX(3%);
+  }
+
+  .right-half {
+    clip-path: inset(0 0 0 50%);
+    transform: translateX(5%);
+  }
+
+  .upper-left {
+    clip-path: inset(0 40% 50% 0);
+  }
+  .upper-right {
+    clip-path: inset(0 0 50% 50%);
+  }
+
+  .lower-left {
+    clip-path: inset(50% 50% 0 0);
+  }
+
+  .lower-right {
+    clip-path: inset(50% 0 0 50%);
+  }
+
+  img {
+    position: absolute; top: 0px; left: 0px;
+  }
+
+</style>
