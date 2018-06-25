@@ -26,9 +26,7 @@
         class="chip--select-multi"
         @input="data.parent.selectItem(data.item)">
 
-        <v-avatar>
-          <img :src="data.item.avatarUrl">
-        </v-avatar>
+        <avatar :user="data.item"/>
         {{ data.item.fullName }}
       </v-chip>
     </template>
@@ -39,7 +37,7 @@
       </template>
       <template v-else>
         <v-list-tile-avatar>
-          <img :src="data.item.avatarUrl">
+          <avatar :user="data.item"/>
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title v-html="data.item.fullName"></v-list-tile-title>
@@ -52,10 +50,12 @@
 
 <script>
   import gateway from '@/gateway'
+  import Avatar from '@/components/Avatar'
 
   export default {
     name: 'SelectGroupMembers',
     props: ['existingMembers', 'memberSelected'],
+    components: {Avatar},
     data() {
       return {
         users: [],

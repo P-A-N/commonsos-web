@@ -1,15 +1,15 @@
 <template>
   <v-avatar>
-    <img :src="user.avatarUrl" v-if="user"/>
+    <img :src="user.avatarUrl || defaultAvatar" v-if="user"/>
 
     <template v-if="users">
       <template v-if="users.length == 1">
-        <img :src="users[0].avatarUrl">
+        <img :src="users[0].avatarUrl || defaultAvatar">
       </template>
 
       <template v-else>
-        <img :src="users[0].avatarUrl" class="left-half">
-        <img :src="users[1].avatarUrl" class="right-half">
+        <img :src="users[0].avatarUrl || defaultAvatar" class="left-half">
+        <img :src="users[1].avatarUrl || defaultAvatar" class="right-half">
       </template>
     </template>
 
@@ -19,6 +19,11 @@
 <script>
   export default {
     props: ['user', 'users'],
+    data() {
+      return {
+        defaultAvatar: '/static/avatar-placeholder.png'
+      }
+    },
   }
 </script>
 
