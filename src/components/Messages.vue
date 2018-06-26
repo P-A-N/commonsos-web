@@ -11,7 +11,7 @@
         <v-list-tile class="thread" avatar :to="`/messages/${thread.id}`">
           <v-list-tile-avatar>
             <avatar :user="thread.counterParty" v-if="!thread.group"/>
-            <avatar :users="thread.parties.concat([thread.creator])" v-if="thread.group"/>
+            <group-avatar :users="thread.parties.concat([thread.creator])" v-if="thread.group"/>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>
@@ -39,6 +39,7 @@
   import AppToolbar from '@/components/AppToolbar'
   import AppBottomNav from "@/components/AppBottomNav";
   import Avatar from '@/components/Avatar'
+  import GroupAvatar from '@/components/GroupAvatar'
   import Modal from '@/components/Modal'
   import MessageThread from '@/components/MessageThread'
   import CreateGroup from '@/components/CreateGroup'
@@ -46,14 +47,7 @@
   import messagePoller from '@/services/MessagePoller'
 
   export default {
-    components: {
-      AppToolbar,
-      AppBottomNav,
-      Avatar,
-      Modal,
-      MessageThread,
-      CreateGroup
-    },
+    components: {AppToolbar, AppBottomNav, Avatar, GroupAvatar, Modal, MessageThread, CreateGroup},
     data() {
       return {
         messageThreads: [],
