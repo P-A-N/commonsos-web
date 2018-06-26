@@ -1,10 +1,10 @@
 <template>
   <v-avatar>
-    <img :src="user.avatarUrl || defaultAvatar" v-if="user"/>
+    <img :src="user.avatarUrl || defaultAvatar" v-if="user" @click.prevent="showProfile(user)"/>
 
     <template v-if="users">
-      <template v-if="users.length == 1">
-        <img :src="users[0].avatarUrl || defaultAvatar">
+      <template v-if="users.length === 1">
+        <img :src="users[0].avatarUrl || defaultAvatar" @click.prevent="showProfile(users[0])">
       </template>
 
       <template v-else>
@@ -22,6 +22,11 @@
     data() {
       return {
         defaultAvatar: '/static/avatar-placeholder.png'
+      }
+    },
+    methods: {
+      showProfile(user) {
+        this.$router.push('/profile/'+user.id)
       }
     },
   }
@@ -62,7 +67,7 @@
   }
 
   img {
-    position: absolute; top: 0px; left: 0px;
+    position: absolute; top: 0; left: 0;
   }
 
 </style>
