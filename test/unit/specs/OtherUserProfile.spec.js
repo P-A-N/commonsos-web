@@ -45,7 +45,7 @@ describe('OtherUserProfile.vue', () => {
     setTimeout(() => {
       expect(wrapper.vm.otherUser.balance).toBe(10)
 
-      wrapper.vm.paymentDone()
+      wrapper.vm.topupDone()
 
       setTimeout(() => {
         expect(wrapper.vm.otherUser.balance).toBe(20)

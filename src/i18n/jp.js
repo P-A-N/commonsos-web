@@ -66,9 +66,9 @@ export default {
   },
 
   OtherUserProfile: {
-    makePayment: '支払い２',
-    makePaymentModalTitle: '支払い３',
-    makePaymentDefaultDescription: 'commons incから自動付与',
+    makeTopup: '支払い２',
+    makeTopupModalTitle: '支払い３',
+    makeTopupDefaultDescription: 'commons incから自動付与',
   },
 
   Payment: {
