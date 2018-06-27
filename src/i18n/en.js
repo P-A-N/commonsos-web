@@ -42,7 +42,8 @@ export default {
 
   Messages: {
     title: 'Messages',
-    createGroupModalTitle: 'Create group chat'
+    createGroupModalTitle: 'Create group chat',
+    noMessagesInThread: 'No messages yet'
   },
 
   CreateGroup: {

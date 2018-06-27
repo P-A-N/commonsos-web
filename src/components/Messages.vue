@@ -17,7 +17,12 @@
             <v-list-tile-title>
               <span :class="{'unread': thread.unread}">{{thread.title}}</span>
             </v-list-tile-title>
-            <v-list-tile-sub-title v-if="thread.lastMessage" style="line-height: 1.3;"><span class="text--primary">{{thread.parties[0].fullName}}</span> &ndash; {{thread.lastMessage.text}}</v-list-tile-sub-title>
+            <v-list-tile-sub-title style="line-height: 1.3;">
+              <span v-if="thread.lastMessage">
+                <span class="text--primary">{{thread.parties[0].fullName}}</span> &ndash; {{thread.lastMessage.text}}
+              </span>
+              <span v-else class="caption grey--text">{{$t('Messages.noMessagesInThread')}}</span>
+            </v-list-tile-sub-title>
             <div class="caption grey--text" v-if="thread.lastMessage">{{thread.lastMessage.createdAt | moment('from') }}</div>
           </v-list-tile-content>
         </v-list-tile>

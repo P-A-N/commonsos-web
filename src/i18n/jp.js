@@ -41,7 +41,28 @@ export default {
   },
 
   Messages: {
-    title: 'メッセージ'
+    title: 'メッセージ',
+    createGroupModalTitle: 'Create group chat',
+    noMessagesInThread: 'No messages yet'
+  },
+
+  CreateGroup: {
+    title: 'Group title (optional)',
+    create: 'Create',
+    createHint: 'You can add more members later.'
+  },
+
+  SelectGroupMembers: {
+    selectMembers: 'Type names of members',
+    noMembersSelected: 'Please select at least one member',
+    searchResultEmpty: 'Specified name not found',
+  },
+
+  EditGroup: {
+    owner: '(group owner)',
+    title: 'Title',
+    saveHint: 'You can discard changes by clicking on the cross of upper toolbar',
+    save: 'Save'
   },
 
   MessageThread: {
