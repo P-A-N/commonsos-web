@@ -49,16 +49,19 @@
 
     </v-card>
 
-    <v-container v-if="user && user.admin" fluid grid-list-lg>
-      <v-btn class="top-up" block @click.prevent="makeTopup=true">
-        {{$t('OtherUserProfile.makeTopup')}}
+    <v-container v-if="user" fluid grid-list-lg>
+      <v-btn class="make-payment" block @click.prevent="makePayment=true">
+        {{user.admin ? $t('OtherUserProfile.makeTopup') : $t('OtherUserProfile.makePayment')}}
       </v-btn>
+      <modal v-if="makePayment"
+             :title="user.admin ? $t('OtherUserProfile.makeTopupModalTitle') : $t('OtherUserProfile.makePaymentModalTitle')"
+             @close="paymentDone()">
+        <make-payment :amount="user.admin ? '2000' : ''"
+                      :beneficiary="otherUser"
+                      :description="user.admin ? $t('OtherUserProfile.makeTopupDefaultDescription') : ''"
+                      slot-scope="modal" :closeModal="modal.close"/>
+      </modal>
     </v-container>
-
-    <modal v-if="makeTopup" :title="$t('OtherUserProfile.makeTopupModalTitle')" @close="topupDone()">
-      <make-payment amount="2000" :beneficiary="otherUser" :description="$t('OtherUserProfile.makeTopupDefaultDescription')"
-                    slot-scope="modal" :closeModal="modal.close"/>
-    </modal>
   </div>
 </template>
 
@@ -79,7 +82,7 @@
     data() {
       return {
         otherUser: {},
-        makeTopup: false
+        makePayment: false
       }
     },
     created() {
@@ -92,8 +95,8 @@
       loadOtherUser() {
         gateway.get(`/users/${this.userId}`).then(r => this.otherUser = r.data)
       },
-      topupDone() {
-        this.makeTopup = false
+      paymentDone() {
+        this.makePayment = false
         this.loadOtherUser()
       }
     }

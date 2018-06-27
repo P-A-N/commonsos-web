@@ -12,9 +12,10 @@ describe('OtherUserProfile.vue', () => {
     let wrapper = mount(OtherUserProfile, {propsData: {userId: 'otheruserid'}})
 
     setTimeout(() => {
+      expect(wrapper.text()).toContain('Top-up')
       expect(wrapper.text()).toContain('other user full name')
       expect(wrapper.text()).toContain('10')
-      expect(wrapper.find('.top-up').element).toBeDefined()
+      expect(wrapper.find('.make-payment').element).toBeDefined()
       expect(gateway.get).toHaveBeenCalledWith('/users/otheruserid')
       done()
     }, 0)
@@ -27,8 +28,9 @@ describe('OtherUserProfile.vue', () => {
     let wrapper = mount(OtherUserProfile, {propsData: {userId: 'otheruserid'}})
 
     setTimeout(() => {
+      expect(wrapper.text()).toContain('Make payment')
       expect(wrapper.text()).toContain('other user full name')
-      expect(wrapper.find('.top-up').element).toBeUndefined()
+      expect(wrapper.find('.make-payment').element).toBeDefined()
       done()
     }, 0)
   })
@@ -45,7 +47,7 @@ describe('OtherUserProfile.vue', () => {
     setTimeout(() => {
       expect(wrapper.vm.otherUser.balance).toBe(10)
 
-      wrapper.vm.topupDone()
+      wrapper.vm.paymentDone()
 
       setTimeout(() => {
         expect(wrapper.vm.otherUser.balance).toBe(20)

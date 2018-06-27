@@ -88,7 +88,9 @@ export default {
 
   OtherUserProfile: {
     makeTopup: 'Top-up',
-    makeTopupModalTitle: 'Make payment',
+    makePayment: 'Make payment',
+    makeTopupModalTitle: 'Top-up community member',
+    makePaymentModalTitle: 'Make payment',
     makeTopupDefaultDescription: 'Funds from municipality',
   },
 
