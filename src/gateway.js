@@ -24,6 +24,10 @@ axiosInstance.interceptors.response.use(
   });
 
 export let handleError = error => {
+  if (503 === error.response.status) {
+    notifications.e(i18n.t('Down for maintenance'))
+    return Promise.reject(error)
+  }
   if (401 === error.response.status) {
     userService.logout()
     return Promise.reject(error)
