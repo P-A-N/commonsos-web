@@ -4,18 +4,40 @@ import eventbus from '@/eventbus'
 import i18n from '@/i18n'
 import userService from '@/services/UserService'
 
+let xsrfToken = null
+
 let axiosInstance = axios.create({
-  baseURL: '/api',
+  baseURL: process.env.API_BASE_URL || '/api',
 })
 
 export default axiosInstance
 
+function parseXSRFToken(response) {
+
+  function parseCookie(allCookies, name) {
+    let match = allCookies.match(new RegExp('(^| \\s*)(' + name + ')=([^;]*)'));
+    return (match ? decodeURIComponent(match[3]) : null);
+  }
+
+  let cookies = response.headers['set-cookie']
+  if (cookies && cookies.length) {
+    let parsedToken = parseCookie(cookies[0], response.config.xsrfCookieName)
+    if (parsedToken) xsrfToken = parsedToken;
+  }
+}
+
 axiosInstance.interceptors.request.use(
-  config => showLoaderIfNeeded(config),
+  config => {
+    if (config.method === 'post' && xsrfToken) {
+      config.headers[config.xsrfHeaderName] = xsrfToken
+    }
+    return showLoaderIfNeeded(config)
+  },
   err => Promise.reject(err))
 
 axiosInstance.interceptors.response.use(
   response => {
+    parseXSRFToken(response)
     hideLoaderIfNeeded(response.config)
     return response
   }, (error) => {
