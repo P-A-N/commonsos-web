@@ -1,6 +1,7 @@
 import userService from '@/services/UserService'
 import eventbus from '@/eventbus'
 import gateway from '@/gateway'
+import notifications from '@/services/notifications'
 
 export default {
 
@@ -32,8 +33,7 @@ export default {
     });
 
     push.on('notification', data => {
-      console.log(data.message, data, title);
-      alert(JSON.stringify(data))
+      notifications.i(data.title + ' ' + data.message)
     });
   },
 
