@@ -8,6 +8,7 @@ import './assets/scss/main.scss'
 import Vuetify from 'vuetify'
 import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 import i18n from '@/i18n'
+import PushNotifications from '@/services/PushNotifications'
 
 Vue.use(VuetifyGoogleAutocomplete, {apiKey: 'AIzaSyAQG-BHBT4-GHFDK0V5k-pkYQ2UT5834pw'});
 Vue.use(Vuetify)
@@ -24,3 +25,5 @@ window.$vm = new Vue({
 })
 
 window.$router = router
+
+PushNotifications.init()

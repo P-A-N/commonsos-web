@@ -1,35 +1,45 @@
-function onDeviceReady() {
+import userService from '@/services/UserService'
+import eventbus from '@/eventbus'
+import gateway from '@/gateway'
 
-  console.log('Cordova initialised, plugins are available')
+export default {
 
-  const push = PushNotification.init({
-    android: {},
-    ios: {
-      alert: 'true',
-      badge: true,
-      sound: 'false'
-    },
-  });
+  user: null,
+  registrationId: null,
 
-  push.on('registration', data => {
-    // store registration on server side
-    console.log('registration id', data.registrationId);
-    console.log('registration type', data.registrationType);
-  });
+  registerDeviceOnBackend: function () {
+    gateway.post(`/users/${this.user.id}/mobile-device`, {pushNotificationToken: this.registrationId})
+  },
 
-  push.on('notification', data => {
-    console.log(data.message);
-    console.log(data.title);
-    console.log(data.count);
-    console.log(data.sound);
-    console.log(data.image);
-    console.log(data.additionalData);
-    alert(JSON.stringify(data))
-  });
+  onUserChanged: function (newUser) {
+    this.user = newUser
+    if (newUser && this.registrationId) this.registerDeviceOnBackend()
+  },
+
+  onDeviceReady: function () {
+    const push = PushNotification.init({
+      android: {},
+      ios: {
+        alert: 'true',
+        badge: true,
+        sound: 'false'
+      },
+    });
+
+    push.on('registration', data => {
+      this.registrationId = data.registrationId
+      if (this.user) this.registerDeviceOnBackend()
+    });
+
+    push.on('notification', data => {
+      console.log(data.message, data, title);
+      alert(JSON.stringify(data))
+    });
+  },
+
+  init: function () {
+    this.user = userService.user()
+    eventbus.$on('userChanged', this.onUserChanged.bind(this))
+    document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+  }
 }
-
-console.log('PushNotifications')
-
-document.addEventListener('deviceready', onDeviceReady, false);
-
-export default {}
