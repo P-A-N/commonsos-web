@@ -2,6 +2,7 @@ import userService from '@/services/UserService'
 import eventbus from '@/eventbus'
 import gateway from '@/gateway'
 import notifications from '@/services/notifications'
+import router from '@/router'
 
 export default {
 
@@ -33,7 +34,8 @@ export default {
     });
 
     push.on('notification', data => {
-      notifications.i(data.title + ' ' + data.message)
+      const inMessaging = router.currentRoute.path && router.currentRoute.path.startsWith("/message")
+      if (!inMessaging) notifications.i(data.message)
     });
   },
 
