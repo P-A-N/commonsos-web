@@ -12,7 +12,7 @@
                     class="px-2" clearable :placeholder="$t('Community.searchHint')" type="text"/>
     </app-toolbar>
 
-    <ad-list ref="list"/>
+    <ad-list :ads="ads"/>
 
     <app-bottom-nav></app-bottom-nav>
 
@@ -28,6 +28,7 @@
   import AppBottomNav from "@/components/AppBottomNav";
   import AdCreate from '@/components/AdCreate'
   import Modal from '@/components/Modal'
+  import gateway from '@/gateway'
 
   export default {
     components: {
@@ -42,8 +43,12 @@
         searchVisible: false,
         searchPattern: '',
         createAd: false,
-        timer: null
+        timer: null,
+        ads: []
       }
+    },
+    beforeRouteEnter(to, from, next) {
+      gateway.get('/ads').then(r => {next(vm => vm.ads = r.data)})
     },
     watch: {
       'searchPattern': function() {
@@ -51,14 +56,20 @@
       }
     },
     methods: {
+      loadAds() {
+        gateway.get('/ads').then(r => this.ads = r.data)
+      },
+      filter(pattern) {
+        gateway.get('/ads', {params: {filter: pattern}}).then(r => this.ads = r.data)
+      },
       toggleSearchDialog() {
         this.searchVisible = !this.searchVisible
-        if (!this.searchVisible) this.$refs.list.filter('')
+        if (!this.searchVisible) this.filter('')
       },
       searchUpdated() {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
-          this.$refs.list.filter(this.searchPattern)
+          this.filter(this.searchPattern)
         }, 400)
       },
       openCreateAdDialog() {
@@ -66,7 +77,7 @@
       },
       closeCreateAdDialog() {
         this.createAd = false
-        this.$refs.list.loadAds()
+        this.loadAds()
       }
     }
   }

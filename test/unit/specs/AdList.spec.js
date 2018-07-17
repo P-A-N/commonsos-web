@@ -1,18 +1,15 @@
 import AdList from '@/components/AdList'
 import {mount} from '../test-utils'
-import gateway from '@/gateway'
 
 describe('AdList.vue', () => {
 
   it('should display ads list', (done) => {
-    spyOn(gateway, 'get').and.returnValue(Promise.resolve({
-      data: [
-        {createdAt: '2018-02-13T12:30Z', title: 'title1', points: 1.11, location: 'location1', type: 'GIVE'},
-        {createdAt: '2018-02-23T15:40Z', title: 'title2', points: 2.22, location: 'location2', type: 'WANT'}
-      ]
-    }))
+    let ads = [
+      {createdAt: '2018-02-13T12:30Z', title: 'title1', points: 1.11, location: 'location1', type: 'GIVE'},
+      {createdAt: '2018-02-23T15:40Z', title: 'title2', points: 2.22, location: 'location2', type: 'WANT'}
+    ]
 
-    let wrapper = mount(AdList)
+    let wrapper = mount(AdList, {propsData: {ads: ads}})
 
     setTimeout(() => {
       let ads = wrapper.findAll('.ad')

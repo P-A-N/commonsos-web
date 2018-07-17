@@ -70,28 +70,12 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
   import AdCreate from '@/components/AdCreate'
   import Avatar from '@/components/Avatar'
 
   export default {
     name: 'AdList',
     components: {AdCreate, Avatar},
-    created() {
-      this.loadAds()
-    },
-    data() {
-      return {
-        ads: [],
-      }
-    },
-    methods: {
-      loadAds() {
-        gateway.get('/ads').then(r => this.ads = r.data)
-      },
-      filter(pattern) {
-        gateway.get('/ads', {params: {filter: pattern}}).then(r => this.ads = r.data)
-      }
-    }
+    props: ['ads'],
   }
 </script>
