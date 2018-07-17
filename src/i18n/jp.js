@@ -16,15 +16,15 @@ export default {
   Community: {
     title: 'コミュニティ',
     newAdvertisementModalTitle: '新しく告知をする',
-    searchHint: 'Type text here'
+    searchHint: '検索テキストを入力してください'
   },
 
   AdList: {
     adType: {
-      WANT: 'WANT',
-      GIVE: 'GIVE'
+      WANT: 'ほしい',
+      GIVE: 'できる'
     },
-    noAds: 'No advertisements found'
+    noAds: '告知が存在しません。'
   },
 
   Wallet: {
@@ -35,34 +35,34 @@ export default {
   },
 
   Ad: {
-    addPhoto: 'Add photo',
+    addPhoto: '写真追加',
     sendMessage: 'メッセージ送信',
     pay: '支払いをする'
   },
 
   Messages: {
     title: 'メッセージ',
-    createGroupModalTitle: 'Create group chat',
-    noMessagesInThread: 'No messages yet'
+    createGroupModalTitle: 'グループチャットを作成する',
+    noMessagesInThread: 'メッセージがありません'
   },
 
   CreateGroup: {
-    title: 'Group title (optional)',
-    create: 'Create',
-    createHint: 'You can add more members later.'
+    title: 'グループチャットタイトル',
+    create: '作成',
+    createHint: 'メンバーはあとからでも追加できます。'
   },
 
   SelectGroupMembers: {
-    selectMembers: 'Type names of members',
-    noMembersSelected: 'Please select at least one member',
-    searchResultEmpty: 'Specified name not found',
+    selectMembers: '追加するメンバーの名前を入力してください',
+    noMembersSelected: 'メンバーを選んでください',
+    searchResultEmpty: 'メンバーが見つかりません',
   },
 
   EditGroup: {
-    owner: '(group owner)',
-    title: 'Title',
+    owner: '(グループオーナー)',
+    title: 'タイトル',
     saveHint: 'You can discard changes by clicking on the cross of upper toolbar',
-    save: 'Save'
+    save: '保存'
   },
 
   MessageThread: {
@@ -74,23 +74,23 @@ export default {
   },
 
   Profile: {
-    addPhoto: 'Add photo',
+    addPhoto: '写真追加',
     logout: 'ログアウト'
   },
 
   EditProfile: {
-    title: 'Edit profile',
-    firstName: 'First name',
-    lastName: 'Last name',
-    description: 'Describe yourself',
-    location: 'Enter your region',
+    title: 'プロフィール編集',
+    firstName: '名前',
+    lastName: '名字',
+    description: '自己紹介',
+    location: 'お住まいの地域',
   },
 
   OtherUserProfile: {
     makeTopup: '支払い２',
-    makePayment: 'Make payment',
+    makePayment: '支払いをする',
     makeTopupModalTitle: '支払い３',
-    makePaymentModalTitle: 'Make payment',
+    makePaymentModalTitle: '支払いをする',
     makeTopupDefaultDescription: 'commons incから自動付与',
   },
 
@@ -100,60 +100,60 @@ export default {
   },
 
   CreateAccount: {
-    title: 'Create account',
-    username: 'Username',
-    usernameHint: 'At least 4 characters',
-    password: 'Password',
-    passwordHint: 'At least 8 characters',
-    password2: 'Repeat password',
-    password2Hint: 'At least 8 characters',
-    firstName: 'First name',
-    lastName: 'Last name',
-    description: 'Describe yourself',
-    community: 'Community',
-    location: 'Enter your region',
-    createButton: 'Create',
-    createHint: 'You can add your avatar photo on the next screen',
+    title: 'アカウントを作成する',
+    username: 'ユーザー名',
+    usernameHint: '４文字以上にしてください',
+    password: 'パスワード',
+    passwordHint: '８文字以上にしてください',
+    password2: 'パスワード確認',
+    password2Hint: '８文字以上にしてください',
+    firstName: '名前',
+    lastName: '名字',
+    description: '自己紹介',
+    community: 'コミュニティ',
+    location: 'お住いの地域',
+    createButton: '作成',
+    createHint: '写真は次のページで追加できます。',
   },
 
   AppBottomNav: {
-    wallet: 'Wallet',
-    community: 'Community',
-    messages: 'Messages',
-    profile: 'Profile',
-    admin: 'Admin'
+    wallet: 'ウォレット',
+    community: 'コミュニティ',
+    messages: 'メッセージ',
+    profile: 'プロフィール',
+    admin: '管理者'
   },
 
   validation: {
     messages: {
       required: '必須項目',
       numeric: '半角数字のみ',
-      decimal: 'Value must be decimal',
+      decimal: '半角数字で入力してください',
       min: '短すぎます',
       email: 'Emailアドレスが間違っています',
       min_value: '値が小さすぎます',
       max_value: '値が大きすぎます',
-      _default: 'Value is not correct'
+      _default: '入力値が適切ではありません'
     }
   },
 
   error: {
-    outOfEther: 'To continue your community needs more ether',
-    usernameTaken: 'Username is already taken',
-    notEnoughFunds: 'Not enough funds'
+    outOfEther: 'コミュニティにCOMが不足しています',
+    usernameTaken: 'このユーザー名はすでに使われています',
+    notEnoughFunds: '残高が足りません'
   },
 
   AdCreate: {
-    type: 'Type',
+    type: 'タイプ',
     adType: {
-      WANT: 'Want',
-      GIVE: 'Give'
+      WANT: 'ほしい',
+      GIVE: 'できる'
     },
-    title: 'Title',
-    description: 'Description',
-    amount: 'Coins',
-    location: 'Location',
-    createHint: 'Your ad will be published. You can add photo on the next screen.',
-    createButton: 'Add'
+    title: 'タイトル',
+    description: '説明',
+    amount: 'コイン',
+    location: '地域',
+    createHint: 'あなたの告知が作成されます。写真を次のページで追加してください',
+    createButton: '追加'
   }
 }
