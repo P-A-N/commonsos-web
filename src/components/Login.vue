@@ -19,23 +19,25 @@
                       v-validate="'required'"
                       data-vv-name="password"/>
       </v-form>
-      <small>Kaga community:
-        <span v-for="(password, username) in kagaUsers">
-          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
-        </span>
-      </small>
-      <br>
-      <small>Shibuya community:
-        <span v-for="(password, username) in shibuyaUsers">
-          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
-        </span>
-      </small>
-      <br>
-      <small>Commons Inc community:
-        <span v-for="(password, username) in commonsIncUsers">
-          <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
-        </span>
-      </small>
+      <div v-if="showTestUsernames">
+        <small>Kaga community:
+          <span v-for="(password, username) in kagaUsers">
+            <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+          </span>
+        </small>
+        <br>
+        <small>Shibuya community:
+          <span v-for="(password, username) in shibuyaUsers">
+            <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+          </span>
+        </small>
+        <br>
+        <small>Commons Inc community:
+          <span v-for="(password, username) in commonsIncUsers">
+            <a href="#" @click.prevent="setUser(username, password)">{{username}}</a> |
+          </span>
+        </small>
+      </div>
     </v-card-text>
 
     <v-card-actions>
@@ -73,7 +75,8 @@
         },
         commonsIncUsers: {
           admin3: 'secret03',
-        }
+        },
+        showTestUsernames: process.env.NODE_ENV !== 'production',
       }
     },
     methods: {
