@@ -15,6 +15,7 @@ import EditProfile from '@/components/EditProfile'
 Vue.use(Router)
 
 let router = new Router({
+  mode: 'history',
   routes: [
     {path: '/', redirect: '/community'},
     {path: '/wallet', component: Wallet},
