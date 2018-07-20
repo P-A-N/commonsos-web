@@ -1,5 +1,5 @@
 import Ad from '@/components/Ad'
-import {mount} from '../test-utils'
+import {rmount} from '../test-utils'
 import gateway from '@/gateway'
 
 describe('Ad.vue', () => {
@@ -16,7 +16,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {propsData: {id: '1'}})
+    let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.text()).toContain('WANT')
@@ -36,7 +36,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {propsData: {id: '1'}})
+    let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.findAll('.message-button').length).toBe(1)
@@ -51,7 +51,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {propsData: {id: '1'}})
+    let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.findAll('.upload-photo-button').length).toBe(1)
@@ -66,7 +66,7 @@ describe('Ad.vue', () => {
         createdBy: {id: 22, avatarUrl: ''}
       }}))
 
-    let wrapper = mount(Ad, {propsData: {id: '1'}})
+    let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
     setTimeout(() => {
       expect(wrapper.findAll('.message-button').length).toBe(0)
@@ -89,7 +89,7 @@ describe('Ad.vue', () => {
     it('is present in own ad', function (done) {
       adWithPropertiesOwnAndPhoto(true, '/photo')
 
-      let wrapper = mount(Ad, {propsData: {id: '1'}})
+      let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
       setTimeout(() => {
         expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('/photo')
@@ -100,7 +100,7 @@ describe('Ad.vue', () => {
     it('is present in other user ad ad', function (done) {
       adWithPropertiesOwnAndPhoto(false, '/photo')
 
-      let wrapper = mount(Ad, {propsData: {id: '1'}})
+      let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
       setTimeout(() => {
         expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('/photo')
@@ -111,7 +111,7 @@ describe('Ad.vue', () => {
     it('is missing in own ad', function (done) {
       adWithPropertiesOwnAndPhoto(true, '')
 
-      let wrapper = mount(Ad, {propsData: {id: '1'}})
+      let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
       setTimeout(() => {
         expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('')
@@ -122,7 +122,7 @@ describe('Ad.vue', () => {
     it('is missing in other user ad', function (done) {
       adWithPropertiesOwnAndPhoto(false, '')
 
-      let wrapper = mount(Ad, {propsData: {id: '1'}})
+      let wrapper = rmount(Ad, {propsData: {id: '1'}})
 
       setTimeout(() => {
         expect(wrapper.vm.adPhotoOrPlaceHolder()).toBe('/static/temp/ad-placeholder.png')

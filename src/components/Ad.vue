@@ -133,10 +133,10 @@
   export default {
     name: 'Ad',
     components: {AppToolbar, Avatar, MessageThread, UploadPhoto},
-    created() {
-      gateway.get(`/ads/${this.id}`).then(r => this.ad = Object.assign({photoUrl:''}, r.data))
-    },
     props: ['id', 'closeModal'],
+    beforeRouteEnter(to, from, next) {
+      gateway.get(`/ads/${to.params.id}`).then(r => {next(vm => vm.ad = Object.assign({photoUrl:''}, r.data))})
+    },
     data() {
       return {
         ad: null
