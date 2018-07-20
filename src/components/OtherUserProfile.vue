@@ -1,7 +1,7 @@
 <template>
   <div v-if="otherUser" >
     <v-card>
-      <v-card-media :src="otherUser.avatarUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPlkwhBse_JCK37_0WA3m_PHUpFncOVLM0s0c4cCqpV27UteuJ'"
+      <v-card-media :src="otherUser.avatarUrl || '/static/avatar-placeholder.png'"
                     height="250px">
         <v-layout column
                   class="media card-image-gradient">
