@@ -34,8 +34,13 @@ export default {
     });
 
     push.on('notification', data => {
-      const inMessaging = router.currentRoute.path && router.currentRoute.path.startsWith("/message")
-      if (!inMessaging) notifications.i(data.message)
+      if (data.additionalData.type === 'new_message') {
+        const threadId = data.additionalData.threadId
+        const sameThreadVisible = router.currentRoute.path && router.currentRoute.path === `/messages/${threadId}`
+        if (!sameThreadVisible) notifications.i(data.message)
+      } else {
+        notifications.i(data.message)
+      }
     });
   },
 
