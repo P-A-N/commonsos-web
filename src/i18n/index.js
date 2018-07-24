@@ -6,6 +6,6 @@ import Vue from 'vue'
 Vue.use(VueI18n)
 
 export default new VueI18n({
-  locale: 'en',
+  locale: 'jp',
   messages: {en, jp},
 })
