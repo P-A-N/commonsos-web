@@ -73,7 +73,6 @@ describe('MakePayment.vue', () => {
     wrapper.find('button').trigger('click')
 
     setTimeout(() => {
-      expect(wrapper.vm.loading).toBeFalsy()
       expect(userService.loadUser).toHaveBeenCalled()
       expect(notifications.i).toHaveBeenCalledWith('Transfered 123.45 coins to Joe Dow')
       expect(gateway.post).toHaveBeenCalledWith('/transactions', {amount: '123.45', description: 'foo bar', beneficiaryId: 'beneficiary id'})
