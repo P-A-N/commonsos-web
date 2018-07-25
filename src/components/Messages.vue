@@ -6,7 +6,7 @@
       </v-btn>
     </app-toolbar>
 
-    <v-list three-line>
+    <v-list three-line v-if="messageThreads.length">
       <template v-for="(thread, index) in messageThreads">
         <v-list-tile class="thread" avatar :to="`/messages/${thread.id}`">
           <v-list-tile-avatar>
@@ -28,8 +28,8 @@
         </v-list-tile>
         <v-divider v-if="index + 1 < messageThreads.length" inset></v-divider>
       </template>
-
     </v-list>
+    <v-alert v-else type="info" value="true">{{$t('Messages.noMessageThreads')}}</v-alert>
 
     <app-bottom-nav/>
 
