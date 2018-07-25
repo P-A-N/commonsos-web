@@ -19,7 +19,7 @@
             </v-list-tile-title>
             <v-list-tile-sub-title style="line-height: 1.3;">
               <span v-if="thread.lastMessage">
-                <span class="text--primary">{{thread.parties[0].fullName}}</span> &ndash; {{thread.lastMessage.text}}
+                <span class="text--primary">{{userById(thread, thread.lastMessage.createdBy).fullName}}</span> &ndash; {{thread.lastMessage.text}}
               </span>
               <span v-else class="caption grey--text">{{$t('Messages.noMessagesInThread')}}</span>
             </v-list-tile-sub-title>
@@ -62,7 +62,12 @@
     created() {
       messagePoller.checkForUnreadThreads()
       gateway.get('/message-threads').then(r => this.messageThreads = r.data)
-    }
+    },
+    methods: {
+      userById(thread, userId) {
+        return (userId === thread.creator.id) ? thread.creator : thread.parties.find(user => user.id === userId)
+      }
+    },
   }
 </script>
 
