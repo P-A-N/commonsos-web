@@ -2,7 +2,7 @@
   "name": "commonsos-web",
   "version": "1.0.0",
   "description": "CommonsOS Web",
-  "author": "Kirill Klenski, Patrick Abner <kirill@codeborne.com, patrick@codeborne.com>",
+  "author": "Kirill Klenski, Tõnis Aruste <kirill@codeborne.com, tonis@codeborne.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
