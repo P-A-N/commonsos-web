@@ -18,7 +18,7 @@
 
     <v-divider></v-divider>
 
-    <div v-if="transactions != null">
+    <div>
       <v-list v-if="transactions.length" three-line class="pt-0">
         <template v-for="(transaction, index) in transactions">
           <v-list-tile :key="transaction.title" class="transaction">
@@ -54,9 +54,8 @@
           <v-divider v-if="index + 1 < transactions.length" inset></v-divider>
         </template>
       </v-list>
-      <v-alert v-else type="info" value="true">{{$t('Wallet.empty')}}</v-alert>
+      <v-alert v-else-if="!user.balance" type="info" value="true">{{$t('Wallet.empty')}}</v-alert>
     </div>
-    <div v-else>Loading....</div>
 
     <app-bottom-nav></app-bottom-nav>
 

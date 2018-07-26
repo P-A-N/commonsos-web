@@ -62,9 +62,7 @@
       </v-layout>
 
     </v-container>
-    <v-container v-else>
-      <small>{{$t('AdList.noAds')}}</small>
-    </v-container>
+    <v-alert v-else type="info" value="true">{{$t('AdList.noAds')}}</v-alert>
   </div>
 
 </template>

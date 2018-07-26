@@ -49,7 +49,7 @@
               notifications.i(`Transfered ${this.transaction.amount} coins to ${this.beneficiary.fullName}`)
               this.closeModal()
             })
-            .finally(() => this.loading = false)
+            .catch(() => this.loading = false)
         })
       }
     }

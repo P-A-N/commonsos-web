@@ -122,7 +122,7 @@
           this.loading = true
           userService.createAndLogin(this.user)
             .then(() => notifications.i('Welcome to Community OS'))
-            .finally(() => this.loading = false)
+            .catch(() => this.loading = false)
         })
       },
       setUser(username, password) {

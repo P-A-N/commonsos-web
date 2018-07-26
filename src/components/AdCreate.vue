@@ -55,8 +55,7 @@
                 this.closeModal()
                 this.$router.push(`/community/ad/${r.data.id}`)
               })
-              .catch(error => console.log(error))
-              .finally(() => this.loading = false)
+              .catch(error => this.loading = false)
           })
         }
       }

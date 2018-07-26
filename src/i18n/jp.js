@@ -43,7 +43,8 @@ export default {
   Messages: {
     title: 'メッセージ',
     createGroupModalTitle: 'グループチャットを作成する',
-    noMessagesInThread: 'メッセージがありません'
+    noMessagesInThread: 'メッセージがありません',
+    noMessageThreads: 'No messages yet'
   },
 
   CreateGroup: {
