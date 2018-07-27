@@ -18,7 +18,7 @@
     },
     methods: {
       usePhoto() {
-        this.$refs.croppieRef.result({format: 'png'});
+        this.$refs.croppieRef.result({format: 'png', size: 'original'});
       },
       result(output) {
         this.$emit('cropped', output)
