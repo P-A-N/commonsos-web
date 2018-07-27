@@ -7,10 +7,9 @@
         </v-btn>
         <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <slot name="right" slot="default"/>
       </v-toolbar>
-
       <slot :close="close"></slot>
-
     </v-card>
   </v-dialog>
 </template>

@@ -4,12 +4,9 @@
       ref=croppieRef
       :enableOrientation="true"
       :enableExif="true"
-      :viewport="{ width: 300, height: 300}"
+      :viewport="{ width: 250, height: 250}"
       @result="result">
     </vue-croppie>
-    <div class="text-xs-center">
-      <v-btn @click="usePhoto">{{$t('CropPhoto.done')}}</v-btn>
-    </div>
   </div>
 </template>
 
@@ -32,7 +29,8 @@
 
 <style>
   div.cr-boundary {
-    width:auto !important;
+    width: auto !important;
+    height: 70vh !important;
   }
 </style>
 
