@@ -84,7 +84,7 @@
     },
     data() {
       return {
-        transactions: null,
+        transactions: [],
       }
     },
     methods: {
