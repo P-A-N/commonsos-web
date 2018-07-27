@@ -1,5 +1,5 @@
 import Wallet from '@/components/Wallet'
-import {rmount as mount} from '../test-utils'
+import {rmount} from '../test-utils'
 import gateway from '@/gateway'
 import Vue from 'vue'
 import VueMoment from 'vue-moment'
@@ -23,7 +23,7 @@ describe('Wallet.vue', () => {
     }))
     spyOn(userService, 'user').and.returnValue({})
 
-    let wrapper = mount(Wallet)
+    let wrapper = rmount(Wallet)
 
     expect(userService.loadUser).toHaveBeenCalled()
 
@@ -50,7 +50,7 @@ describe('Wallet.vue', () => {
     gateway.get.and.returnValue(Promise.resolve({data: []}))
     spyOn(userService, 'user').and.returnValue({id: 'user1'})
 
-    let wrapper = mount(Wallet)
+    let wrapper = rmount(Wallet)
 
     setTimeout(() => {
       expect(wrapper.findAll('.transaction').length).toBe(0)

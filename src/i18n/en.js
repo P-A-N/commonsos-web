@@ -40,6 +40,14 @@ export default {
     pay: 'Pay for service'
   },
 
+  UploadPhoto: {
+    resize: 'Resize photo'
+  },
+
+  CropPhoto: {
+    done: 'Use photo'
+  },
+
   Messages: {
     title: 'Messages',
     createGroupModalTitle: 'Create group chat',
