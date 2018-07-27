@@ -1,7 +1,10 @@
 <template>
   <div>
     <modal v-if="showCrop" :title="$t('UploadPhoto.resize')" @close="closeCropPhotoDialog">
-      <crop-photo slot-scope="modal" :url="selectedPhotoUrl" :orientation="orientation" :closeModal="modal.close" @cropped="cropped"></crop-photo>
+      <crop-photo ref="cropPhoto" slot-scope="modal" :url="selectedPhotoUrl" :orientation="orientation" :closeModal="modal.close" @cropped="cropped"></crop-photo>
+      <v-btn slot="right" icon @click="$refs.cropPhoto.usePhoto()">
+        <v-icon>check</v-icon>
+      </v-btn>
     </modal>
 
     <div @click="selectPhoto">
