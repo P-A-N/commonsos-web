@@ -40,6 +40,14 @@ export default {
     pay: '支払いをする'
   },
 
+  UploadPhoto: {
+    resize: 'Resize photo'
+  },
+
+  CropPhoto: {
+    done: 'Use photo'
+  },
+
   Messages: {
     title: 'メッセージ',
     createGroupModalTitle: 'グループチャットを作成する',
