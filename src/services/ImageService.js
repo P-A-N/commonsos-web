@@ -22,7 +22,7 @@ function resizeImageElement(image, maxSize) {
 }
 
 export default {
-  resizeImage(url, maxSize = 1024) {
+  resizeImage(url, maxSize = 1600) {
     return new Promise((resolve, reject) => {
       let image = new Image()
       image.src = url

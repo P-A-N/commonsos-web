@@ -4,7 +4,7 @@
       ref=croppieRef
       :enableOrientation="true"
       :enableExif="true"
-      :viewport="{ width: 250, height: 250}"
+      :viewport="{ width: 280, height: 210}"
       @result="result">
     </vue-croppie>
   </div>
