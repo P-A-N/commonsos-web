@@ -32,3 +32,12 @@ window.$router = router
 window.EXIF = Exif
 
 PushNotifications.init()
+
+window.confirm = function confirm(message) {
+  let iframe = document.createElement("IFRAME");
+  iframe.setAttribute("src", 'data:text/plain,');
+  document.documentElement.appendChild(iframe);
+  const confirmed = window.frames[0].window.confirm(message)
+  iframe.parentNode.removeChild(iframe);
+  return confirmed;
+}
