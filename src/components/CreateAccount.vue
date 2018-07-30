@@ -43,15 +43,15 @@
                       v-validate="'required|confirmed:password'"
                       data-vv-name="password2"/>
 
-        <v-text-field v-model="user.firstName" :label="$t('CreateAccount.firstName')" type="text"
-                      :error-messages="errors.collect('firstName')"
-                      v-validate="'required'"
-                      data-vv-name="firstName"/>
-
         <v-text-field v-model="user.lastName" :label="$t('CreateAccount.lastName')" type="text"
                       :error-messages="errors.collect('lastName')"
                       v-validate="'required'"
                       data-vv-name="lastName"/>
+
+        <v-text-field v-model="user.firstName" :label="$t('CreateAccount.firstName')" type="text"
+                      :error-messages="errors.collect('firstName')"
+                      v-validate="'required'"
+                      data-vv-name="firstName"/>
 
         <v-text-field v-model="user.description" :label="$t('CreateAccount.description')" type="text"/>
 

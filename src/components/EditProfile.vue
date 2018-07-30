@@ -14,15 +14,15 @@
     <form v-on:submit.prevent="submitChanges">
       <v-card-text>
 
-        <v-text-field v-model="localUser.firstName" :label="$t('EditProfile.firstName')" type="text"
-                      :error-messages="errors.collect('firstName')"
-                      v-validate="'required'"
-                      data-vv-name="firstName"/>
-
         <v-text-field v-model="localUser.lastName" :label="$t('EditProfile.lastName')" type="text"
                       :error-messages="errors.collect('lastName')"
                       v-validate="'required'"
                       data-vv-name="lastName"/>
+
+        <v-text-field v-model="localUser.firstName" :label="$t('EditProfile.firstName')" type="text"
+                      :error-messages="errors.collect('firstName')"
+                      v-validate="'required'"
+                      data-vv-name="firstName"/>
 
         <v-text-field v-model="localUser.description" :label="$t('EditProfile.description')" data-vv-name="description" type="text"/>
 
