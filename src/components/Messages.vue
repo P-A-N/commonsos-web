@@ -31,7 +31,7 @@
     </v-list>
     <v-alert v-else type="info" value="true">{{$t('Messages.noMessageThreads')}}</v-alert>
 
-    <app-bottom-nav/>
+    <app-bottom-nav></app-bottom-nav>
 
     <modal v-if="createGroupChatOptions" :title="$t('Messages.createGroupModalTitle')" @close="createGroupChatOptions = false">
       <create-group slot-scope="modal" :closeModal="modal.close"/>
