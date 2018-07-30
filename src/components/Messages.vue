@@ -59,9 +59,11 @@
         createGroupChatOptions: false
       }
     },
+    beforeRouteEnter(to, from, next) {
+      gateway.get('/message-threads').then(r => {next(vm => vm.messageThreads = r.data)})
+    },
     created() {
       messagePoller.checkForUnreadThreads()
-      gateway.get('/message-threads').then(r => this.messageThreads = r.data)
     },
     methods: {
       userById(thread, userId) {
