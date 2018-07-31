@@ -6,13 +6,11 @@ import VueMoment from 'vue-moment'
 import 'vuetify/dist/vuetify.css'
 import './assets/scss/main.scss'
 import Vuetify from 'vuetify'
-import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 import i18n from '@/i18n'
 import PushNotifications from '@/services/PushNotifications'
 import VueCroppie from 'vue-croppie';
 import Exif from 'exif-js';
 
-Vue.use(VuetifyGoogleAutocomplete, {apiKey: 'AIzaSyAQG-BHBT4-GHFDK0V5k-pkYQ2UT5834pw'});
 Vue.use(Vuetify)
 Vue.use(VeeValidate, {i18n: i18n})
 Vue.use(VueMoment)

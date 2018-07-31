@@ -67,13 +67,7 @@
           data-vv-name="community"
         ></v-select>
 
-        <vuetify-google-autocomplete
-          id="map"
-          append-icon="search"
-          :placeholder="$t('CreateAccount.location')"
-          country="jp"
-          types="(cities)"
-          v-model="user.location"/>
+        <v-text-field v-model="user.location" :label="$t('CreateAccount.location')" type="text"/>
       </v-form>
 
       </v-card-text>

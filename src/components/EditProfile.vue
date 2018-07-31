@@ -26,13 +26,7 @@
 
         <v-text-field v-model="localUser.description" :label="$t('EditProfile.description')" data-vv-name="description" type="text"/>
 
-        <vuetify-google-autocomplete
-          id="map"
-          append-icon="search"
-          :placeholder="$t('EditProfile.location')"
-          country="jp"
-          types="(cities)"
-          v-model="localUser.location"/>
+        <v-text-field v-model="localUser.location" :label="$t('EditProfile.location')" type="text"/>
 
       </v-card-text>
     </form>
@@ -44,14 +38,11 @@
   import gateway from '@/gateway'
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
   import userService from '@/services/UserService'
-  import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 
   export default {
     name: 'EditProfile',
     mixins: [LoggedInUserConsumerMixin],
-    components: {
-      AppToolbar, VuetifyGoogleAutocomplete
-    },
+    components: {AppToolbar},
     data() {
       return {
         localUser: {}

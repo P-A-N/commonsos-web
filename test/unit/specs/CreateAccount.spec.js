@@ -1,7 +1,6 @@
 import {mount} from '../test-utils'
 import CreateAccount from '@/components/CreateAccount'
 import userService from '@/services/UserService'
-import Vue from 'vue'
 import notifications from '@/services/notifications'
 import gateway from '@/gateway'
 
@@ -16,7 +15,6 @@ describe('CreateAccount.vue', () => {
   }
 
   beforeEach(() => {
-    Vue.component('vuetify-google-autocomplete', {template: '<div/>'})
     spyOn(gateway, 'get').and.returnValue(Promise.resolve({data: [{id: 'community id'}]}))
     wrapper = mount(CreateAccount)
   })
