@@ -31,6 +31,7 @@ let router = new Router({
     {path: '/admin', component: SearchUser},
     {path: '/login', component: Login},
     {path: '/create-account', component: CreateAccount},
+    {path: '*', redirect: '/'}
   ]
 });
 
