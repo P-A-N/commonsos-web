@@ -10,12 +10,23 @@ describe('SearchUser.vue', () => {
     wrapper = mount(SearchUser)
   })
 
+  afterEach(() => {
+    jasmine.clock().uninstall()
+  })
+
   it('searches users', (done) => {
+    jasmine.clock().install()
     wrapper.vm.filter = 'foo'
 
     wrapper.find('input').trigger('keyup')
 
+    jasmine.clock().tick(299)
+    expect(gateway.get).not.toHaveBeenCalled()
+    jasmine.clock().tick(1)
+    jasmine.clock().uninstall()
+
     setTimeout(() => {
+
       expect(wrapper.findAll('.user').at(0).text()).toContain('foo')
       expect(wrapper.findAll('.user').at(1).text()).toContain('foobar')
       expect(gateway.get).toHaveBeenCalledWith('/users?q=foo')
@@ -24,8 +35,12 @@ describe('SearchUser.vue', () => {
   })
 
   it('allows to see other user profile', (done) => {
+    jasmine.clock().install()
     wrapper.vm.filter = 'foo'
     wrapper.find('input').trigger('keyup')
+
+    jasmine.clock().tick(300)
+    jasmine.clock().uninstall()
 
     setTimeout(() => {
       spyOn(router, 'push')

@@ -6,7 +6,7 @@
 
     <div class="px-3">
       <v-form>
-        <v-text-field v-model="filter" @keyup="loadUsers()" label="Find user by name" type="text"/>
+        <v-text-field v-model="filter" @change="loadUsers()" @keyup="loadUsers()" label="Find user by name" type="text"/>
       </v-form>
     </div>
 
@@ -53,12 +53,14 @@
     data() {
       return {
         filter: null,
-        users: []
+        users: [],
+        debounceTimer: null
       }
     },
     methods: {
       loadUsers: function () {
-        gateway.get('/users?q=' + encodeURI(this.filter)).then(r => this.users = r.data)
+        clearTimeout(this.debounceTimer)
+        this.debounceTimer = setTimeout(() => gateway.get('/users?q=' + encodeURI(this.filter)).then(r => this.users = r.data), 300)
       },
       showProfile: function(user) {
         this.$router.push('/profile/'+user.id);
