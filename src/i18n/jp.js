@@ -79,7 +79,7 @@ export default {
     message: 'メッセージ',
     send: '送信',
     pay: '支払い',
-    makePaymentModalTitle: '支払いをする２'
+    makePaymentModalTitle: '支払いをする'
   },
 
   Profile: {
@@ -96,9 +96,9 @@ export default {
   },
 
   OtherUserProfile: {
-    makeTopup: '支払い２',
+    makeTopup: '支払い',
     makePayment: '支払いをする',
-    makeTopupModalTitle: '支払い３',
+    makeTopupModalTitle: '支払い',
     makePaymentModalTitle: '支払いをする',
     makeTopupDefaultDescription: 'commons incから自動付与',
   },
