@@ -12,9 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:4567/',
-        pathRewrite: {
-          '^/api': ''
+        target: 'https://app.test.commons.love/',
+        changeOrigin: true,
+        ws: true,
+        onProxyRes: proxyResponse => {
+            if (proxyResponse.headers['set-cookie']) {
+                const cookies = proxyResponse.headers['set-cookie'].map(cookie => cookie.replace(/;Secure/gi, ''));
+                proxyResponse.headers['set-cookie'] = cookies;
+            }
         }
       }
     },
@@ -51,10 +56,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../www/dist/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../www/dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
