@@ -10,7 +10,7 @@ export default {
     password: 'Password',
     createAccount: 'Create account',
     login: 'Login',
-    toggleLanguage: '日本語',
+    toggleLanguage: '日本語'
   },
 
   Community: {
@@ -64,7 +64,7 @@ export default {
   SelectGroupMembers: {
     selectMembers: 'Type names of members',
     noMembersSelected: 'Please select at least one member',
-    searchResultEmpty: 'Specified name not found',
+    searchResultEmpty: 'Specified name not found'
   },
 
   EditGroup: {
@@ -90,10 +90,14 @@ export default {
 
   EditProfile: {
     title: 'Edit profile',
+    username: 'ユーザー名',
+    emailAddress: 'メールアドレス',
     firstName: 'First name',
     lastName: 'Last name',
     description: 'Describe yourself',
     location: 'Enter your region',
+    deleteDialog: 'Your account will be deleted.\nAre you sure？',
+    cancel: 'Cancel'
   },
 
   OtherUserProfile: {
@@ -101,7 +105,7 @@ export default {
     makePayment: 'Make payment',
     makeTopupModalTitle: 'Top-up community member',
     makePaymentModalTitle: 'Make payment',
-    makeTopupDefaultDescription: 'Funds from municipality',
+    makeTopupDefaultDescription: 'Funds from municipality'
   },
 
   Payment: {
@@ -112,6 +116,8 @@ export default {
   CreateAccount: {
     title: 'Create account',
     username: 'Username',
+    email: 'Email',
+    emailHint: 'Email',
     usernameHint: 'At least 4 characters',
     password: 'Password',
     passwordHint: 'At least 8 characters',
@@ -165,5 +171,10 @@ export default {
     location: 'Location',
     createHint: 'Your ad will be published. You can add photo on the next screen.',
     createButton: 'Add'
+  },
+
+  AdEdit: {
+    updateButton: 'Update',
+    deleteButton: 'Delete'
   }
 }

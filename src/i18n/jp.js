@@ -10,7 +10,7 @@ export default {
     password: 'パスワード',
     createAccount: 'アカウント作成',
     login: 'ログイン',
-    toggleLanguage: 'English',
+    toggleLanguage: 'English'
   },
 
   Community: {
@@ -64,7 +64,7 @@ export default {
   SelectGroupMembers: {
     selectMembers: '追加するメンバーの名前を入力してください',
     noMembersSelected: 'メンバーを選んでください',
-    searchResultEmpty: 'メンバーが見つかりません',
+    searchResultEmpty: 'メンバーが見つかりません'
   },
 
   EditGroup: {
@@ -89,10 +89,14 @@ export default {
 
   EditProfile: {
     title: 'プロフィール編集',
+    username: 'ユーザー名',
+    emailAddress: 'メールアドレス',
     firstName: '名前',
     lastName: '名字',
     description: '自己紹介',
     location: 'お住まいの地域',
+    deleteDialog: 'アカウントを削除します。\nよろしいですか？',
+    cancel: 'キャンセル'
   },
 
   OtherUserProfile: {
@@ -100,7 +104,7 @@ export default {
     makePayment: '支払いをする',
     makeTopupModalTitle: '支払い',
     makePaymentModalTitle: '支払いをする',
-    makeTopupDefaultDescription: 'commons incから自動付与',
+    makeTopupDefaultDescription: 'commons incから自動付与'
   },
 
   Payment: {
@@ -111,6 +115,8 @@ export default {
   CreateAccount: {
     title: 'アカウントを作成する',
     username: 'ユーザー名',
+    email: 'メールアドレス',
+    emailHint: 'メールアドレス',
     usernameHint: '４文字以上にしてください',
     password: 'パスワード',
     passwordHint: '８文字以上にしてください',
@@ -164,5 +170,10 @@ export default {
     location: '地域',
     createHint: 'あなたの告知が作成されます。写真を次のページで追加してください',
     createButton: '追加'
+  },
+
+  AdEdit: {
+    updateButton: '更新',
+    deleteButton: '削除'
   }
 }
