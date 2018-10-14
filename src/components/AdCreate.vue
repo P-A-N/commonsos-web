@@ -16,7 +16,7 @@
                     :error-messages="errors.collect('description')"
                     v-validate="'required'"
                     data-vv-name="description"/>
-      <v-text-field v-model="ad.amount" :label="$t('AdCreate.amount')" type="text"
+      <v-text-field v-model="ad.points" :label="$t('AdCreate.points')" type="text"
                     :error-messages="errors.collect('reward')"
                     v-validate="'required|decimal'"
                     data-vv-name="reward"/>

@@ -44,6 +44,17 @@
           </v-layout>
 
           <v-btn
+            v-if="ad.own"
+            absolute
+            dark
+            fab
+            top
+            right
+            color="primary"
+            @click="editForAd(ad)">
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <v-btn
             v-if="!ad.own"
             absolute
             dark
@@ -116,6 +127,9 @@
 
       </v-card>
     </v-flex>
+    <modal v-if="editAd" :title="$t('Community.newAdvertisementModalTitle')" @close="closeCreateAdDialog">
+      <ad-edit slot-scope="modal" :closeModal="modal.close" :ad="ad"></ad-edit>
+    </modal>
   </v-layout>
   <div v-else>
     {{ $t('General.loadingData') }}
@@ -129,17 +143,27 @@
   import MessageThread from '@/components/MessageThread'
   import Avatar from '@/components/Avatar'
   import UploadPhoto from '@/components/UploadPhoto'
+  import Modal from '@/components/Modal'
+  import AdEdit from '@/components/AdEdit'
 
   export default {
     name: 'Ad',
-    components: {AppToolbar, Avatar, MessageThread, UploadPhoto},
+    components: {
+      AppToolbar,
+      Avatar,
+      MessageThread,
+      UploadPhoto,
+      Modal,
+      AdEdit
+    },
     props: ['id', 'closeModal'],
     beforeRouteEnter(to, from, next) {
       gateway.get(`/ads/${to.params.id}`).then(r => {next(vm => vm.ad = Object.assign({photoUrl:''}, r.data))})
     },
     data() {
       return {
-        ad: null
+        ad: null,
+        editAd: false,
       }
     },
     methods: {
@@ -155,6 +179,13 @@
       messageForAd(ad) {
         gateway.post(`/message-threads/for-ad/${this.id}`)
           .then(r => $router.push('/messages/'+r.data.id))
+      },
+      editForAd(ad) {
+        this.editAd = true
+      },
+      closeCreateAdDialog() {
+        this.createAd = false
+        this.loadAds()
       }
     }
   }
