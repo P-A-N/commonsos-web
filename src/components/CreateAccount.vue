@@ -22,6 +22,13 @@
                       min="4"
                       counter="50"/>
 
+        <v-text-field prepend-icon="email" v-model="user.emailAddress" :label="$t('CreateAccount.email')" type="email"
+                      :error-messages="errors.collect('emailAddress')"
+                      v-validate="'required|email'"
+                      data-vv-name="email"
+                      :hint="$t('CreateAccount.emailHint')"
+                      counter="50"/>
+
         <v-text-field prepend-icon="lock" v-model="user.password" :label="$t('CreateAccount.password')"
                       :error-messages="errors.collect('password')"
                       :hint="$t('CreateAccount.passwordHint')"
@@ -64,6 +71,7 @@
           single-line
           :error-messages="errors.collect('community')"
           v-validate="'required'"
+          
           data-vv-name="community"
         ></v-select>
 
@@ -96,12 +104,15 @@
         communities: [],
         user: {
           username: null,
+          emailAddress: null,
           password: null,
           firstName: null,
           lastName: null,
           description: null,
           location: null,
-          communityId: null
+          communityId: null,
+
+          //waitUntilCompleted: false
         },
         password2: null,
         hidePassword: true,
@@ -114,6 +125,7 @@
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
           this.loading = true
+          //this.user.waitUntilCompleted = true
           userService.createAndLogin(this.user)
             .then(() => notifications.i('Welcome to Community OS'))
             .catch(() => this.loading = false)
