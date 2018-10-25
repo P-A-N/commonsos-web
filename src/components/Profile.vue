@@ -38,7 +38,7 @@
       >
         <v-layout column>
           <div class="headline">
-            {{user.fullName}}
+            {{user.username}}
           </div>
           <div>{{user.description}}</div>
         </v-layout>
@@ -95,25 +95,24 @@
 </template>
 
 <script>
-  import UploadPhoto from '@/components/UploadPhoto'
-  import AppToolbar from '@/components/AppToolbar'
-  import AppBottomNav from "@/components/AppBottomNav";
-  import Avatar from '@/components/Avatar'
-  import userService from '@/services/UserService'
-  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
+import UploadPhoto from "@/components/UploadPhoto";
+import AppToolbar from "@/components/AppToolbar";
+import AppBottomNav from "@/components/AppBottomNav";
+import Avatar from "@/components/Avatar";
+import userService from "@/services/UserService";
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
 
-  export default {
-    mixins: [LoggedInUserConsumerMixin],
-    components: {
-      AppToolbar,
-      AppBottomNav,
-      Avatar,
-      UploadPhoto
-    },
-    methods: {
-      reloadUser: () => userService.loadUser(),
-      logout: () => userService.logout(),
-    }
-
+export default {
+  mixins: [LoggedInUserConsumerMixin],
+  components: {
+    AppToolbar,
+    AppBottomNav,
+    Avatar,
+    UploadPhoto
+  },
+  methods: {
+    reloadUser: () => userService.loadUser(),
+    logout: () => userService.logout()
   }
+};
 </script>

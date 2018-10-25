@@ -22,8 +22,8 @@
                       min="4"
                       counter="50"/>
 
-        <v-text-field prepend-icon="email" v-model="user.emailAddress" :label="$t('CreateAccount.email')" type="email"
-                      :error-messages="errors.collect('emailAddress')"
+        <v-text-field prepend-icon="email" v-model="user.emailAddress" :label="$t('CreateAccount.email')" type="text"
+                      :error-messages="errors.collect('email')"
                       v-validate="'required|email'"
                       data-vv-name="email"
                       :hint="$t('CreateAccount.emailHint')"
@@ -64,14 +64,14 @@
 
         <v-select
           :items="communities"
-          v-model="user.communityId"
+          v-model="user.communityList"
           item-text="name"
           item-value="id"
           :label="$t('CreateAccount.community')"
           single-line
           :error-messages="errors.collect('community')"
           v-validate="'required'"
-          
+          multiple=""
           data-vv-name="community"
         ></v-select>
 
@@ -92,55 +92,57 @@
 </template>
 
 <script>
-  import userService from '@/services/UserService'
-  import notifications from '@/services/notifications'
-  import gateway from '@/gateway'
+import userService from "@/services/UserService";
+import notifications from "@/services/notifications";
+import gateway from "@/gateway";
 
-  export default {
-    name: 'CreateAccount',
-    data() {
-      return {
-        loading: false,
-        communities: [],
-        user: {
-          username: null,
-          emailAddress: null,
-          password: null,
-          firstName: null,
-          lastName: null,
-          description: null,
-          location: null,
-          communityId: null,
+export default {
+  name: "CreateAccount",
+  data() {
+    return {
+      loading: false,
+      communities: [],
+      user: {
+        username: null,
+        emailAddress: null,
+        password: null,
+        firstName: null,
+        lastName: null,
+        description: null,
+        location: null,
+        communityList: []
 
-          //waitUntilCompleted: false
-        },
-        password2: null,
-        hidePassword: true,
-        error: null,
-      }
-    },
-    methods: {
-      createAccount() {
-        this.error = ''
-        this.$validator.validateAll().then((valid) => {
-          if (!valid) return
-          this.loading = true
-          //this.user.waitUntilCompleted = true
-          userService.createAndLogin(this.user)
-            .then(() => notifications.i('Welcome to Community OS'))
-            .catch(() => this.loading = false)
-        })
+        //waitUntilCompleted: false
       },
-      setUser(username, password) {
-        this.username = username
-        this.password = password
-      }
-    },
-    created() {
-      gateway.get('/communities').then(r => {
-        this.communities = r.data
-        if (this.communities.length === 1) this.user.communityId = this.communities[0].id;
+      password2: null,
+      hidePassword: true,
+      error: null
+    };
+  },
+  methods: {
+    createAccount() {
+      this.error = "";
+      this.$validator.validateAll().then(valid => {
+        if (!valid) return;
+        this.loading = true;
+        //this.user.waitUntilCompleted = true
+        userService
+          .createAndLogin(this.user)
+          .then(() => notifications.i("Welcome to Community OS"))
+          .catch(() => (this.loading = false));
       });
+    },
+    setUser(username, password) {
+      this.username = username;
+      this.password = password;
     }
+  },
+  created() {
+    gateway.get("/communities").then(r => {
+      this.communities = r.data;
+      if (this.communities.length === 1)
+        this.user.communityList[0] = this.communities[0].id;
+    });
   }
+};
 </script>

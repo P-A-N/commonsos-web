@@ -8,7 +8,7 @@
     chips
     deletable-chips
 
-    item-text="fullName"
+    item-text="username"
     item-value="id"
 
     return-object
@@ -27,7 +27,7 @@
         @input="data.parent.selectItem(data.item)">
 
         <avatar :user="data.item"/>
-        {{ data.item.fullName }}
+        {{ data.item.username }}
       </v-chip>
     </template>
 
@@ -40,7 +40,7 @@
           <avatar :user="data.item"/>
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title v-html="data.item.fullName"></v-list-tile-title>
+          <v-list-tile-title v-html="data.item.username"></v-list-tile-title>
         </v-list-tile-content>
       </template>
     </template>

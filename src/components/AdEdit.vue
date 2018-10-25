@@ -65,49 +65,60 @@
       <small style="text-align: right; color: #555; padding-right: 20px;">{{$t('AdCreate.createHint')}}</small>
       <v-spacer/>
       <v-btn right color="primary" type="submit" :disabled="loading">{{$t('AdEdit.updateButton')}}</v-btn>
-      <v-btn right color="red" type="submit" :disabled="loading">{{$t('AdEdit.deleteButton')}}</v-btn>
+      <v-btn right color="red" @click="onClickDelete()" :disabled="loading">{{$t('AdEdit.deleteButton')}}</v-btn>
     </v-card-actions>
   </form>
 </template>
 
   <script>
-    import gateway from '@/gateway'
-    import UploadPhoto from '@/components/UploadPhoto'
+import gateway from "@/gateway";
+import UploadPhoto from "@/components/UploadPhoto";
 
-    export default {
-      name: 'AdEdit',
-      props: ['closeModal', 'ad'],
-      components: {
-        UploadPhoto
-      },
-      data() {
-        return {
-          loading: false
-        }
-      },
-      methods: {
-        adPhotoOrPlaceHolder() {
-          if (!this.ad) return ''
-          if (this.ad.photoUrl) return this.ad.photoUrl
-          if (!this.ad.own) return '/static/temp/ad-placeholder.png'
-          return ''
-        },
-        photoUploaded(url) {
-          this.ad.photoUrl = url
-        },
-        editAd() {
-          this.$validator.validateAll().then((valid) => {
-            if (!valid) return
-            this.loading = true
-            this.a
-            gateway.post(`/ads/${this.ad.id}`, this.ad)
-              .then((r) => {
-                this.closeModal()
-                //this.$router.push(`/community/ad/${r.data.id}`)
-              })
-              .catch(error => this.loading = false)
+export default {
+  name: "AdEdit",
+  props: ["closeModal", "ad"],
+  components: {
+    UploadPhoto
+  },
+  data() {
+    return {
+      loading: false
+    };
+  },
+  methods: {
+    adPhotoOrPlaceHolder() {
+      if (!this.ad) return "";
+      if (this.ad.photoUrl) return this.ad.photoUrl;
+      if (!this.ad.own) return "/static/temp/ad-placeholder.png";
+      return "";
+    },
+    photoUploaded(url) {
+      this.ad.photoUrl = url;
+    },
+    editAd() {
+      this.$validator.validateAll().then(valid => {
+        if (!valid) return;
+        this.loading = true;
+        gateway
+          .post(`/ads/${this.ad.id}`, this.ad)
+          .then(r => {
+            this.closeModal();
+            //this.$router.push(`/community/ad/${r.data.id}`)
           })
-        }
-      }
+          .catch(error => (this.loading = false));
+      });
+    },
+    onClickDelete() {
+      this.loading = true;
+      gateway
+        .post(`/ads/${this.ad.id}/delete`, this.ad)
+        .then(r => {
+          this.loading = false;
+          this.closeModal();
+          this.$router.push(`/community/`);
+        })
+        .catch(error => (this.loading = false));
     }
-  </script>
+  }
+};
+</script>

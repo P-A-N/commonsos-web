@@ -21,7 +21,7 @@
           style="position: relative"
       >
         <v-layout column>
-          <div class="headline">{{otherUser.fullName}}</div>
+          <div class="headline">{{otherUser.username}}</div>
           <div>{{otherUser.description}}</div>
         </v-layout>
       </v-card-title>
@@ -57,8 +57,11 @@
              :title="user.admin ? $t('OtherUserProfile.makeTopupModalTitle') : $t('OtherUserProfile.makePaymentModalTitle')"
              @close="paymentDone()">
         <make-payment :amount="user.admin ? '2000' : ''"
+                      :communityId="communityId"
+                      :adId="adId"
                       :beneficiary="otherUser"
                       :description="user.admin ? $t('OtherUserProfile.makeTopupDefaultDescription') : ''"
+                      :user="user"
                       slot-scope="modal" :closeModal="modal.close"/>
       </modal>
     </v-container>
@@ -74,7 +77,7 @@
   import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
 
   export default {
-    props: ['userId'],
+    props: ['userId', 'communityId', 'adId'],
     mixins: [LoggedInUserConsumerMixin],
     components: {
       AppToolbar, Avatar, MakePayment, Modal

@@ -102,7 +102,7 @@
 
         <v-container fluid grid-list-lg>
 
-          <v-card flat :to="`/profile/${ad.createdBy.id}`">
+          <v-card flat :to="`/profile/${ad.createdBy.id}/${ad.communityId}/${ad.id}`">
             <v-layout align-center row>
 
               <v-flex ml-3 xs2>
@@ -110,7 +110,7 @@
               </v-flex>
 
               <v-flex my-2>
-                <div class="title">{{ad.createdBy.fullName}}</div>
+                <div class="title">{{ad.createdBy.username}}</div>
               </v-flex>
 
               <v-flex mr-3 xs1>
@@ -138,55 +138,59 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
-  import AppToolbar from '@/components/AppToolbar'
-  import MessageThread from '@/components/MessageThread'
-  import Avatar from '@/components/Avatar'
-  import UploadPhoto from '@/components/UploadPhoto'
-  import Modal from '@/components/Modal'
-  import AdEdit from '@/components/AdEdit'
+import gateway from "@/gateway";
+import AppToolbar from "@/components/AppToolbar";
+import MessageThread from "@/components/MessageThread";
+import Avatar from "@/components/Avatar";
+import UploadPhoto from "@/components/UploadPhoto";
+import Modal from "@/components/Modal";
+import AdEdit from "@/components/AdEdit";
 
-  export default {
-    name: 'Ad',
-    components: {
-      AppToolbar,
-      Avatar,
-      MessageThread,
-      UploadPhoto,
-      Modal,
-      AdEdit
+export default {
+  name: "Ad",
+  components: {
+    AppToolbar,
+    Avatar,
+    MessageThread,
+    UploadPhoto,
+    Modal,
+    AdEdit
+  },
+  props: ["id", "closeModal"],
+  beforeRouteEnter(to, from, next) {
+    gateway.get(`/ads/${to.params.id}`).then(r => {
+      next(vm => (vm.ad = Object.assign({ photoUrl: "" }, r.data)));
+    });
+  },
+  data() {
+    return {
+      ad: null,
+      editAd: false
+    };
+  },
+  methods: {
+    adPhotoOrPlaceHolder() {
+      if (!this.ad) return "";
+      if (this.ad.photoUrl) return this.ad.photoUrl;
+      if (!this.ad.own) return "/static/temp/ad-placeholder.png";
+      return "";
     },
-    props: ['id', 'closeModal'],
-    beforeRouteEnter(to, from, next) {
-      gateway.get(`/ads/${to.params.id}`).then(r => {next(vm => vm.ad = Object.assign({photoUrl:''}, r.data))})
+    photoUploaded(url) {
+      this.ad.photoUrl = url;
     },
-    data() {
-      return {
-        ad: null,
-        editAd: false,
-      }
+    messageForAd(ad) {
+      gateway
+        .post(`/message-threads/for-ad/${this.id}`)
+        .then(r => $router.push("/messages/" + r.data.id));
     },
-    methods: {
-      adPhotoOrPlaceHolder() {
-        if (!this.ad) return ''
-        if (this.ad.photoUrl) return this.ad.photoUrl
-        if (!this.ad.own) return '/static/temp/ad-placeholder.png'
-        return ''
-      },
-      photoUploaded(url) {
-        this.ad.photoUrl = url
-      },
-      messageForAd(ad) {
-        gateway.post(`/message-threads/for-ad/${this.id}`)
-          .then(r => $router.push('/messages/'+r.data.id))
-      },
-      editForAd(ad) {
-        this.editAd = true
-      },
-      closeCreateAdDialog() {
-        this.createAd = false
-        this.loadAds()
-      }
-    }
+    editForAd(ad) {
+      this.editAd = true;
+    },
+    closeCreateAdDialog() {
+      this.createAd = false;
+      this.loadAds();
+    },
+    onClickAd() {}
   }
+};
 </script>

@@ -9,7 +9,7 @@
                     :error-messages="errors.collect('amount')"
                     v-validate="'required|decimal'"
                     data-vv-name="amount"/>
-      <v-text-field name="beneficiary" v-model="beneficiary.fullName" label="Beneficiary" type="text" readonly/>
+      <v-text-field name="beneficiary" v-model="beneficiary.username" label="Beneficiary" type="text" readonly/>
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
@@ -24,15 +24,19 @@
   import notifications from '@/services/notifications'
 
   export default {
-    props: ['closeModal', 'description', 'amount', 'beneficiary', 'ad'],
+    props: ['closeModal', 'communityId', 'adId', 'description', 'amount', 'beneficiary', 'user'],
     name: 'MakePayment',
     data() {
       return {
         loading: false,
         transaction: {
+          communityId: this.communityId,
+          adId: this.adId,
           description: this.description,
           amount: this.amount,
-          beneficiaryId: this.beneficiary.id
+          beneficiaryId: this.beneficiary.id,
+          userId: this.user.id,
+          username: this.user.username
         }
       }
     },
@@ -40,16 +44,18 @@
       makePayment() {
         this.$validator.validateAll().then((valid) => {
           if (!valid) return
-          if (!confirm(`Transfer ${this.transaction.amount} coins to ${this.beneficiary.fullName}?`)) return
-          if (this.ad) this.transaction.adId = this.ad.id
+          if (!confirm(`Transfer ${this.transaction.amount} coins to ${this.beneficiary.username}?`)) return
+          // if (this.ad) this.transaction.adId = this.ad.id
           this.loading = true
           gateway.post('/transactions', this.transaction)
             .then(() => {
               userService.loadUser()
-              notifications.i(`Transfered ${this.transaction.amount} coins to ${this.beneficiary.fullName}`)
+              notifications.i(`Transfered ${this.transaction.amount} coins to ${this.beneficiary.username}`)
               this.closeModal()
             })
-            .catch(() => this.loading = false)
+            .catch((e) => {
+              this.loading = false
+            })
         })
       }
     }

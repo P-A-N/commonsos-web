@@ -69,50 +69,55 @@
 </template>
 
 <script>
-  import AppToolbar from '@/components/AppToolbar'
-  import gateway from '@/gateway'
-  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
-  import userService from '@/services/UserService'
+import AppToolbar from "@/components/AppToolbar";
+import gateway from "@/gateway";
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
+import userService from "@/services/UserService";
 
-  export default {
-    name: 'EditProfile',
-    mixins: [LoggedInUserConsumerMixin],
-    components: {AppToolbar},
-    data() {
-      return {
-        localUser: {},
-        loading: false,
-        dialog: false,
-      }
+export default {
+  name: "EditProfile",
+  mixins: [LoggedInUserConsumerMixin],
+  components: { AppToolbar },
+  data() {
+    return {
+      localUser: {},
+      loading: false,
+      dialog: false
+    };
+  },
+  methods: {
+    submitChanges() {
+      this.$validator.validateAll().then(valid => {
+        if (!valid) return;
+        this.loading = true;
+        gateway
+          .post(`/users/${this.localUser.id}`, this.localUser)
+          .then(r => userService.setUser(r.data))
+          .then(() => {
+            this.loading = false;
+            this.$router.back();
+          });
+      });
     },
-    methods: {
-      submitChanges() {
-        this.$validator.validateAll().then((valid) => {
-          if (!valid) return
-          this.loading = true
-          gateway.post(`/users/${this.localUser.id}`, this.localUser)
-            .then(r => userService.setUser(r.data))
-            .then(() => {
-              this.loading = false
-              this.$router.back()
-            })
-        })
-      },
-      onDeleteAccount() {
-        this.dialog = false
-        alert('deleting')
-      }
-    },
-    created() {
-      this.localUser = {
-        id: this.user.id,
-        username: this.user.username,
-        emailAddress : this.user.emailAddress,
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
-        description: this.user.description,
-        location: this.user.location
-      }
+    onDeleteAccount() {
+      this.loading = true;
+      gateway.post(`/users/${this.localUser.id}/delete`).then(r => {
+        this.loading = false;
+        this.dialog = false;
+        userService.logout();
+      });
     }
+  },
+  created() {
+    this.localUser = {
+      id: this.user.id,
+      username: this.user.username,
+      emailAddress: this.user.emailAddress,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      description: this.user.description,
+      location: this.user.location
+    };
   }
+};
 </script>

@@ -6,7 +6,7 @@
           <v-avatar>
             <img :src="user.avatarUrl">
           </v-avatar>
-          {{ user.fullName }}
+          {{ user.username }}
         </v-chip>
         <small>Group creator</small>
       </div>

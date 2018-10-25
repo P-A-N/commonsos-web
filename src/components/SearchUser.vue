@@ -19,7 +19,7 @@
             </v-flex>
 
             <v-flex>
-              <div class="title">{{user.fullName}}</div>
+              <div class="title">{{user.username}}</div>
             </v-flex>
 
             <v-flex mr-3 xs1>
