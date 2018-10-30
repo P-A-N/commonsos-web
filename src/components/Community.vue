@@ -113,7 +113,11 @@ export default {
     }
   },
   created() {
-    userService.loadUser();
+    if (
+      !String(this.$router.currentRoute.path).startsWith("/create-account/")
+    ) {
+      userService.loadUser().then(() => messagePoller.start());
+    }
   }
 };
 </script>

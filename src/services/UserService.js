@@ -12,16 +12,15 @@ let instance = {
   login(username, password) {
     return gateway.post("/login", { username, password }).then(r => {
       this.setUser(r.data);
-      //TODO check email verified
       messagePoller.start();
-      window.$router.push("/");
+      window.$router.push("/community");
     });
   },
 
   createAndLogin(newUser) {
     return gateway.post("/create-account", newUser).then(r => {
-      this.setUser(newUser);
-      messagePoller.start();
+      // this.setUser(newUser);
+      // messagePoller.start();
       window.$router.push("/email-verification");
     });
   },

@@ -11,23 +11,26 @@
 </template>
 
 <script>
-  import userService from '@/services/UserService'
-  import GlobalNotification from '@/components/GlobalNotification'
-  import AppToolbar from "./components/AppToolbar";
-  import AppBottomNav from "./components/AppBottomNav";
-  import Loader from "./components/Loader";
-  import messagePoller from '@/services/MessagePoller'
+import userService from "@/services/UserService";
+import GlobalNotification from "@/components/GlobalNotification";
+import AppToolbar from "./components/AppToolbar";
+import AppBottomNav from "./components/AppBottomNav";
+import Loader from "./components/Loader";
+import messagePoller from "@/services/MessagePoller";
 
-  export default {
-
-    components: {
-      AppToolbar,
-      AppBottomNav,
-      GlobalNotification,
-      Loader
-    },
-    created() {
-      userService.loadUser().then(() => messagePoller.start())
+export default {
+  components: {
+    AppToolbar,
+    AppBottomNav,
+    GlobalNotification,
+    Loader
+  },
+  created() {
+    if (
+      !String(this.$router.currentRoute.path).startsWith("/create-account/")
+    ) {
+      userService.loadUser().then(() => messagePoller.start());
     }
   }
+};
 </script>
