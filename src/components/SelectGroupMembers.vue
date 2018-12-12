@@ -49,50 +49,51 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
-  import Avatar from '@/components/Avatar'
+import gateway from "@/gateway";
+import Avatar from "@/components/Avatar";
 
-  export default {
-    name: 'SelectGroupMembers',
-    props: ['existingMembers', 'memberSelected'],
-    components: {Avatar},
-    data() {
-      return {
-        users: [],
-        filter: '',
-        search: null,
-        selected: []
-      }
+export default {
+  name: "SelectGroupMembers",
+  props: ["existingMembers", "memberSelected", "communityId"],
+  components: { Avatar },
+  data() {
+    return {
+      users: [],
+      filter: "",
+      search: null,
+      selected: []
+    };
+  },
+  watch: {
+    search(val) {
+      val && this.communityId && this.loadUsers(val);
     },
-    watch: {
-      search(val) {
-        val && this.loadUsers(val)
-      },
-      'selected': function (val) {
-        const finalSet = this.includeExistingUsers(val)
-        if (this.memberSelected) this.memberSelected(finalSet)
-      }
-    },
-    methods: {
-      isNewMember: function (member) {
-        return !this.existingMembers.find(em => em.id === member.id)
-      },
-      includeExistingUsers: function (val) {
-        this.existingMembers.forEach(em => {
-          if (!val.find(i => i.id === em.id)) val.push(em)
-        })
-        return val;
-      },
-      loadUsers: function (query) {
-        gateway.get('/users?q=' + encodeURI(query)).then(r => {
-          this.users = r.data
-
-        })
-      }
-    },
-    created() {
-      this.selected = this.existingMembers
-      this.users = this.existingMembers
+    selected: function(val) {
+      const finalSet = this.includeExistingUsers(val);
+      if (this.memberSelected) this.memberSelected(finalSet);
     }
+  },
+  methods: {
+    isNewMember: function(member) {
+      return !this.existingMembers.find(em => em.id === member.id);
+    },
+    includeExistingUsers: function(val) {
+      this.existingMembers.forEach(em => {
+        if (!val.find(i => i.id === em.id)) val.push(em);
+      });
+      return val;
+    },
+    loadUsers: function(query) {
+      gateway
+        .get(`/users?communityId=${this.communityId}&q=` + encodeURI(query))
+        .then(r => {
+          this.users = r.data;
+        });
+    }
+  },
+  created() {
+    this.selected = this.existingMembers;
+    this.users = this.existingMembers;
   }
+};
 </script>

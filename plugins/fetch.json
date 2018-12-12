@@ -6,5 +6,21 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-app-launcher": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/nchutchind/cordova-plugin-app-launcher.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-queries-schemes": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-queries-schemes"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

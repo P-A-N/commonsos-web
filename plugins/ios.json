@@ -9,6 +9,12 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "love.commons.microwork.android"
+    },
+    "cordova-plugin-app-launcher": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-queries-schemes": {
+      "PACKAGE_NAME": "love.commons.microwork.android"
     }
   },
   "dependent_plugins": {}

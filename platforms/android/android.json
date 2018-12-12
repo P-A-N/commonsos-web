@@ -9,6 +9,10 @@
         "parents": {
           "/*": [
             {
+              "xml": "<feature name=\"Launcher\"><param name=\"android-package\" value=\"com.hutchind.cordova.plugins.launcher.Launcher\" /></feature>",
+              "count": 1
+            },
+            {
               "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             }
@@ -18,13 +22,30 @@
     }
   },
   "installed_plugins": {
+    "cordova-plugin-app-launcher": {
+      "PACKAGE_NAME": "app.commons.love"
+    },
+    "cordova-plugin-queries-schemes": {
+      "PACKAGE_NAME": "app.commons.love"
+    },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "love.commons.microwork.android"
+      "PACKAGE_NAME": "app.commons.love"
     }
   },
   "dependent_plugins": {},
-  "modules": [],
+  "modules": [
+    {
+      "id": "cordova-plugin-app-launcher.Launcher",
+      "file": "plugins/cordova-plugin-app-launcher/www/Launcher.js",
+      "pluginId": "cordova-plugin-app-launcher",
+      "clobbers": [
+        "plugins.launcher"
+      ]
+    }
+  ],
   "plugin_metadata": {
+    "cordova-plugin-app-launcher": "0.4.0",
+    "cordova-plugin-queries-schemes": "0.1.1",
     "cordova-plugin-whitelist": "1.3.3"
   }
 }

@@ -26,7 +26,7 @@
 
     <ad-list :ads="ads" v-if="!loading"/>
 
-    <app-bottom-nav></app-bottom-nav>
+    <app-bottom-nav :communityId="communityId"></app-bottom-nav>
 
     <modal v-if="createAd" :title="$t('Community.newAdvertisementModalTitle')" @close="closeCreateAdDialog">
       <ad-create slot-scope="modal" :closeModal="modal.close" :user="user"></ad-create>
@@ -88,7 +88,9 @@ export default {
     },
     filter(pattern) {
       gateway
-        .get(`/ads?communityId=${communityId}`, { params: { filter: pattern } })
+        .get(`/ads?communityId=${this.communityId}`, {
+          params: { filter: pattern }
+        })
         .then(r => (this.ads = r.data));
     },
     toggleSearchDialog() {
@@ -109,12 +111,17 @@ export default {
       this.loadAds(this.communityId);
     },
     changeCommunity(communityId) {
+      var adminId = this.user.communityList.filter(
+        item => item.id === communityId
+      )[0].adminUserId;
+      userService.setUserAdmin(adminId === this.user.id);
       this.loadAds(communityId);
     }
   },
   created() {
     if (
-      !String(this.$router.currentRoute.path).startsWith("/create-account/")
+      !String(this.$router.currentRoute.path).startsWith("/create-account/") &&
+      !String(this.$router.currentRoute.path).startsWith("/passwordreset/")
     ) {
       userService.loadUser().then(() => messagePoller.start());
     }

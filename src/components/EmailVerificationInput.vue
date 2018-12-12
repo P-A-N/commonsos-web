@@ -29,11 +29,20 @@ export default {
   },
   methods: {
     startApp() {
-      if (this.error) {
-        window.$router.push("/login");
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      if (/android/i.test(userAgent)) {
+        window.open(
+          "intent://app.commons.love/#Intent;scheme=launch;package=app.commons.love;S.content=WebContent;end"
+        );
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.open("commonsCustonUrl://");
       } else {
-        window.$router.push("/profile");
-        messagePoller.start();
+        if (this.error) {
+          window.$router.push("/login");
+        } else {
+          window.$router.push("/profile");
+          messagePoller.start();
+        }
       }
     }
   },
@@ -41,7 +50,7 @@ export default {
     gateway
       .post(`/create-account/${this.accessId}`)
       .then(r => {
-        this.setUser(r.data);
+        userService.setUser(r.data);
         this.loading = false;
         this.error = false;
       })

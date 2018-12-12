@@ -17,7 +17,7 @@
        under the License.
  */
 
-package love.commons.microwork.android;
+package app.commons.love;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

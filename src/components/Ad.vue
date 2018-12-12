@@ -102,7 +102,24 @@
 
         <v-container fluid grid-list-lg>
 
-          <v-card flat :to="`/profile/${ad.createdBy.id}/${ad.communityId}/${ad.id}`">
+          <v-card v-if="ad.own" flat to="/profile">
+            <v-layout align-center row>
+
+              <v-flex ml-3 xs2>
+                <avatar :user="ad.createdBy"/>
+              </v-flex>
+
+              <v-flex my-2>
+                <div class="title">{{ad.createdBy.username}}</div>
+              </v-flex>
+
+              <v-flex mr-3 xs1>
+                <v-icon>keyboard_arrow_right</v-icon>
+              </v-flex>
+            </v-layout>
+          </v-card>
+
+          <v-card v-if="!ad.own" flat :to="`/profile/${ad.createdBy.id}/${ad.communityId}/${ad.id}`">
             <v-layout align-center row>
 
               <v-flex ml-3 xs2>

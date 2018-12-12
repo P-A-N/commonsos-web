@@ -199,5 +199,9 @@ export default {
     pass: "パスワード",
     passConfirm: "パスワード（確認）",
     resetHint: "新しいパスワードが設定されました"
+  },
+
+  SearchUser: {
+    search: "Find user by name"
   }
 };

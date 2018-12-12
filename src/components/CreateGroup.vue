@@ -10,7 +10,19 @@
         </v-chip>
         <small>Group creator</small>
       </div>
-      <select-group-members :existing-members="[]" :member-selected="memberSelected"/>
+      <v-select
+        :items="user.communityList"
+        v-model="communityId"
+        item-text="name"
+        item-value="id"
+        :label="$t('CreateAccount.community')"
+        single-line
+        data-vv-name="community"
+        hide-details
+        v-validate="'required'"
+        v-on:change="changeCommunity"
+      ></v-select>
+      <select-group-members :existing-members="[]" :member-selected="memberSelected" :communityId="communityId"/>
       <v-text-field v-model="title" :label="$t('CreateGroup.title')" type="text"/>
     </v-card-text>
 
@@ -27,43 +39,53 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
-  import SelectGroupMembers from '@/components/SelectGroupMembers'
-  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
+import gateway from "@/gateway";
+import SelectGroupMembers from "@/components/SelectGroupMembers";
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
 
-  export default {
-    name: "CreateGroup",
-    mixins: [LoggedInUserConsumerMixin],
-    props: ['closeModal'],
-    components: {SelectGroupMembers},
-    data() {
-      return {
-        title: '',
-        users: [],
-        filter: '',
-        search: null,
-        selected: []
-      }
+export default {
+  name: "CreateGroup",
+  mixins: [LoggedInUserConsumerMixin],
+  props: ["closeModal"],
+  components: { SelectGroupMembers },
+  data() {
+    return {
+      title: "",
+      users: [],
+      filter: "",
+      search: null,
+      selected: [],
+      communityId: null
+    };
+  },
+  watch: {
+    search(val) {
+      val && this.loadUsers(val);
+    }
+  },
+  methods: {
+    loadUsers: function(query) {
+      this.$validator.validateAll().then(valid => {
+        gateway
+          .get(`/users?communityId=${this.communityId}&q=` + encodeURI(query))
+          .then(r => (this.users = r.data));
+      });
     },
-    watch: {
-      search(val) {
-        val && this.loadUsers(val)
-      }
+    memberSelected: function(members) {
+      this.selected = members;
     },
-    methods: {
-      loadUsers: function (query) {
-        gateway.get('/users?q=' + encodeURI(query)).then(r => this.users = r.data)
-      },
-      memberSelected: function(members) {
-        this.selected = members
-      },
-      createGroup: function () {
-        let memberIds = this.selected.map(u => u.id)
-        gateway.post('/message-threads/group', {memberIds, title: this.title}).then(r => {
-          this.closeModal()
-          this.$router.push('/messages/' + r.data.id)
-        })
-      }
+    createGroup: function() {
+      let memberIds = this.selected.map(u => u.id);
+      gateway
+        .post("/message-threads/group", { memberIds, title: this.title })
+        .then(r => {
+          this.closeModal();
+          this.$router.push("/messages/" + r.data.id);
+        });
+    },
+    changeCommunity(communityId) {
+      this.communityId = communityId;
     }
   }
+};
 </script>

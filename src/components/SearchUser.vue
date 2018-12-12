@@ -5,14 +5,14 @@
     <v-subheader>Top-up users</v-subheader>
 
     <div class="px-3">
-      <v-form>
-        <v-text-field v-model="filter" @change="loadUsers()" @keyup="loadUsers()" label="Find user by name" type="text"/>
-      </v-form>
+      <v-text-field v-model="keyword" :label="$t('SearchUser.search')" type="text"
+                    @change="loadUsers()"
+                    @keyup="loadUsers()"/>
     </div>
 
     <v-list v-if="users.length" three-line>
       <template v-for="(user, index) in users">
-        <v-list-tile class="user" @click.prevent="showProfile(user)">
+        <v-list-tile class="user" @click="showProfile(user)">
           <v-layout align-center row>
             <v-flex xs3>
               <avatar :user="user"/>
@@ -38,33 +38,55 @@
 </template>
 
 <script>
-  import AppToolbar from '@/components/AppToolbar'
-  import AppBottomNav from '@/components/AppBottomNav'
-  import Avatar from '@/components/Avatar'
-  import gateway from '@/gateway'
+import AppToolbar from "@/components/AppToolbar";
+import AppBottomNav from "@/components/AppBottomNav";
+import Avatar from "@/components/Avatar";
+import gateway from "@/gateway";
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
+import userService from "@/services/UserService";
 
-  export default {
-
-    components: {
-      Avatar,
-      AppToolbar,
-      AppBottomNav
+export default {
+  name: "SearchUser",
+  mixins: [LoggedInUserConsumerMixin],
+  components: {
+    Avatar,
+    AppToolbar,
+    AppBottomNav
+  },
+  data() {
+    return {
+      keyword: null,
+      users: [],
+      debounceTimer: null,
+      communityId: null
+    };
+  },
+  methods: {
+    loadUsers: function() {
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = setTimeout(
+        () =>
+          gateway
+            .get(
+              `/users?communityId=${this.communityId}&q=` +
+                encodeURI(this.keyword)
+            )
+            .then(r => (this.users = r.data)),
+        300
+      );
     },
-    data() {
-      return {
-        filter: null,
-        users: [],
-        debounceTimer: null
-      }
-    },
-    methods: {
-      loadUsers: function () {
-        clearTimeout(this.debounceTimer)
-        this.debounceTimer = setTimeout(() => gateway.get('/users?q=' + encodeURI(this.filter)).then(r => this.users = r.data), 300)
-      },
-      showProfile: function(user) {
-        this.$router.push('/profile/'+user.id);
-      }
+    showProfile: function(user) {
+      userService.setUserAdmin(true);
+      var adId = null;
+      this.$router.push(
+        "/profile/" + user.id + "/" + this.communityId + `/${adId}`
+      );
     }
+  },
+  created() {
+    this.communityId = this.user.communityList.filter(
+      item => item.adminUserId === this.user.id
+    )[0].id;
   }
+};
 </script>

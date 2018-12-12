@@ -5,17 +5,18 @@
 </template>
 
 <script>
-  export default {
-    props: ['user'],
-    data() {
-      return {
-        defaultAvatar: '/static/avatar-placeholder.png'
-      }
-    },
-    methods: {
-      showProfile(user) {
-        this.$router.push('/profile/'+user.id)
-      }
-    },
+export default {
+  props: ["user"],
+  data() {
+    return {
+      defaultAvatar: "/static/avatar-placeholder.png"
+    };
+  },
+  methods: {
+    showProfile(user) {
+      var temp = null;
+      this.$router.push("/profile/" + user.id + `/${temp}/${temp}`);
+    }
   }
+};
 </script>

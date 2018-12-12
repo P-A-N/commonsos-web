@@ -41,7 +41,7 @@
               <div style="width: 100%;">
                 <v-layout row justify-space-between>
                   <div class="body-3">
-                    {{transaction.debit ? transaction.beneficiary.username : transaction.remitter.username }}
+                    {{transaction.debit ? (transaction.beneficiary !== undefined ? transaction.beneficiary.username : "") : (transaction.remitter !== undefined ? transaction.remitter.username : "") }}
                   </div>
                   <div class="body-3 text-xs-right" :class="{
                   'debit': transaction.debit,
@@ -75,65 +75,70 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
-  import userService from '@/services/UserService'
-  import AppToolbar from '@/components/AppToolbar'
-  import AppBottomNav from "@/components/AppBottomNav";
-  import Avatar from '@/components/Avatar'
-  import Modal from '@/components/Modal'
-  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
+import gateway from "@/gateway";
+import userService from "@/services/UserService";
+import AppToolbar from "@/components/AppToolbar";
+import AppBottomNav from "@/components/AppBottomNav";
+import Avatar from "@/components/Avatar";
+import Modal from "@/components/Modal";
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
 
-  export default {
-    mixins: [LoggedInUserConsumerMixin],
-    components: {
-      AppToolbar,
-      Avatar,
-      Modal,
-      AppBottomNav
+export default {
+  mixins: [LoggedInUserConsumerMixin],
+  components: {
+    AppToolbar,
+    Avatar,
+    Modal,
+    AppBottomNav
+  },
+  // beforeRouteEnter(to, from, next) {
+  //   gateway.get('transactions?communityId=2').then(r => {next(vm => vm.transactions = r.data)})
+  // },
+  data() {
+    return {
+      transactions: [],
+      communityId: null,
+      balance: null,
+      loading: false
+    };
+  },
+  methods: {
+    changeCommunity(community) {
+      this.loading = true;
+      var adminId = this.user.communityList.filter(
+        item => item.id === community
+      )[0].adminUserId;
+      userService.setUserAdmin(adminId === this.user.id);
+      gateway.get(`transactions?communityId=${community}`).then(r => {
+        this.balance = this.user.balanceList.filter(
+          item => item.communityId === community
+        )[0].balance;
+        this.transactions = r.data;
+        this.loading = false;
+      });
     },
-    // beforeRouteEnter(to, from, next) {
-    //   gateway.get('transactions?communityId=2').then(r => {next(vm => vm.transactions = r.data)})
-    // },
-    data() {
-      return {
-        transactions: [],
-        communityId: null,
-        balance: null,
-        loading: false,
-      }
+    onUserChanged(user) {
+      this.user = user;
+      this.communityId = this.user.communityList[0].id;
+      this.changeCommunity(this.user.communityList[0].id);
     },
-    methods: {
-      changeCommunity(community) {
-        this.loading = true
-        gateway.get(`transactions?communityId=${community}`)
-         .then(r => {
-            this.balance = this.user.balanceList.filter(item => item.communityId === community)[0].balance
-            this.transactions = r.data 
-            this.loading = false
-          })
-      },
-      onUserChanged(user) {
-        this.user = user
-        this.communityId = this.user.communityList[0].id
-        this.changeCommunity(this.user.communityList[0].id)
-      },
-      otherPartyUser(transaction) {
-        return transaction.debit ? transaction.beneficiary : transaction.remitter
-      },
-      formattedAmount(transaction) {
-        return (transaction.debit ? '-' : '+') + transaction.amount
-      },
+    otherPartyUser(transaction) {
+      return transaction.debit ? transaction.beneficiary : transaction.remitter;
     },
-    created() {
-      userService.loadUser()
+    formattedAmount(transaction) {
+      return (transaction.debit ? "-" : "+") + transaction.amount;
     }
+  },
+  created() {
+    userService.loadUser();
   }
+};
 </script>
 <style scoped>
-  .debit {
-    color: red
-  }
-  .credit {
-    color: green;
-  }
+.debit {
+  color: red;
+}
+.credit {
+  color: green;
+}
 </style>

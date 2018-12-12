@@ -30,7 +30,7 @@
                       data-vv-name="password2"/>
 
                 <v-card-actions style="justify-content: center; margin-top: 16px">
-                    <v-btn color="primary" @click="checkEmailVerified()" type="submit">{{$t('EmailVerification.ok')}}</v-btn>
+                    <v-btn color="primary" @click="checkEmailVerified()" type="submit" :disabled="loading">{{$t('EmailVerification.ok')}}</v-btn>
                 </v-card-actions>
             </v-flex>
         </v-layout>
@@ -51,26 +51,48 @@
 </template>
 <script>
 import userService from "@/services/UserService";
+import gateway from "@/gateway";
 export default {
   name: "PasswordResetInput",
+  props: ["accessId"],
   data() {
     return {
       isPassSent: false,
       password: null,
       password2: null,
-      hidePassword: true
+      hidePassword: true,
+      loading: false
     };
   },
   methods: {
     checkEmailVerified() {
-      //TODO send password
       this.$validator.validateAll().then(valid => {
         if (!valid) return;
+        gateway
+          .post(`/passwordreset/${this.accessId}`, {
+            accessId: this.accessId,
+            newPassword: this.password
+          })
+          .then(r => {
+            this.loading = false;
+          })
+          .catch(err => {
+            this.loading = false;
+          });
         this.isPassSent = true;
       });
     },
     startApp() {
-      window.$router.push("/login");
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      if (/android/i.test(userAgent)) {
+        window.open(
+          "intent://app.commons.love/#Intent;scheme=launch;package=app.commons.love;S.content=WebContent;end"
+        );
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.open("commonsCustonUrl://");
+      } else {
+        window.$router.push("/login");
+      }
     }
   }
 };

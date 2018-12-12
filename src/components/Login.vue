@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card style="height: 100%">
 
     <v-toolbar app dark color="primary">
       <v-toolbar-title>{{$t('Login.title')}}</v-toolbar-title>

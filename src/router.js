@@ -13,8 +13,10 @@ import CreateAccount from "@/components/CreateAccount";
 import EditProfile from "@/components/EditProfile";
 import EmailVerification from "@/components/EmailVerification";
 import EmailVerificationInput from "@/components/EmailVerificationInput";
+import EmailVerificationProfileInput from "@/components/EmailVerificationProfileInput";
 import PasswordResetEmail from "@/components/PasswordResetEmail";
 import PasswordResetInput from "@/components/PasswordResetInput";
+
 Vue.use(Router);
 
 let router = new Router({
@@ -45,7 +47,16 @@ let router = new Router({
       props: true
     },
     { path: "/passwordresetemail", component: PasswordResetEmail },
-    { path: "/passwordresetinput", component: PasswordResetInput },
+    {
+      path: "/passwordreset/:accessId",
+      component: PasswordResetInput,
+      props: true
+    },
+    {
+      path: "/users/:id/emailaddress/:accessId",
+      component: EmailVerificationProfileInput,
+      props: true
+    },
     { path: "*", redirect: "/" }
   ]
 });

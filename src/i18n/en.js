@@ -201,5 +201,9 @@ export default {
     pass: "Password",
     passConfirm: "Confirm Password",
     resetHint: "New password has been set"
+  },
+
+  SearchUser: {
+    search: "Find user by name"
   }
 };

@@ -13,7 +13,7 @@
                     v-validate="'required|email'"
                     data-vv-name="email"/>
                 <v-card-actions style="justify-content: center">
-                    <v-btn color="primary" @click="checkEmailVerified()" type="submit">{{$t('EmailVerification.ok')}}</v-btn>
+                    <v-btn color="primary" @click="checkEmailVerified()" type="submit" :disabled="loading">{{$t('EmailVerification.ok')}}</v-btn>
                 </v-card-actions>
             </v-flex>
         </v-layout>
@@ -26,7 +26,7 @@
                 </v-card-text>
                 <v-spacer></v-spacer>
                 <v-card-actions style="justify-content: center">
-                    <v-btn @click="changePassword()" color="primary"  type="submit">{{$t('EmailVerification.startApp')}}</v-btn>
+                    <v-btn @click="changePassword()" color="primary"  type="submit" >{{$t('EmailVerification.startApp')}}</v-btn>
                 </v-card-actions>
             </v-flex>
         </v-layout>
@@ -34,24 +34,43 @@
 </template>
 <script>
 import userService from "@/services/UserService";
+import gateway from "@/gateway";
 export default {
   name: "PasswordResetEmail",
   data() {
     return {
       email: "",
-      isEmailSent: false
+      isEmailSent: false,
+      loading: false
     };
   },
   methods: {
     checkEmailVerified() {
-      //TODO send email
       this.$validator.validateAll().then(valid => {
         if (!valid) return;
-        this.isEmailSent = true;
+        this.loading = true;
+        gateway
+          .post(`/passwordreset`, { emailAddress: this.email })
+          .then(r => {
+            this.loading = false;
+            this.isEmailSent = true;
+          })
+          .catch(err => {
+            this.loading = false;
+          });
       });
     },
     changePassword() {
-      window.$router.push("/passwordresetinput");
+      //   var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      //   if (/android/i.test(userAgent)) {
+      //     window.open(
+      //       "intent://app.commons.love/#Intent;scheme=launch;package=app.commons.love;S.content=WebContent;end"
+      //     );
+      //   } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      //     window.open("commonsCustonUrl://");
+      //   } else {
+      window.$router.push("/login");
+      //   }
     }
   }
 };

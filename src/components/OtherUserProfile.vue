@@ -69,39 +69,44 @@
 </template>
 
 <script>
-  import AppToolbar from '@/components/AppToolbar'
-  import Avatar from '@/components/Avatar'
-  import Modal from '@/components/Modal'
-  import MakePayment from '@/components/MakePayment'
-  import gateway from '@/gateway'
-  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
+import AppToolbar from "@/components/AppToolbar";
+import Avatar from "@/components/Avatar";
+import Modal from "@/components/Modal";
+import MakePayment from "@/components/MakePayment";
+import gateway from "@/gateway";
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
 
-  export default {
-    props: ['userId', 'communityId', 'adId'],
-    mixins: [LoggedInUserConsumerMixin],
-    components: {
-      AppToolbar, Avatar, MakePayment, Modal
+export default {
+  props: ["userId", "communityId", "adId"],
+  mixins: [LoggedInUserConsumerMixin],
+  components: {
+    AppToolbar,
+    Avatar,
+    MakePayment,
+    Modal
+  },
+  data() {
+    return {
+      otherUser: {},
+      makePayment: false
+    };
+  },
+  created() {
+    this.communityId = this.communityId === "null" ? null : this.communityId;
+    this.adId = this.adId === "null" ? null : this.adId;
+    this.loadOtherUser();
+  },
+  methods: {
+    goback() {
+      this.$router.back();
     },
-    data() {
-      return {
-        otherUser: {},
-        makePayment: false
-      }
+    loadOtherUser() {
+      gateway.get(`/users/${this.userId}`).then(r => (this.otherUser = r.data));
     },
-    created() {
+    paymentDone() {
+      this.makePayment = false;
       this.loadOtherUser();
-    },
-    methods: {
-      goback() {
-        this.$router.back()
-      },
-      loadOtherUser() {
-        gateway.get(`/users/${this.userId}`).then(r => this.otherUser = r.data)
-      },
-      paymentDone() {
-        this.makePayment = false
-        this.loadOtherUser()
-      }
     }
   }
+};
 </script>

@@ -27,7 +27,8 @@ export default {
   },
   created() {
     if (
-      !String(this.$router.currentRoute.path).startsWith("/create-account/")
+      !String(this.$router.currentRoute.path).startsWith("/create-account/") &&
+      !String(this.$router.currentRoute.path).startsWith("/passwordreset/")
     ) {
       userService.loadUser().then(() => messagePoller.start());
     }

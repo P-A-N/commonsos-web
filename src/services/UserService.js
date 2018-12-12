@@ -38,6 +38,10 @@ let instance = {
     eventbus.$emit("userChanged", this._user);
   },
 
+  setUserAdmin(isAdmin) {
+    this._user.admin = isAdmin;
+  },
+
   loadUser() {
     return gateway
       .get("user")

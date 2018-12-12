@@ -82,7 +82,8 @@ export default {
     return {
       localUser: {},
       loading: false,
-      dialog: false
+      dialog: false,
+      tempEmail: ""
     };
   },
   methods: {
@@ -95,7 +96,18 @@ export default {
           .then(r => userService.setUser(r.data))
           .then(() => {
             this.loading = false;
-            this.$router.back();
+            if (this.tempEmail !== this.localUser.emailAddress) {
+              this.loading = true;
+              gateway
+                .post(`/users/${this.localUser.id}/emailaddress`, {
+                  newEmailAddress: this.localUser.emailAddress,
+                  userId: this.localUser.id,
+                  username: this.localUser.username
+                })
+                .then(r => {});
+            } else {
+              this.$router.back();
+            }
           });
       });
     },
@@ -118,6 +130,7 @@ export default {
       description: this.user.description,
       location: this.user.location
     };
+    this.tempEmail = this.user.emailAddress;
   }
 };
 </script>

@@ -8,10 +8,10 @@ div.cr-boundary {
   height: 70vh !important;
 }
 
-.debit[data-v-104dec39] {
-  color: red
+.debit[data-v-fe0a77c4] {
+  color: red;
 }
-.credit[data-v-104dec39] {
+.credit[data-v-fe0a77c4] {
   color: green;
 }
 
@@ -12574,4 +12574,4 @@ table.table tfoot tr td {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 
-/*# sourceMappingURL=app.bed64c9c238b4ab9fa12a74e2d56edcf.css.map*/
+/*# sourceMappingURL=app.c607930eb04257f4a8e3f5a28cfc9178.css.map*/
