@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card style="height: 100%">
 
     <v-toolbar app dark color="primary">
       <v-toolbar-title>{{$t('Login.title')}}</v-toolbar-title>
@@ -18,7 +18,11 @@
                       :error-messages="errors.collect('password')"
                       v-validate="'required'"
                       data-vv-name="password"/>
+        <v-layout align-end justify-end>
+          <v-btn flat right color="red" :to="'/passwordresetemail'">{{$t('Login.forgotPassword')}}</v-btn>
+        </v-layout>
       </v-form>
+
       <div v-if="showTestUsernames">
         <small>Kaga community:
           <span v-for="(password, username) in kagaUsers">
@@ -55,47 +59,49 @@
 </template>
 
 <script>
-  import userService from '@/services/UserService'
+import userService from "@/services/UserService";
 
-  export default {
-    name: 'Login',
-    data() {
-      return {
-        username: '',
-        password: '',
-        error: null,
-        kagaUsers: {
-          worker: 'secret00',
-          elderly1: 'secret00',
-          elderly2: 'secret00',
-          admin: 'secret00',
-        },
-        shibuyaUsers: {
-          admin2: 'secret02',
-        },
-        commonsIncUsers: {
-          admin3: 'secret03',
-        },
-        showTestUsernames: process.env.NODE_ENV !== 'production',
-      }
+export default {
+  name: "Login",
+  data() {
+    return {
+      username: "",
+      password: "",
+      error: null,
+      kagaUsers: {
+        worker: "secret00",
+        elderly1: "secret00",
+        elderly2: "secret00",
+        admin: "secret00"
+      },
+      shibuyaUsers: {
+        admin2: "secret02"
+      },
+      commonsIncUsers: {
+        admin3: "secret03"
+      },
+      showTestUsernames: process.env.NODE_ENV !== "production"
+    };
+  },
+  methods: {
+    login() {
+      this.$validator.validateAll().then(valid => {
+        if (!valid) return;
+        userService
+          .login(this.username, this.password)
+          .catch(e => (this.error = "Invalid username or password"));
+      });
     },
-    methods: {
-      login() {
-        this.$validator.validateAll().then((valid) => {
-          if (!valid) return
-          userService.login(this.username, this.password).catch(e => this.error = 'Invalid username or password')
-        })
-      },
-      setUser(username, password) {
-        this.username = username
-        this.password = password
-      },
-      toggleLanguage() {
-        let newLocale = this.$i18n.locale === 'en' ? 'jp' : 'en'
-        this.$i18n.locale = newLocale
-        let momentLocale = {'jp':'ja', 'en':'en'}
-        this.$moment.locale(momentLocale[newLocale])
-      }
+    setUser(username, password) {
+      this.username = username;
+      this.password = password;
+    },
+    toggleLanguage() {
+      let newLocale = this.$i18n.locale === "en" ? "jp" : "en";
+      this.$i18n.locale = newLocale;
+      let momentLocale = { jp: "ja", en: "en" };
+      this.$moment.locale(momentLocale[newLocale]);
     }
   }
+};
 </script>

@@ -19,7 +19,7 @@
             </v-list-tile-title>
             <v-list-tile-sub-title style="line-height: 1.3;">
               <span v-if="thread.lastMessage">
-                <span class="text--primary">{{userById(thread, thread.lastMessage.createdBy).fullName}}</span> &ndash; {{thread.lastMessage.text}}
+                <span class="text--primary">{{userById(thread, thread.lastMessage.createdBy) !== undefined ? userById(thread, thread.lastMessage.createdBy).username : ""}}</span> &ndash; {{thread.lastMessage.text}}
               </span>
               <span v-else class="caption grey--text">{{$t('Messages.noMessagesInThread')}}</span>
             </v-list-tile-sub-title>
@@ -41,40 +41,52 @@
 </template>
 
 <script>
-  import AppToolbar from '@/components/AppToolbar'
-  import AppBottomNav from "@/components/AppBottomNav";
-  import Avatar from '@/components/Avatar'
-  import GroupAvatar from '@/components/GroupAvatar'
-  import Modal from '@/components/Modal'
-  import MessageThread from '@/components/MessageThread'
-  import CreateGroup from '@/components/CreateGroup'
-  import gateway from '@/gateway'
-  import messagePoller from '@/services/MessagePoller'
+import AppToolbar from "@/components/AppToolbar";
+import AppBottomNav from "@/components/AppBottomNav";
+import Avatar from "@/components/Avatar";
+import GroupAvatar from "@/components/GroupAvatar";
+import Modal from "@/components/Modal";
+import MessageThread from "@/components/MessageThread";
+import CreateGroup from "@/components/CreateGroup";
+import gateway from "@/gateway";
+import messagePoller from "@/services/MessagePoller";
 
-  export default {
-    components: {AppToolbar, AppBottomNav, Avatar, GroupAvatar, Modal, MessageThread, CreateGroup},
-    data() {
-      return {
-        messageThreads: [],
-        createGroupChatOptions: false
-      }
-    },
-    beforeRouteEnter(to, from, next) {
-      gateway.get('/message-threads').then(r => {next(vm => vm.messageThreads = r.data)})
-    },
-    created() {
-      messagePoller.checkForUnreadThreads()
-    },
-    methods: {
-      userById(thread, userId) {
-        return (userId === thread.creator.id) ? thread.creator : thread.parties.find(user => user.id === userId)
-      }
-    },
+export default {
+  components: {
+    AppToolbar,
+    AppBottomNav,
+    Avatar,
+    GroupAvatar,
+    Modal,
+    MessageThread,
+    CreateGroup
+  },
+  data() {
+    return {
+      messageThreads: [],
+      createGroupChatOptions: false
+    };
+  },
+  beforeRouteEnter(to, from, next) {
+    gateway.get("/message-threads").then(r => {
+      next(vm => (vm.messageThreads = r.data));
+    });
+  },
+  created() {
+    messagePoller.checkForUnreadThreads();
+  },
+  methods: {
+    userById(thread, userId) {
+      return thread.creator !== undefined && userId === thread.creator.id
+        ? thread.creator
+        : thread.parties.find(user => user.id === userId);
+    }
   }
+};
 </script>
 
 <style scoped>
-  .unread {
-    font-weight: bold;
-  }
+.unread {
+  font-weight: bold;
+}
 </style>

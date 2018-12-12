@@ -27,38 +27,40 @@
 </template>
 
 <script>
-  import LoggedInUserConsumerMixin from '@/LoggedInUserConsumerMixin'
-  import eventbus from '@/eventbus'
-  import MessagePoller from '@/services/MessagePoller'
+import LoggedInUserConsumerMixin from "@/LoggedInUserConsumerMixin";
+import eventbus from "@/eventbus";
+import MessagePoller from "@/services/MessagePoller";
 
-  export default {
-    mixins: [LoggedInUserConsumerMixin],
-    props: ['title'],
-    data() {
-      return {
-        messageCount: 0,
-        messageCountVisible: false
-      }
-    },
-    methods: {
-      setCount(value) {
-        this.messageCount = value
-        this.messageCountVisible = value > 0
-      }
-    },
-    created() {
-      this.renderer = setInterval(() => {this.$forceUpdate()}, 1000);
-      this.setCount(MessagePoller.count)
-      eventbus.$on('unread-messages-count', this.setCount)
-    },
-    destroyed() {
-      clearInterval(this.renderer);
+export default {
+  mixins: [LoggedInUserConsumerMixin],
+  props: ["title"],
+  data() {
+    return {
+      messageCount: 0,
+      messageCountVisible: false
+    };
+  },
+  methods: {
+    setCount(value) {
+      this.messageCount = value;
+      this.messageCountVisible = value > 0;
     }
+  },
+  created() {
+    this.renderer = setInterval(() => {
+      this.$forceUpdate();
+    }, 1000);
+    this.setCount(MessagePoller.count);
+    eventbus.$on("unread-messages-count", this.setCount);
+  },
+  destroyed() {
+    clearInterval(this.renderer);
   }
+};
 </script>
 
 <style>
-  .bottom-nav .btn {
-    min-width: 65px;
-  }
+.bottom-nav .btn {
+  min-width: 65px;
+}
 </style>

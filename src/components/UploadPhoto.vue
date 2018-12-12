@@ -15,54 +15,56 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
-  import imageService from '@/services/ImageService'
-  import CropPhoto from '@/components/CropPhoto'
-  import Modal from '@/components/Modal'
+import gateway from "@/gateway";
+import imageService from "@/services/ImageService";
+import CropPhoto from "@/components/CropPhoto";
+import Modal from "@/components/Modal";
 
-  export default {
-    props: ['url', 'onUpload'],
-    components: {Modal, CropPhoto},
-    data() {
-      return {
-        selectedPhotoUrl: null,
-        showCrop: false,
-        orientation: 1
-      }
+export default {
+  props: ["url", "onUpload"],
+  components: { Modal, CropPhoto },
+  data() {
+    return {
+      selectedPhotoUrl: null,
+      showCrop: false,
+      orientation: 1
+    };
+  },
+  methods: {
+    photoSelected: function(event) {
+      let component = this;
+      let reader = new FileReader();
+
+      reader.onload = () => {
+        let image = new Image();
+        image.src = reader.result;
+        image.onload = () => {
+          EXIF.getData(image, function() {
+            let allMetaData = EXIF.getAllTags(this);
+            component.selectedPhotoUrl = reader.result;
+            component.orientation = allMetaData.Orientation;
+            component.showCrop = true;
+            component.$refs.fileinput.value = "";
+          });
+        };
+      };
+      reader.readAsDataURL(event.target.files[0]);
     },
-    methods: {
-      photoSelected: function (event) {
-        let component = this
-        let reader = new FileReader();
-
-        reader.onload = () => {
-          let image = new Image()
-          image.src = reader.result
-          image.onload = () => {
-            EXIF.getData(image, function() {
-              let allMetaData = EXIF.getAllTags(this);
-              component.selectedPhotoUrl = reader.result
-              component.orientation = allMetaData.Orientation
-              component.showCrop = true
-              component.$refs.fileinput.value = ''
-            })
-          }
-        }
-        reader.readAsDataURL(event.target.files[0]);
-      },
-      selectPhoto: function () {
-        this.$refs.fileinput.dispatchEvent(new MouseEvent('click'))
-      },
-      cropped: function(image) {
-        this.showCrop = false
-          imageService.resizeImage(image)
-            .then((resized) => gateway.post(this.url, resized)
-            .then((r) => this.onUpload(r.data)))
-      },
-      closeCropPhotoDialog: function() {
-        this.showCrop = false;
-      }
+    selectPhoto: function() {
+      this.$refs.fileinput.dispatchEvent(new MouseEvent("click"));
+    },
+    cropped: function(image) {
+      this.showCrop = false;
+      imageService
+        .resizeImage(image)
+        .then(resized =>
+          gateway.post(this.url, resized).then(r => this.onUpload(r.data))
+        );
+    },
+    closeCropPhotoDialog: function() {
+      this.showCrop = false;
     }
   }
+};
 </script>
 

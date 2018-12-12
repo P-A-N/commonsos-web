@@ -44,6 +44,17 @@
           </v-layout>
 
           <v-btn
+            v-if="ad.own"
+            absolute
+            dark
+            fab
+            top
+            right
+            color="primary"
+            @click="editForAd(ad)">
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <v-btn
             v-if="!ad.own"
             absolute
             dark
@@ -91,7 +102,7 @@
 
         <v-container fluid grid-list-lg>
 
-          <v-card flat :to="`/profile/${ad.createdBy.id}`">
+          <v-card v-if="ad.own" flat to="/profile">
             <v-layout align-center row>
 
               <v-flex ml-3 xs2>
@@ -99,7 +110,24 @@
               </v-flex>
 
               <v-flex my-2>
-                <div class="title">{{ad.createdBy.fullName}}</div>
+                <div class="title">{{ad.createdBy.username}}</div>
+              </v-flex>
+
+              <v-flex mr-3 xs1>
+                <v-icon>keyboard_arrow_right</v-icon>
+              </v-flex>
+            </v-layout>
+          </v-card>
+
+          <v-card v-if="!ad.own" flat :to="`/profile/${ad.createdBy.id}/${ad.communityId}/${ad.id}`">
+            <v-layout align-center row>
+
+              <v-flex ml-3 xs2>
+                <avatar :user="ad.createdBy"/>
+              </v-flex>
+
+              <v-flex my-2>
+                <div class="title">{{ad.createdBy.username}}</div>
               </v-flex>
 
               <v-flex mr-3 xs1>
@@ -116,6 +144,9 @@
 
       </v-card>
     </v-flex>
+    <modal v-if="editAd" :title="$t('Community.newAdvertisementModalTitle')" @close="closeCreateAdDialog">
+      <ad-edit slot-scope="modal" :closeModal="modal.close" :ad="ad"></ad-edit>
+    </modal>
   </v-layout>
   <div v-else>
     {{ $t('General.loadingData') }}
@@ -124,38 +155,59 @@
 </template>
 
 <script>
-  import gateway from '@/gateway'
-  import AppToolbar from '@/components/AppToolbar'
-  import MessageThread from '@/components/MessageThread'
-  import Avatar from '@/components/Avatar'
-  import UploadPhoto from '@/components/UploadPhoto'
+import gateway from "@/gateway";
+import AppToolbar from "@/components/AppToolbar";
+import MessageThread from "@/components/MessageThread";
+import Avatar from "@/components/Avatar";
+import UploadPhoto from "@/components/UploadPhoto";
+import Modal from "@/components/Modal";
+import AdEdit from "@/components/AdEdit";
 
-  export default {
-    name: 'Ad',
-    components: {AppToolbar, Avatar, MessageThread, UploadPhoto},
-    props: ['id', 'closeModal'],
-    beforeRouteEnter(to, from, next) {
-      gateway.get(`/ads/${to.params.id}`).then(r => {next(vm => vm.ad = Object.assign({photoUrl:''}, r.data))})
+export default {
+  name: "Ad",
+  components: {
+    AppToolbar,
+    Avatar,
+    MessageThread,
+    UploadPhoto,
+    Modal,
+    AdEdit
+  },
+  props: ["id", "closeModal"],
+  beforeRouteEnter(to, from, next) {
+    gateway.get(`/ads/${to.params.id}`).then(r => {
+      next(vm => (vm.ad = Object.assign({ photoUrl: "" }, r.data)));
+    });
+  },
+  data() {
+    return {
+      ad: null,
+      editAd: false
+    };
+  },
+  methods: {
+    adPhotoOrPlaceHolder() {
+      if (!this.ad) return "";
+      if (this.ad.photoUrl) return this.ad.photoUrl;
+      if (!this.ad.own) return "/static/temp/ad-placeholder.png";
+      return "";
     },
-    data() {
-      return {
-        ad: null
-      }
+    photoUploaded(url) {
+      this.ad.photoUrl = url;
     },
-    methods: {
-      adPhotoOrPlaceHolder() {
-        if (!this.ad) return ''
-        if (this.ad.photoUrl) return this.ad.photoUrl
-        if (!this.ad.own) return '/static/temp/ad-placeholder.png'
-        return ''
-      },
-      photoUploaded(url) {
-        this.ad.photoUrl = url
-      },
-      messageForAd(ad) {
-        gateway.post(`/message-threads/for-ad/${this.id}`)
-          .then(r => $router.push('/messages/'+r.data.id))
-      }
-    }
+    messageForAd(ad) {
+      gateway
+        .post(`/message-threads/for-ad/${this.id}`)
+        .then(r => $router.push("/messages/" + r.data.id));
+    },
+    editForAd(ad) {
+      this.editAd = true;
+    },
+    closeCreateAdDialog() {
+      this.createAd = false;
+      this.loadAds();
+    },
+    onClickAd() {}
   }
+};
 </script>

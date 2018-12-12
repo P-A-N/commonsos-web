@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-app-launcher": {
+      "PACKAGE_NAME": "app.commons.love"
+    },
+    "cordova-plugin-queries-schemes": {
+      "PACKAGE_NAME": "app.commons.love"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "app.commons.love"
+    }
+  },
+  "dependent_plugins": {}
+}

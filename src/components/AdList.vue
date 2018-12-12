@@ -74,6 +74,6 @@
   export default {
     name: 'AdList',
     components: {AdCreate, Avatar},
-    props: ['ads'],
+    props: ['ads', 'communityId'],
   }
 </script>

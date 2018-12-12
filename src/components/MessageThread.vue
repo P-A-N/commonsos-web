@@ -121,8 +121,8 @@
       },
       participants() {
         if (!this.hasData()) return ''
-        if (!this.thread.group) return this.thread.counterParty.fullName
-        return this.thread.parties.map(p => p.fullName).join(', ')
+        if (!this.thread.group) return this.thread.counterParty.username
+        return this.thread.parties.map(p => p.username).join(', ')
       }
     },
     methods: {

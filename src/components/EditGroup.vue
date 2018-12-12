@@ -6,7 +6,7 @@
           <v-avatar>
             <img :src="owner.avatarUrl">
           </v-avatar>
-          {{ owner.fullName }}
+          {{ owner.username }}
         </v-chip>
         <small>{{$t('EditGroup.owner')}}</small>
       </div>
